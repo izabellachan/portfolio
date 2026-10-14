@@ -1,0 +1,40 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Main.dc.html": {
+      "expand": "fill",
+      "h": 990,
+      "is_interactive": true,
+      "title": "Landing",
+      "w": 1495,
+      "x": 57,
+      "y": -61
+    },
+    "TownShare.dc.html": {
+      "expand": "fill",
+      "h": 990,
+      "is_interactive": true,
+      "title": "TownShare case study",
+      "w": 1440,
+      "x": 1632,
+      "y": -61
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-10-12T23:25:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "file": "Main.dc.html",
+    "view": "focused"
+  },
+  "notes": {},
+  "order": [
+    "Main.dc.html",
+    "TownShare.dc.html"
+  ],
+  "pages": [],
+  "title": "Lantern Portfolio"
+}
