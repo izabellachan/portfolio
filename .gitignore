@@ -1,0 +1,9 @@
+.vercel
+.env*
+# local only (same as .vercelignore)
+.claude
+archive
+canvas.json
+TODO-for-izzy.txt
+# macOS
+.DS_Store

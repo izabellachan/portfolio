@@ -1,0 +1,241 @@
+
+<html>
+    <head>
+        <style>
+            html, body {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            :root {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+
+            * {
+                box-sizing: border-box;
+                -webkit-font-smoothing: inherit;
+            }
+
+            h1, h2, h3, h4, h5, h6, p, figure {
+                margin: 0;
+            }
+
+            body, input, textarea, select, button {
+                font-size: 12px;
+                font-family: sans-serif;
+            }
+        </style>
+    <style>
+/* Cursor: gray dot (--text #656565 at 30% opacity) */
+html,html *{cursor:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2712%27 height=%2712%27%3E%3Ccircle cx=%276%27 cy=%276%27 r=%276%27 fill=%27%23656565%27 fill-opacity=%27.3%27/%3E%3C/svg%3E") 6 6,auto !important}
+/* while the mouse is pressed, the dot shrinks */
+html:active,html *:active{cursor:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%278%27 height=%278%27%3E%3Ccircle cx=%274%27 cy=%274%27 r=%274%27 fill=%27%23656565%27 fill-opacity=%27.3%27/%3E%3C/svg%3E") 4 4,auto !important}
+</style>
+<script src="../cursor.js"></script>
+</head>
+    <body>
+        <style>
+/* narrow embeds (tablet/phone): stack the phone above a shorter activity log, both centred */
+@media (max-width: 520px) {
+  body { padding: 0 16px; }
+  #app-wrap { flex-direction: column; align-items: center; gap: 16px; width: 100%; }
+  #app-phone { width: 100% !important; max-width: 300px; }
+  #app-log-col { flex: none !important; width: 100%; max-width: 300px; min-width: 0 !important; }
+  #log { height: 160px !important; }
+}
+#contact-input:focus { border-color:#023020; outline:none; box-shadow:0 0 0 2px #023020; }
+</style>
+<div id="app-wrap" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:700px;margin:0 auto;display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;">
+
+<div id="app-phone" style="width:260px;background:#F8F8F8;border-radius:28px;padding:16px;border:1px solid #E2E2E2;">
+  <div style="background:#FFFFFF;border-radius:20px;padding:20px 16px;min-height:360px;display:flex;flex-direction:column;border:1px solid #E2E2E2;">
+    <div id="screen-disconnected">
+      <p style="font-weight:500;font-size:16px;margin:12px 0 4px;color:#343434;">Beleaf</p>
+      <p style="font-size:13px;color:#9f9f9f;margin:0 0 24px;">Keeping your loved ones protected.</p>
+      <button id="connect-btn" style="width:100%;padding:10px;border-radius:8px;border:1px solid #343434;background:#343434;color:#FFFFFF;font-size:13px;font-weight:500;cursor:pointer;">Connect bluetooth</button>
+    </div>
+    <div id="screen-connected" style="display:none;">
+      <p style="font-weight:500;font-size:16px;margin:8px 0 16px;color:#343434;">Hello, Caspar</p>
+      <label style="font-size:12px;color:#9f9f9f;">Emergency contact number</label>
+      <input id="contact-input" type="tel" placeholder="(555) 123-4567" style="width:100%;margin:6px 0 8px;padding:8px 10px;border-radius:8px;border:1px solid #E2E2E2;font-size:13px;box-sizing:border-box;">
+      <p id="contact-error" style="font-size:12px;color:#e24b4a;display:none;margin:0 0 8px;">Enter a contact number first</p>
+      <button id="save-contact-btn" style="width:100%;margin-bottom:20px;padding:10px;border-radius:8px;border:1px solid #343434;background:#343434;color:#FFFFFF;font-size:13px;font-weight:500;cursor:pointer;">Save contact</button>      <div style="display:flex;gap:10px;">
+        <button id="on-btn" style="flex:1;padding:10px;border-radius:8px;border:1px solid #E2E2E2;background:#FFFFFF;color:#343434;font-size:13px;font-weight:500;cursor:pointer;">On</button>
+        <button id="off-btn" style="flex:1;padding:10px;border-radius:8px;border:1px solid #343434;background:#343434;color:#FFFFFF;font-size:13px;font-weight:500;cursor:pointer;">Off</button>
+      </div>
+    </div>
+  </div>
+  <button id="reset-btn" style="width:100%;margin-top:12px;padding:10px;border-radius:8px;border:1px solid #E2E2E2;background:#FFFFFF;color:#9f9f9f;font-size:12px;cursor:pointer;">Reset</button>
+</div>
+
+<div id="app-log-col" style="flex:1;min-width:220px;">
+  <p style="font-size:13px;color:#9f9f9f;margin:0 0 8px;">Device activity</p>
+  <div id="log" style="display:flex;flex-direction:column;gap:6px;height:392px;overflow-y:auto;padding-right:4px;">
+    <p style="font-size:13px;color:#9f9f9f;">Waiting for the app to connect...</p>
+  </div>
+</div>
+
+</div>
+
+<script>
+var contact = "";
+var onBtn = document.getElementById('on-btn');
+var offBtn = document.getElementById('off-btn');
+
+var activeOnStyle = { background: '#fcebeb', border: '#e24b4a', color: '#791f1f' };
+var activeOffStyle = { background: '#343434', border: '#343434', color: '#FFFFFF' };
+var inactiveStyle = { background: '#FFFFFF', border: '#E2E2E2', color: '#343434' };
+
+function applyStyle(btn, s){
+  btn.style.background = s.background;
+  btn.style.borderColor = s.border;
+  btn.style.color = s.color;
+}
+function setToggle(active){
+  if(active === 'on'){
+    applyStyle(onBtn, activeOnStyle);
+    applyStyle(offBtn, inactiveStyle);
+  } else {
+    applyStyle(offBtn, activeOffStyle);
+    applyStyle(onBtn, inactiveStyle);
+  }
+}
+
+function addLog(text, tone){
+  var log = document.getElementById('log');
+  if(log.children.length === 1 && log.children[0].textContent.indexOf('Waiting') === 0){
+    log.innerHTML = '';
+  }
+  var row = document.createElement('div');
+  row.style.fontSize = '13px';
+  row.style.padding = '6px 10px';
+  row.style.borderRadius = '8px';
+  if(tone === 'danger'){
+    row.style.background = '#fcebeb';
+    row.style.color = '#791f1f';
+  } else if(tone === 'success'){
+    row.style.background = '#eaf3de';
+    row.style.color = '#27500a';
+  } else {
+    row.style.background = '#F8F8F8';
+    row.style.color = '#343434';
+  }
+  row.textContent = text;
+  log.appendChild(row);
+  log.scrollTop = log.scrollHeight;
+}
+
+document.getElementById('connect-btn').addEventListener('click', function(){
+  document.getElementById('screen-disconnected').style.display = 'none';
+  document.getElementById('screen-connected').style.display = 'block';
+  setToggle('off');
+  addLog('Connected to bluetooth');
+});
+document.getElementById('save-contact-btn').addEventListener('click', function(){
+  var btn = this;
+  var input = document.getElementById('contact-input');
+  var err = document.getElementById('contact-error');
+
+  if(btn.dataset.state === 'saved'){
+    input.readOnly = false;
+    input.focus();
+    btn.dataset.state = 'unsaved';
+    btn.textContent = 'Save contact';
+    btn.style.background = '#343434';
+    btn.style.borderColor = '#343434';
+    btn.style.color = '#FFFFFF';
+    return;
+  }
+
+  if(!input.value.trim()){
+    err.style.display = 'block';
+    return;
+  }
+  err.style.display = 'none';
+  contact = input.value.trim();
+  addLog('Emergency contact saved: ' + contact, 'success');
+
+  input.readOnly = true;
+  btn.style.pointerEvents = 'none';
+  btn.textContent = 'Contact saved';
+  btn.style.background = '#eaf3de';
+  btn.style.borderColor = '#639922';
+  btn.style.color = '#27500a';
+
+  setTimeout(function(){
+    btn.dataset.state = 'saved';
+    btn.style.pointerEvents = 'auto';
+    btn.textContent = 'Edit contact';
+    btn.style.background = '#FFFFFF';
+    btn.style.borderColor = '#E2E2E2';
+    btn.style.color = '#343434';
+  }, 1200);
+});
+onBtn.addEventListener('click', function(){
+  setToggle('on');
+  addLog("Sent '1' to Arduino over bluetooth");
+  setTimeout(function(){ addLog('Buzzer sounds'); }, 500);
+  setTimeout(function(){
+    addLog('Emergency alert sent to ' + (contact || 'contact'), 'danger');
+  }, 1000);
+});
+offBtn.addEventListener('click', function(){
+  setToggle('off');
+  addLog("Sent '0' to Arduino over bluetooth");
+  setTimeout(function(){ addLog('No tone', 'success'); }, 500);
+});
+document.getElementById('reset-btn').addEventListener('click', function(){
+  document.getElementById('screen-connected').style.display = 'none';
+  document.getElementById('screen-disconnected').style.display = 'block';
+  var input = document.getElementById('contact-input');
+  input.value = '';
+  input.readOnly = false;
+  document.getElementById('contact-error').style.display = 'none';
+  var saveBtn = document.getElementById('save-contact-btn');
+  saveBtn.dataset.state = 'unsaved';
+  saveBtn.style.pointerEvents = 'auto';
+  saveBtn.textContent = 'Save contact';
+  saveBtn.style.background = '#343434';
+  saveBtn.style.borderColor = '#343434';
+  saveBtn.style.color = '#FFFFFF';
+  contact = "";
+  setToggle('off');
+  var log = document.getElementById('log');
+  log.innerHTML = '<p style="font-size:13px;color:#9f9f9f;">Waiting for the app to connect...</p>';
+});
+</script>
+        <script type="module">
+            let height = 0
+
+            function sendEmbedHeight() {
+                window.parent.postMessage({
+                    embedHeight: height
+                }, "*")
+            }
+
+            const observer = new ResizeObserver((entries) => {
+                if (entries.length !== 1) return
+                const entry = entries[0]
+                if (entry.target !== document.body) return
+
+                height = entry.contentRect.height
+                sendEmbedHeight()
+            })
+
+            observer.observe(document.body)
+
+            window.addEventListener("message", (event) => {
+                if (event.source !== window.parent) return
+                if (event.data !== "getEmbedHeight") return
+                sendEmbedHeight()
+            })
+        </script>
+    <body>
+</html>

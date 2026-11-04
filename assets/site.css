@@ -1,0 +1,111 @@
+/* Tokens from the Figma file (portfolio › homepage — izy) */
+:root{
+  --canvas:#fafafa;
+  --surface:#ffffff;
+  --surface-sunken:#f5f5f5;
+  --surface-glass:rgba(247,247,247,0.32);
+  --line:#e2e2e2;
+  --text-strong:#262626;
+  --text:#656565;
+  --text-muted:#737373;
+  --text-nav:#959595;
+  --text-label:#a6a6a6;
+  --accent-text:#276a9b;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-6:24px;--space-8:32px;--space-12:48px;
+  --radius-sm:8px;--radius-md:12px;
+  --helvetica-neue:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --helvetica:Helvetica,"Helvetica Neue",Arial,sans-serif;
+  --sans:"Instrument Sans",sans-serif;
+}
+/* Cursor: gray dot (--text #656565 at 30% opacity) */
+html,html *{cursor:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2712%27 height=%2712%27%3E%3Ccircle cx=%276%27 cy=%276%27 r=%276%27 fill=%27%23656565%27 fill-opacity=%27.3%27/%3E%3C/svg%3E") 6 6,auto !important}
+/* while the mouse is pressed, the dot shrinks */
+html:active,html *:active{cursor:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%278%27 height=%278%27%3E%3Ccircle cx=%274%27 cy=%274%27 r=%274%27 fill=%27%23656565%27 fill-opacity=%27.3%27/%3E%3C/svg%3E") 4 4,auto !important}
+/* Body text style: Instrument Sans, regular, 14px, line 1.5, #9f9f9f. Reuse for body copy. */
+.body-text{font-family:var(--sans);font-weight:400;font-size:14px;line-height:1.5;color:#9f9f9f;letter-spacing:-0.03em}
+
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--canvas)}
+body{-webkit-font-smoothing:antialiased}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+a:focus-visible{outline:2px solid var(--accent-text);outline-offset:2px;border-radius:var(--radius-sm)}
+
+.page{display:flex;align-items:flex-start;gap:var(--space-6);padding:20px;min-height:100vh}
+
+/* Sidebar */
+.side{position:sticky;top:20px;flex:none;width:185px;max-height:calc(100vh - 40px);overflow-y:auto;scrollbar-width:none;display:flex;flex-direction:column;align-items:flex-start;gap:var(--space-6)}
+.side::-webkit-scrollbar{display:none}
+.logo{display:flex;align-items:center;justify-content:center;width:29.205px;height:28.057px;margin:1.575px 0 -1.575px;position:relative}
+.logo img{display:block;width:27.744px;height:26.524px;object-fit:cover;object-position:top;transform:rotate(-3.25deg)}
+.side-body{display:flex;flex-direction:column;gap:var(--space-8);width:100%}
+.intro{display:flex;flex-direction:column;gap:var(--space-2);width:100%}
+.name{font-family:var(--helvetica-neue);font-weight:400;font-size:24px;line-height:normal;letter-spacing:-0.72px;color:var(--text-strong)}
+.tagline{font-family:var(--helvetica);font-size:14px;line-height:normal;letter-spacing:-0.42px;color:var(--text)}
+.label{font-family:var(--sans);font-weight:400;font-size:11px;line-height:normal;letter-spacing:-0.03em;color:var(--text-label);white-space:nowrap}
+.currently{display:flex;align-items:center;gap:var(--space-1);width:100%}
+.currently .item{flex:1 0 0;min-width:0;gap:var(--space-3);color:var(--accent-text)}
+
+.item{display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);font-family:var(--helvetica-neue);font-size:14px;line-height:normal;letter-spacing:-0.42px;color:var(--text-nav);white-space:nowrap}
+.ic{flex:none;display:flex;align-items:center;justify-content:center}
+.ic img{display:block;flex:none}
+.nav{position:relative;display:flex;flex-direction:column;gap:var(--space-2);width:100%}
+.nav .item{position:relative;z-index:1;width:100%;transition:color .2s ease}
+.nav .item.is-current{background:var(--surface);border:1px solid var(--line);color:var(--text-strong)}
+.nav a.item:not(.is-current):hover{color:var(--text-strong)}
+.nav .soon{cursor:default}
+/* Hand-drawn nav icons: inline SVGs drawn with currentColor */
+.nav .ic{color:#737373;transition:color .2s ease}
+.nav .item[data-nav="work"]:not(.is-current) .ic{color:#959595}
+.nav .item.is-current .ic{color:inherit}
+.nav .ic svg{display:block;flex:none;overflow:visible}
+.connect .ic{color:#737373}
+.connect .ic svg{display:block;flex:none;overflow:visible}
+.ic.drawing path{stroke-dasharray:1;animation:icon-draw .8s linear both}
+@keyframes icon-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+/* Sliding highlight (added by assets/site.js; without JS the current item keeps its own box) */
+.nav.has-indicator .item.is-current{background:none;border-color:transparent}
+.nav-indicator{position:absolute;left:0;right:0;top:0;z-index:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);pointer-events:none}
+.nav-indicator.moving{transition:transform .45s cubic-bezier(.22,1,.36,1)}
+@media (prefers-reduced-motion: reduce){.nav-indicator.moving{transition:none}.ic.drawing path{animation:none}}
+
+.connect{display:flex;flex-direction:column;gap:var(--space-3);width:100%}
+.connect-list{display:flex;flex-direction:column;gap:var(--space-2);width:100%}
+.connect-row{display:flex;align-items:center;gap:var(--space-2);width:100%;color:var(--text-nav);transition:color .2s ease}
+.connect-row .item{flex:1 0 0;min-width:0;color:inherit}
+a.connect-row:hover{color:var(--text-strong)}
+
+/* Work panel */
+.panel{flex:1 1 0;min-width:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(380px,100%),1fr));column-gap:var(--space-4);row-gap:var(--space-12);align-items:start;padding:var(--space-6) var(--space-6) var(--space-12);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md)}
+.card{display:flex;flex-direction:column;align-items:center;gap:var(--space-8);width:100%}
+.media{width:100%;aspect-ratio:484 / 336;overflow:hidden;background:var(--surface-sunken);border:1px solid var(--line);border-radius:var(--radius-md)}
+.media video{display:block;width:100%;height:100%;object-fit:cover}
+.card-text{display:flex;flex-direction:column;align-items:center;gap:var(--space-3);width:calc(100% - 36px)}
+.pills{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-3)}
+.pill{display:flex;align-items:center;justify-content:center;padding:var(--space-2) var(--space-4);background:var(--surface-glass);border:1px solid var(--line);border-radius:var(--radius-sm);font-family:var(--sans);font-weight:400;font-size:12px;line-height:1.2;color:var(--text);white-space:nowrap;letter-spacing:-0.03em}
+.titles{display:flex;flex-direction:column;gap:var(--space-2);width:100%;text-align:center;font-family:var(--helvetica)}
+.title{font-size:18px;line-height:normal;letter-spacing:-0.36px;color:var(--text-strong)}
+.meta{font-size:12px;line-height:normal;letter-spacing:-0.36px;color:var(--text-muted)}
+a.card .title{transition:color .2s ease}
+a.card:hover .title{color:#000}
+a.card .media{transition:transform .3s ease}
+a.card:hover .media{transform:scale(.96)}
+@media (prefers-reduced-motion: reduce){a.card .media{transition:none}}
+
+/* Smaller screens */
+@media (max-width: 640px){
+  .page{flex-direction:column;gap:var(--space-8);padding:16px}
+  .side{position:static;width:100%;max-height:none;overflow:visible}
+  .panel{padding:var(--space-4) var(--space-4) var(--space-8)}
+  .card-text{width:100%}
+  .pill{white-space:normal}
+}
+
+/* Opening animation (see assets/site.js). Only overlays move or fade; the page itself is never touched. */
+html.opening body::before{content:"";position:fixed;inset:0;z-index:999;background:inherit;animation:intro-failsafe .4s 6s forwards}
+@keyframes intro-failsafe{to{opacity:0;visibility:hidden}}
+.intro-cover{position:fixed;inset:0;z-index:998;pointer-events:none}
+.intro-patch{position:fixed;z-index:999;pointer-events:none}
+.intro-clover{position:fixed;z-index:1000;pointer-events:none;transform-origin:50% 50%}
+.intro-clover svg{position:absolute;inset:0;display:block;width:100%;height:100%}
+.intro-clover svg path{stroke-dasharray:1;stroke-dashoffset:1}

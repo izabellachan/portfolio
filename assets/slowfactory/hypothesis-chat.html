@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>izy chat</title>
+<style>
+html, body { margin: 0; padding: 0; background: #FAFAFA; }
+/* same dot cursor as the rest of the site, smaller while pressed */
+html,html *{cursor:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2712%27 height=%2712%27%3E%3Ccircle cx=%276%27 cy=%276%27 r=%276%27 fill=%27%23656565%27 fill-opacity=%27.3%27/%3E%3C/svg%3E") 6 6,auto !important}
+html:active,html *:active{cursor:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%278%27 height=%278%27%3E%3Ccircle cx=%274%27 cy=%274%27 r=%274%27 fill=%27%23656565%27 fill-opacity=%27.3%27/%3E%3C/svg%3E") 4 4,auto !important}
+@keyframes fadeInUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+.bubble { position:relative; max-width:300px; padding:7px 16px; font-size:14px; line-height:1.35; opacity:0; animation: fadeInUp 0.35s ease forwards; }
+.bubble-them { align-self:flex-start; background:#EEEEEE; color:#000000; border-radius:20px 20px 20px 4px; }
+.bubble-them::before { content:""; position:absolute; z-index:0; bottom:0; left:-7px; height:20px; width:20px; background:#EEEEEE; border-bottom-right-radius:15px; }
+.bubble-them::after { content:""; position:absolute; z-index:1; bottom:0; left:-10px; width:10px; height:20px; background:#FAFAFA; border-bottom-right-radius:10px; }
+</style>
+<script src="../cursor.js"></script>
+</head>
+<body>
+<div style="position:relative;height:100vh;">
+<div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);font-family:'SF Pro Display','SF Pro Text',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;width:386px;max-width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:10px;padding:20px 20px 20px 24px;">
+  <div class="bubble bubble-them" style="animation-delay:0s;">heyy izy here! 😆👋</div>
+  <div class="bubble bubble-them" style="animation-delay:0.4s;">wanted to pop in and say that nothing beats hearing directly from users</div>
+  <div class="bubble bubble-them" style="animation-delay:0.8s;">since our team didn't have the bandwidth to connect with readers, we leaned on desk research and competitive analysis to understand their needs and guide our decisions.</div>
+</div>
+</div>
+</body>
+</html>

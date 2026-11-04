@@ -1,0 +1,126 @@
+
+<html>
+    <head>
+        <style>
+            html, body {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            :root {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+
+            * {
+                box-sizing: border-box;
+                -webkit-font-smoothing: inherit;
+            }
+
+            h1, h2, h3, h4, h5, h6, p, figure {
+                margin: 0;
+            }
+
+            body, input, textarea, select, button {
+                font-size: 12px;
+                font-family: sans-serif;
+            }
+        </style>
+    <style>
+/* Cursor: gray dot (--text #656565 at 30% opacity) */
+html,html *{cursor:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2712%27 height=%2712%27%3E%3Ccircle cx=%276%27 cy=%276%27 r=%276%27 fill=%27%23656565%27 fill-opacity=%27.3%27/%3E%3C/svg%3E") 6 6,auto !important}
+/* while the mouse is pressed, the dot shrinks */
+html:active,html *:active{cursor:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%278%27 height=%278%27%3E%3Ccircle cx=%274%27 cy=%274%27 r=%274%27 fill=%27%23656565%27 fill-opacity=%27.3%27/%3E%3C/svg%3E") 4 4,auto !important}
+</style>
+<script src="../cursor.js"></script>
+</head>
+    <body>
+        <style>
+@keyframes blink { 50% { opacity: 0; } }
+.bubble { position:relative; max-width:75%; padding:7px 16px; font-size:14px; line-height:1.35; }
+.bubble-me { align-self:flex-end; background:#0B84FF; color:#FFFFFF; border-radius:20px 20px 4px 20px; }
+.bubble-me::before { content:""; position:absolute; z-index:0; bottom:0; right:-7px; height:20px; width:20px; background:#0B84FF; border-bottom-left-radius:15px; }
+.bubble-me::after { content:""; position:absolute; z-index:1; bottom:0; right:-10px; width:10px; height:20px; background:#FAFAFA; border-bottom-left-radius:10px; }
+.bubble-them { align-self:flex-start; background:#EEEEEE; color:#000000; border-radius:20px 20px 20px 4px; }
+.bubble-them::before { content:""; position:absolute; z-index:0; bottom:0; left:-7px; height:20px; width:20px; background:#EEEEEE; border-bottom-right-radius:15px; }
+.bubble-them::after { content:""; position:absolute; z-index:1; bottom:0; left:-10px; width:10px; height:20px; background:#FAFAFA; border-bottom-right-radius:10px; }
+.cursor { display:inline-block; animation: blink 1s step-start infinite; }
+#messages:empty { padding:0; }
+</style>
+<div style="position:relative;height:100vh;">
+<div id="widget" style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);font-family:'SF Pro Display','SF Pro Text',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;width:386px;display:flex;flex-direction:column;">
+
+  <div id="messages" style="padding:20px 20px 20px 24px;display:flex;flex-direction:column;gap:10px;">
+    <div class="bubble bubble-me">so what now?...</div>
+    <div class="bubble bubble-them">at this point, our team didn't actually know what "relevant" meant for these readers. so before designing anything, we needed to research first 📖📚</div>
+  </div>
+
+  <div style="padding:12px;display:flex;gap:8px;align-items:center;">
+    <input id="real-input" type="text" placeholder="iMessage" style="flex:1;padding:9px 14px;border-radius:100px;border:1px solid #D1D1D6;background:#FFFFFF;font-size:13px;box-sizing:border-box;outline:none;">
+    <button id="send-btn" aria-label="Send" style="width:34px;height:34px;border-radius:50%;border:none;background:#0B84FF;color:#FFFFFF;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 1px 2px rgba(0,0,0,0.15);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6"/><path d="M6 12l6-6 6 6"/></svg>
+    </button>
+  </div>
+
+</div>
+</div>
+
+<script>
+var messagesEl = document.getElementById('messages');
+var realInput = document.getElementById('real-input');
+var sendBtn = document.getElementById('send-btn');
+
+function addBubble(text, sender){
+  var bubble = document.createElement('div');
+  bubble.className = sender === 'me' ? 'bubble bubble-me' : 'bubble bubble-them';
+  bubble.textContent = text;
+  messagesEl.appendChild(bubble);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+  return bubble;
+}
+
+sendBtn.addEventListener('click', function(){
+  var text = realInput.value.trim();
+  if(!text) return;
+  addBubble(text, 'me');
+  realInput.value = '';
+});
+
+realInput.addEventListener('keydown', function(e){
+  if(e.key === 'Enter') sendBtn.click();
+});
+</script>
+        <script type="module">
+            let height = 0
+
+            function sendEmbedHeight() {
+                window.parent.postMessage({
+                    embedHeight: height
+                }, "*")
+            }
+
+            const observer = new ResizeObserver((entries) => {
+                if (entries.length !== 1) return
+                const entry = entries[0]
+                if (entry.target !== document.body) return
+
+                height = entry.contentRect.height
+                sendEmbedHeight()
+            })
+
+            observer.observe(document.body)
+
+            window.addEventListener("message", (event) => {
+                if (event.source !== window.parent) return
+                if (event.data !== "getEmbedHeight") return
+                sendEmbedHeight()
+            })
+        </script>
+    <body>
+</html>
