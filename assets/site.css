@@ -41,7 +41,7 @@ a:focus-visible{outline:2px solid var(--accent-text);outline-offset:2px;border-r
 .side-body{display:flex;flex-direction:column;gap:var(--space-8);width:100%}
 .intro{display:flex;flex-direction:column;gap:var(--space-2);width:100%}
 .name{font-family:var(--helvetica-neue);font-weight:400;font-size:24px;line-height:normal;letter-spacing:-0.72px;color:var(--text-strong)}
-.tagline{font-family:var(--helvetica);font-size:14px;line-height:normal;letter-spacing:-0.42px;color:var(--text)}
+.tagline{font-family:var(--helvetica);font-size:14px;line-height:normal;letter-spacing:-0.42px;color:var(--text-muted)}
 .label{font-family:var(--sans);font-weight:400;font-size:11px;line-height:normal;letter-spacing:-0.03em;color:var(--text-label);white-space:nowrap}
 .currently{display:flex;align-items:center;gap:var(--space-1);width:100%}
 .currently .item{flex:1 0 0;min-width:0;gap:var(--space-3);color:var(--accent-text)}

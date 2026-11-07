@@ -2,160 +2,930 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>izabella chan</title>
-<script src="./dc.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TownShare · izabella chan</title>
+<meta name="description" content="TownShare: making community fridge donations easier to navigate. A UX case study by Izabella Chan.">
 <script src="assets/cursor.js"></script>
 <link rel="icon" href="/assets/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-</head>
-<body>
-<x-dc>
-<helmet>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&amp;family=Archivo:wght@700&amp;family=DM+Sans:wght@400&amp;family=Schoolbell&amp;display=swap">
+<link rel="stylesheet" href="assets/site.css">
 <style>
-/* Cursor: gray dot (--text #656565 at 30% opacity) */
-html,html *{cursor:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2712%27 height=%2712%27%3E%3Ccircle cx=%276%27 cy=%276%27 r=%276%27 fill=%27%23656565%27 fill-opacity=%27.3%27/%3E%3C/svg%3E") 6 6,auto !important}
-/* while the mouse is pressed, the dot shrinks */
-html:active,html *:active{cursor:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%278%27 height=%278%27%3E%3Ccircle cx=%274%27 cy=%274%27 r=%274%27 fill=%27%23656565%27 fill-opacity=%27.3%27/%3E%3C/svg%3E") 4 4,auto !important}
-body{margin:0;background:#FAFAFA}
-.ph{display:flex;align-items:center;justify-content:center;box-sizing:border-box;background:#ECECEA;color:#A9A9A6;font-family:'Instrument Sans',sans-serif;font-size:10px;line-height:1.2;text-align:center;padding:4px;overflow:hidden;letter-spacing:-0.03em}
-.ph span{max-width:100%;overflow:hidden;text-overflow:ellipsis}
-.ts-pills{display:flex;align-items:center;gap:16px;width:100%;overflow-x:auto;scrollbar-width:none}
-.ts-pills::-webkit-scrollbar{display:none}
-.ts-pillrow-inner{display:flex;align-items:center;gap:8px;flex:none}
-.ts-pills-fixed{position:sticky;left:0;z-index:1;display:flex;align-items:center;gap:16px;flex:none;background:#FAFAFA;padding-right:4px}
-.ts-pill{flex:none;border:0;margin:0;cursor:pointer;padding:8px 16px;border-radius:16px;font-family:'Instrument Sans',sans-serif;font-weight:500;font-size:12px;line-height:14.4px;transition:background-color .2s ease,color .2s ease;white-space:nowrap;letter-spacing:-0.03em}
-.ts-pill:focus-visible,.ts-nav-item:focus-visible{outline:2px solid #6BADDB;outline-offset:2px}
-.ts-nav{position:sticky;top:0;height:720px;width:64px;flex:none;z-index:5}
-.ts-nav-inner{width:120px;height:720px;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:16px;box-sizing:border-box}
-.ts-nav-item{display:flex;align-items:center;gap:12px;padding:6px 0;text-decoration:none;color:#656565;font-family:"Schoolbell",cursive;font-weight:400;font-size:12px;line-height:15.6px;height:16px;box-sizing:content-box;margin:-6px 0}
-.ts-nav-line{display:block;height:1px;background:#959595;flex:none;transition:width .25s ease}
-.ts-nav-label{transition:opacity .25s ease;white-space:nowrap}
-.ts-nav-item:hover .ts-nav-label{opacity:1 !important}
-@media (max-width: 1100px){
-  .ts-main{padding:64px 32px 0 !important}
-}
-@media (max-width: 900px){
-  .ts-nav{display:none}
-  .ts-main{padding:88px 24px 0 !important}
-  .ts-hero{flex-wrap:wrap}
-  .ts-hero-art{flex:1 1 100% !important}
-  .ts-hero-meta{flex:1 1 100% !important}
-  .ts-meta-list{flex-direction:row !important;flex-wrap:wrap;width:100% !important;gap:16px 24px !important}
-  .ts-meta-list > div{flex:1 1 140px;min-width:0}
-  .ts-rework{flex-direction:column;padding:24px !important;gap:24px !important}
-  .ts-rework > img{width:100%;flex:none !important}
-  .ts-hypcol{flex:none !important;width:100%}
-  .ts-ur{flex-direction:column;align-items:stretch !important}
-  .ts-ur-stats{flex:none !important}
-  .ts-impact-row{flex-direction:column;align-items:stretch !important}
-  .ts-impact-row > div:first-child{flex:none !important}
-}
-@media (max-width: 720px){
-  .ts-main{padding:80px 16px 0 !important}
-  .ts-row3{flex-direction:column}
-  .ts-row4{flex-wrap:wrap}
-  .ts-row4 > .ts-feat{flex:1 1 calc(50% - 8px) !important}
-  .ts-row2{flex-direction:column}
-  .ts-grid2{grid-template-columns:minmax(0,1fr) !important}
-  .ts-ba-row{flex-direction:column;align-items:stretch !important}
-  .ts-ba-row > div{flex:none !important;width:100%}
-  .ts-ba-arrow{align-self:center;transform:rotate(90deg)}
-  .ts-ur-photos{padding:20px !important}
-}
-.ts-row3 > .ts-stat{flex:1 1 0;min-width:0}
-.ts-media,.ts-feat,.ts-imgcard,.ts-rework,.ts-ur-photos,.ts-ba,.ts-stat,.ts-box{outline:1px solid #ECECEC;outline-offset:-1px}
-.ts-callout{outline:1px solid #6BADDB;outline-offset:-1px}
+/* TownShare case study (draft redesign). Built on the site tokens in assets/site.css.
+   Accent: TownShare blue #6BADDB for marks and fills; --accent-text (#276a9b) for small blue text so it stays readable. */
+:root{--ts:#6BADDB;--ts-wash:rgba(107,173,219,.08);--ts-ink:var(--accent-text);--body:var(--text-muted)}
+body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans);letter-spacing:-0.03em;-webkit-font-smoothing:antialiased}
+img,video{display:block;max-width:100%}
+p{margin:0}
+
 .logo-stamp{display:flex;align-items:center;justify-content:center;position:fixed;top:21.575px;left:20px;z-index:6;width:29.205px;height:28.057px}
 .logo-stamp img{display:block;width:27.744px;height:26.524px;object-fit:cover;object-position:top;transform:rotate(-3.25deg)}
-@media (max-width: 640px){.logo-stamp{top:17.575px;left:16px}}
-.logo-stamp:focus-visible{outline:2px solid #6BADDB;outline-offset:4px}
-</style>
-</helmet>
-<a class="logo-stamp" href="./" aria-label="Home"><img src="assets/logo-stamp.png" alt=""></a>
-<div style="width: 100%; min-height: 100vh; background: #FAFAFA; display: flex; align-items: flex-start">
-<nav class="ts-nav" aria-label="Case study sections"><div class="ts-nav-inner"><a class="ts-nav-item" href="#ts-overview" onClick="{{navOverview.go}}" aria-current="{{navOverview.cur}}"><span class="ts-nav-line" style="width: {{navOverview.w}}px"></span><span class="ts-nav-label" style="opacity: {{navOverview.op}}">overview</span></a><a class="ts-nav-item" href="#ts-context" onClick="{{navContext.go}}" aria-current="{{navContext.cur}}"><span class="ts-nav-line" style="width: {{navContext.w}}px"></span><span class="ts-nav-label" style="opacity: {{navContext.op}}">context</span></a><a class="ts-nav-item" href="#ts-problem" onClick="{{navProblem.go}}" aria-current="{{navProblem.cur}}"><span class="ts-nav-line" style="width: {{navProblem.w}}px"></span><span class="ts-nav-label" style="opacity: {{navProblem.op}}">problem</span></a><a class="ts-nav-item" href="#ts-solution" onClick="{{navSolution.go}}" aria-current="{{navSolution.cur}}"><span class="ts-nav-line" style="width: {{navSolution.w}}px"></span><span class="ts-nav-label" style="opacity: {{navSolution.op}}">solution</span></a><a class="ts-nav-item" href="#ts-research" onClick="{{navResearch.go}}" aria-current="{{navResearch.cur}}"><span class="ts-nav-line" style="width: {{navResearch.w}}px"></span><span class="ts-nav-label" style="opacity: {{navResearch.op}}">research</span></a><a class="ts-nav-item" href="#ts-ideation" onClick="{{navIdeation.go}}" aria-current="{{navIdeation.cur}}"><span class="ts-nav-line" style="width: {{navIdeation.w}}px"></span><span class="ts-nav-label" style="opacity: {{navIdeation.op}}">ideation</span></a><a class="ts-nav-item" href="#ts-solution2" onClick="{{navSolution2.go}}" aria-current="{{navSolution2.cur}}"><span class="ts-nav-line" style="width: {{navSolution2.w}}px"></span><span class="ts-nav-label" style="opacity: {{navSolution2.op}}">solution</span></a><a class="ts-nav-item" href="#ts-impact" onClick="{{navImpact.go}}" aria-current="{{navImpact.cur}}"><span class="ts-nav-line" style="width: {{navImpact.w}}px"></span><span class="ts-nav-label" style="opacity: {{navImpact.op}}">impact</span></a></div></nav>
-<main class="ts-main" style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 64px; box-sizing: border-box; padding: 64px 61.5px 0 61.5px">
-<div style="width: 100%; max-width: 964px; display: flex; flex-direction: column; gap: 64px">
-<section id="ts-overview" class="ts-hero" style="display: flex; align-items: flex-end; gap: 32px; width: 100%"><div class="ts-hero-art" style="flex: 0 1 747px; min-width: 0"><div class="ts-stage ts-hero-stage" style="position: relative; width: 100%; aspect-ratio: 747 / 470; container-type: inline-size; overflow: hidden; "><div class="ts-media" style="position: absolute; left: 0.000cqw; top: 0.000cqw; width: 37.216cqw; height: 17.671cqw; height: auto; aspect-ratio: 278/132; background: #F8F8F8; border-radius: 12px"></div><div class="ts-media" style="position: absolute; left: 0.000cqw; top: 18.608cqw; width: 37.216cqw; height: 44.311cqw; aspect-ratio: 278/331; height: auto; background: #F8F8F8; border-radius: 12px"></div><div class="ts-media" style="position: absolute; left: 38.153cqw; top: 0.000cqw; width: 61.847cqw; height: 41.232cqw; aspect-ratio: 462/308; height: auto; background: #F8F8F8; border-radius: 12px"><video src="assets/townshare/hero-flow.mp4" autoplay muted loop playsinline preload="auto" aria-label="TownShare flow" style="width: 100%; height: 100%; border-radius: 10px; display: block; object-fit: cover"></video></div><div class="ts-media" style="position: absolute; left: 37.885cqw; top: 42.169cqw; width: 35.743cqw; height: 20.750cqw; aspect-ratio: 267/155; height: auto; background: #F8F8F8; border-radius: 12px"></div><div class="ts-media" style="position: absolute; left: 74.699cqw; top: 42.169cqw; width: 25.301cqw; height: 20.750cqw; aspect-ratio: 189/155; height: auto; background: #F8F8F8; border-radius: 12px"></div><div style="position: absolute; left: 4.284cqw; top: 25.569cqw; width: 28.648cqw; height: 37.349cqw; "><img src="assets/townshare/hero-home.png" alt="TownShare home screen" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: contain"></div><div style="position: absolute; left: 46.452cqw; top: 44.311cqw; width: 18.876cqw; height: 18.608cqw; "><video src="assets/townshare/hero-phone.mov" autoplay muted loop playsinline preload="auto" aria-label="phone clip" style="width: 100%; height: 100%; display: block; object-fit: cover"></video></div><div style="position: absolute; left: 79.116cqw; top: 49.799cqw; width: 16.600cqw; height: 6.693cqw; "><img src="assets/townshare/green-team-logo.png" alt="Green Team logo" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: contain"></div><div style="position: absolute; left: 4.953cqw; top: 3.882cqw; width: 8.032cqw; height: 10.040cqw; "><img src="assets/townshare/icon.png" alt="icon" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: contain"></div><div style="position: absolute; left: 12.316cqw; top: 7.631cqw; width: 21.419cqw;  "><p style="margin: 0; font-family: Archivo, sans-serif; font-weight: 700; font-size: 3.909cqw; line-height: 1.2; letter-spacing: -0.04em; color: #FEA900">TownShare</p><p style="margin: 0 0 0 0.3cqw; font-family: 'DM Sans', sans-serif; font-size: 1.222cqw; line-height: 1.2; letter-spacing: -0.04em; color: #037B46">Nourishing Oakland, Together.</p></div></div></div><div class="ts-hero-meta" style="flex: 0 0 185px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start"><img src="assets/townshare/logo.png" alt="TownShare logo" loading="lazy" style="width: 203px; height: 66px; display: block; object-fit: contain"><div class="ts-meta-list" style="display: flex; flex-direction: column; gap: 16px; width: 185px"><div style="display: flex; flex-direction: column; gap: 4px"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">[TIMELINE]</p><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 18px; color: #9F9F9F;letter-spacing:-0.03em">4 weeks</p></div><div style="display: flex; flex-direction: column; gap: 4px"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">[ROLE]</p><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 18px; color: #9F9F9F;letter-spacing:-0.03em">Prototype &amp; Experience Lead</p></div><div style="display: flex; flex-direction: column; gap: 4px"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">[TEAM]</p><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 18px; color: #9F9F9F;letter-spacing:-0.03em">3 designers</p></div><div style="display: flex; flex-direction: column; gap: 4px"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">[TOOLS]</p><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 18px; color: #9F9F9F;letter-spacing:-0.03em">Figma, Jira, Lovable, Otter.ai, Claude, ChatGPT</p></div></div></div></section><section id="ts-context" style="width: 100%"><div style="display: flex; flex-direction: column; gap: 12px; width: 100%"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">[CONTEXT]</p><h2 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 20px; line-height: 24px; color: #656565">Helping Oakland households turn extra food into community support</h2><div class="ts-body" style="display: flex; flex-direction: column; gap: 16.8px; font-family: 'Instrument Sans', sans-serif; font-weight: 400; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em"><p style="margin: 0">In 4 weeks, our team of designers ran 17 resident interviews, pivoted 3 times, and designed 5 iterations of a mobile web app that shows neighbors a fridge’s live status before they donate.</p></div></div></section><section id="ts-problem" style="display: flex; flex-direction: column; gap: 32px; width: 100%"><div style="display: flex; flex-direction: column; gap: 12px; width: 100%"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">[PROBLEM]</p><h2 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 20px; line-height: 24px; color: #656565">Good food is wasted while neighbors go hungry</h2><div class="ts-body" style="display: flex; flex-direction: column; gap: 16.8px; font-family: 'Instrument Sans', sans-serif; font-weight: 400; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em"><p style="margin: 0">Raise your hand if you've thrown out food within the last month, and keep your hand up if you've ever felt guilty about it. Well you're not alone!</p></div></div><div class="ts-row3" style="display: flex; gap: 10px; width: 100%"><div class="ts-stat" style="display: flex; flex-direction: column; justify-content: center; gap: 12px; box-sizing: border-box; padding: 36px; min-height: 146px; background: #F8F8F8; border-radius: 10px"><p style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 20px; line-height: 24px; color: #656565">#1</p><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em">Households are the #1 source of food waste in the U.S.</p></div><div class="ts-stat" style="display: flex; flex-direction: column; justify-content: center; gap: 12px; box-sizing: border-box; padding: 36px; min-height: 146px; background: #F8F8F8; border-radius: 10px"><p style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 20px; line-height: 24px; color: #656565">39B</p><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em">meals go to waste every year</p></div><div class="ts-stat" style="display: flex; flex-direction: column; justify-content: center; gap: 12px; box-sizing: border-box; padding: 36px; min-height: 146px; background: #F8F8F8; border-radius: 10px"><p style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 20px; line-height: 24px; color: #656565">1 in 4</p><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em">people in Alameda County face food insecurity</p></div></div><div class="ts-callout" style="width: 100%; box-sizing: border-box; padding: 20px 25px; background: rgba(107, 173, 219, 0.05); border-radius: 8px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; color: #6BADDB; text-align: center">Oakland already has a simple fix for this: COMMUNITY FRIDGES<br><strong style="font-weight: 500; font-size: 20px; line-height: 30px">BUT WHY AREN'T MORE PEOPLE DONATING TO THEM?</strong></div></section><section id="ts-solution" style="display: flex; flex-direction: column; gap: 32px; width: 100%"><div style="display: flex; flex-direction: column; gap: 12px; width: 100%"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">[SOLUTION]</p><h2 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 20px; line-height: 24px; color: #656565">That's where TownShare comes in</h2><div class="ts-body" style="display: flex; flex-direction: column; gap: 16.8px; font-family: 'Instrument Sans', sans-serif; font-weight: 400; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em"><p style="margin: 0">Currently, residents don’t know what’s in a community fridge, or whether it’s even working, until they get there. They risk a trip to a fridge that’s full, broken or doesn’t accept what they brought, so many hesitate to donate at all.</p><p style="margin: 0">TownShare is a mobile web app that provides real-time information on Oakland community fridges. It makes donating food more approachable and more efficient, helping reduce food waste one household at a time.</p></div></div><video class="ts-media" src="assets/townshare/overview.mov" autoplay muted loop playsinline preload="auto" aria-label="TownShare overview" style="width: 100%; aspect-ratio: 964/542; border-radius: 10px; display: block; object-fit: cover"></video><div class="ts-row4" style="display: flex; gap: 16px; width: 100%"><div class="ts-feat" style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 16px; box-sizing: border-box; padding: 24px 25px 20px; background: #F8F8F8; border-radius: 8px"><img src="assets/townshare/feat-status.png" alt="Fridge Status" loading="lazy" style="width: 98.9%; aspect-ratio: 177/198; display: block; object-fit: contain"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080; text-align: center;letter-spacing:-0.03em">Fridge Status</p></div><div class="ts-feat" style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 16px; box-sizing: border-box; padding: 24px 25px 20px; background: #F8F8F8; border-radius: 8px"><img src="assets/townshare/feat-nearby.png" alt="Nearby Fridges" loading="lazy" style="width: 101.1%; aspect-ratio: 181/195; display: block; object-fit: contain"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080; text-align: center;letter-spacing:-0.03em">Nearby Fridges</p></div><div class="ts-feat" style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 16px; box-sizing: border-box; padding: 24px 25px 20px; background: #F8F8F8; border-radius: 8px"><img src="assets/townshare/feat-checkin.png" alt="Check-in Questions" loading="lazy" style="width: 98.3%; aspect-ratio: 176/196; display: block; object-fit: contain"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080; text-align: center;letter-spacing:-0.03em">Check-in Questions</p></div><div class="ts-feat" style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 16px; box-sizing: border-box; padding: 24px 25px 20px; background: #F8F8F8; border-radius: 8px"><img src="assets/townshare/feat-community.png" alt="Community Updates" loading="lazy" style="width: 92.7%; aspect-ratio: 166/194; display: block; object-fit: contain"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080; text-align: center;letter-spacing:-0.03em">Community Updates</p></div></div></section><section id="ts-research" style="display: flex; flex-direction: column; gap: 32px; width: 100%"><div style="display: flex; flex-direction: column; gap: 12px; width: 100%"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">[RESEARCH]</p><h2 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 20px; line-height: 24px; color: #656565">From the whole food system to one fridge</h2><div class="ts-body" style="display: flex; flex-direction: column; gap: 16.8px; font-family: 'Instrument Sans', sans-serif; font-weight: 400; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em"><p style="margin: 0">We mapped the ecosystem, pivoted twice with feedback from PayPal and our mentor, then interviewed 17 residents to find the real problem.</p></div></div><div class="ts-pills" role="group" aria-label="Filter"><div class="ts-pills-fixed"><button type="button" class="ts-pill" onClick="{{rAll.pick}}" aria-pressed="{{rAll.pressed}}" style="background: {{rAll.bg}}; color: {{rAll.fg}}; border: 1px solid {{rAll.bd}}">All</button><svg aria-hidden="true" width="3" height="33" viewBox="-1 -1 3 33" fill="none" style="flex: none"><line x1="0.5" x2="0.5" y2="31" stroke="#9F9F9F"></line></svg></div><div class="ts-pillrow-inner"><button type="button" class="ts-pill" onClick="{{rHyp.pick}}" aria-pressed="{{rHyp.pressed}}" style="background: {{rHyp.bg}}; color: {{rHyp.fg}}; border: 1px dashed {{rHyp.bd}}">Hypothesis</button><svg aria-hidden="true" width="11" height="11" viewBox="-1 -1 13 13" fill="none" style="flex: none"><path d="M3.33333 10.6667L0 7.33333L3.33333 4M0 7.33333H8C8.70724 7.33333 9.38552 7.05238 9.88562 6.55229C10.3857 6.05219 10.6667 5.37391 10.6667 4.66667V0" stroke="#9F9F9F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg><button type="button" class="ts-pill" onClick="{{rRew.pick}}" aria-pressed="{{rRew.pressed}}" style="background: {{rRew.bg}}; color: {{rRew.fg}}; border: 1px solid {{rRew.bd}}">Hypothesis Rework</button><svg aria-hidden="true" width="9" height="9" viewBox="-1 -1 12 12" fill="none" style="flex: none"><path d="M0 4.66667H9.33333M4.66667 9.33333L9.33333 4.66667L4.66667 0" stroke="#6BADDB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg><button type="button" class="ts-pill" onClick="{{rUser.pick}}" aria-pressed="{{rUser.pressed}}" style="background: {{rUser.bg}}; color: {{rUser.fg}}; border: 1px solid {{rUser.bd}}">User Research</button><svg aria-hidden="true" width="9" height="9" viewBox="-1 -1 12 12" fill="none" style="flex: none"><path d="M0 4.66667H9.33333M4.66667 9.33333L9.33333 4.66667L4.66667 0" stroke="#6BADDB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg><button type="button" class="ts-pill" onClick="{{rV1.pick}}" aria-pressed="{{rV1.pressed}}" style="background: {{rV1.bg}}; color: {{rV1.fg}}; border: 1px dashed {{rV1.bd}}">V1 Designs</button><svg aria-hidden="true" width="11" height="11" viewBox="-1 -1 13 13" fill="none" style="flex: none"><path d="M3.33333 10.6667L0 7.33333L3.33333 4M0 7.33333H8C8.70724 7.33333 9.38552 7.05238 9.88562 6.55229C10.3857 6.05219 10.6667 5.37391 10.6667 4.66667V0" stroke="#9F9F9F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg><button type="button" class="ts-pill" onClick="{{rRes.pick}}" aria-pressed="{{rRes.pressed}}" style="background: {{rRes.bg}}; color: {{rRes.fg}}; border: 1px solid {{rRes.bd}}">Resynthesizing</button></div></div><div style="display: flex; flex-direction: column; gap: 64px; width: 100%"><sc-if value="{{showRHyp}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-direction: column; gap: 32px; width: 100%"><div style="display: flex; flex-direction: column; gap: 12px; width: 100%"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">HYPOTHESIS</p><h2 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 20px; line-height: 24px; color: #656565">Better coordination between restaurants, food banks and families would redistribute more excess food</h2><div class="ts-body" style="display: flex; flex-direction: column; gap: 16.8px; font-family: 'Instrument Sans', sans-serif; font-weight: 400; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em"><p style="margin: 0">Our first hypothesis was very broad: edible food exists, but people who need it can’t access it. We planned to cover the whole food ecosystem, providers, community organizations, recipients and everyday residents, thinking we could utilize interview insights to find a gap within it.</p><p style="margin: 0">BRIDGEGOOD then gave us the amazing opportunity to have our progress reviewed by PayPal Product Managers and Engineers. Their feedback led to a major pivot: rather than trying to design for the entire food ecosystem, we needed to identify a specific user and opportunity to focus on. We then hypothesized that better coordination will increase the amount of excess food that is redistributed.</p></div></div><div class="ts-row2" style="display: flex; gap: 16px; width: 100%"><div class="ts-imgcard" style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 21px; box-sizing: border-box; padding: 24px 14px; min-height: 306px; background: #F8F8F8; border-radius: 10px"><img src="assets/townshare/value-chain-original.png" alt="original value chain" loading="lazy" style="width: 94.1%; aspect-ratio: 446/95; display: block; object-fit: contain"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #9F9F9F; text-align: center;letter-spacing:-0.03em">Original value chain with entire ecosystem</p></div><div class="ts-imgcard" style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; box-sizing: border-box; padding: 24px 14px; min-height: 306px; background: #F8F8F8; border-radius: 10px"><img src="assets/townshare/value-chain-rebuilt.png" alt="rebuilt value chain" loading="lazy" style="width: 94.9%; aspect-ratio: 450/145; display: block; object-fit: contain"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #9F9F9F; text-align: center;letter-spacing:-0.03em">Value chain rebuilt with PayPal’s framework</p></div></div></div></sc-if><sc-if value="{{showRRew}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-direction: column; gap: 32px; width: 100%"><div style="display: flex; flex-direction: column; gap: 12px; width: 100%"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">HYPOTHESIS REWORK</p><h2 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 20px; line-height: 24px; color: #656565">Balancing impact and feasibility to narrow our research scope</h2><div class="ts-body" style="display: flex; flex-direction: column; gap: 16.8px; font-family: 'Instrument Sans', sans-serif; font-weight: 400; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em"><p style="margin: 0">Our mentor Judy pushed back: restaurants, cafes, and food banks were still too much for four weeks. Each of us pitched one stakeholder, plotted the ideas on an impact vs. feasibility grid, and dot-voted.</p></div></div><div class="ts-rework" style="display: flex; align-items: center; gap: 37px; width: 100%; box-sizing: border-box; padding: 57px 24px 57px 27px; background: #F8F8F8; border-radius: 10px"><img src="assets/townshare/impact-feasibility.png" alt="impact vs. feasibility grid" loading="lazy" style="flex: 0 1 561px; min-width: 0; aspect-ratio: 561/402; display: block; object-fit: contain"><div class="ts-hypcol" style="flex: 0 1 315px; display: flex; flex-direction: column; gap: 12px"><div class="ts-box" style="display: flex; flex-direction: column; gap: 8px; padding: 20px 25px; background: #F2F2F2; border-radius: 8px; text-align: center"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #9F9F9F;letter-spacing:-0.03em">OLD HYPOTHESIS</p><p style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; color: #9F9F9F">Better coordination between restaurants, food banks, and individuals/families will increase the amount of excess food that is redistributed while reducing waste.</p></div><div class="ts-callout" style="display: flex; flex-direction: column; gap: 8px; padding: 20px 25px; background: rgba(107, 173, 219, 0.05); border-radius: 8px; text-align: center"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 14.4px; color: #6BADDB;letter-spacing:-0.03em">NEW HYPOTHESIS</p><p style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 500; font-size: 16px; line-height: 24px; color: #6BADDB">Providing Oakland households with a straightforward, organized way to donate excess food to community fridges will increase food donations and reduce preventable household food waste.</p></div></div></div></div></sc-if><sc-if value="{{showRUser}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-direction: column; gap: 32px; width: 100%"><div style="display: flex; flex-direction: column; gap: 12px; width: 100%"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">USER RESEARCH</p><h2 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 20px; line-height: 24px; color: #656565">To test our assumptions, we interviewed users on how they handled excess food</h2><div class="ts-body" style="display: flex; flex-direction: column; gap: 16.8px; font-family: 'Instrument Sans', sans-serif; font-weight: 400; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em"><p style="margin: 0">We interviewed users 1-on-1 to gain insights into how they deal with or dispose of any extra food in their household, and then their experience around donating to community fridges.</p></div></div><div class="ts-ur" style="display: flex; align-items: center; gap: 12px; width: 100%"><div class="ts-ur-stats" style="flex: 0 0 308px; display: flex; flex-direction: column; gap: 10px"><div class="ts-stat" style="display: flex; flex-direction: column; justify-content: center; gap: 12px; box-sizing: border-box; padding: 36px; min-height: 146px; background: #F8F8F8; border-radius: 10px"><p style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 20px; line-height: 24px; color: #656565">14</p><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em">Oakland residents interviewd</p></div><div class="ts-stat" style="display: flex; flex-direction: column; justify-content: center; gap: 12px; box-sizing: border-box; padding: 36px; min-height: 146px; background: #F8F8F8; border-radius: 10px"><p style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 20px; line-height: 24px; color: #656565">3</p><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em">non-Oakland residents interviewed</p></div></div><div class="ts-ur-photos" style="flex: 1 1 0; min-width: 0; display: flex; justify-content: center; align-items: center; gap: 24px; box-sizing: border-box; padding: 36px; min-height: 302px; background: #F8F8F8; border-radius: 10px"><img src="assets/townshare/interview-1.png" alt="interview photo" loading="lazy" style="flex: 0 1 152px; min-width: 0; aspect-ratio: 152/228; border-radius: 8px; display: block; object-fit: cover"><img src="assets/townshare/interview-2.png" alt="interview photo" loading="lazy" style="flex: 0 1 260px; min-width: 0; aspect-ratio: 260/227; border-radius: 8px; display: block; object-fit: cover"></div></div><div class="ts-callout" style="width: 100%; box-sizing: border-box; padding: 20px 25px; background: rgba(107, 173, 219, 0.05); border-radius: 8px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; color: #6BADDB; text-align: center">Many knew about free fridges, but they hesitated to donate. They didn't know what was needed or even know how to donate.</div></div></sc-if><sc-if value="{{showRV1}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-direction: column; gap: 32px; width: 100%"><div style="display: flex; flex-direction: column; gap: 12px; width: 100%"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">V1 DESIGNS</p><h2 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 20px; line-height: 24px; color: #656565">Ran Crazy 8s, then realized we were designing without a clear “why”</h2><div class="ts-body" style="display: flex; flex-direction: column; gap: 16.8px; font-family: 'Instrument Sans', sans-serif; font-weight: 400; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em"><p style="margin: 0">Using AI and FigJam, we first synthesized our interviews by pulling out quotes, pain points and insights and grouping them by category. To explore those insights, we ran Crazy 8s and compared ideas across two teammates.</p><p style="margin: 0">Then we noticed we were designing solutions without defining the “why.” Instead of generating multiple solutions for one specific problem, we were forcing a single catch-all solution onto multiple problems at once.</p></div></div><div class="ts-row2" style="display: flex; gap: 16px; width: 100%"><div class="ts-imgcard" style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 13px; box-sizing: border-box; padding: 24px 14px; min-height: 339px; background: #F8F8F8; border-radius: 10px"><img src="assets/townshare/affinity-map.png" alt="affinity map" loading="lazy" style="width: 69.8%; aspect-ratio: 331/249; border-radius: 4px; display: block; object-fit: contain"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080; text-align: center;letter-spacing:-0.03em">Interview insights grouped by category</p></div><div class="ts-imgcard" style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px; box-sizing: border-box; padding: 24px 14px; min-height: 339px; background: #F8F8F8; border-radius: 10px"><img src="assets/townshare/crazy-8s.png" alt="Crazy 8s" loading="lazy" style="width: 86.9%; aspect-ratio: 412/205; border-radius: 4px; display: block; object-fit: contain"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080; text-align: center;letter-spacing:-0.03em">Crazy 8s compared across 2 teammates</p></div></div></div></sc-if><sc-if value="{{showRRes}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-direction: column; gap: 32px; width: 100%"><div style="display: flex; flex-direction: column; gap: 12px; width: 100%"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">RESYNTHESIZING</p><h2 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 20px; line-height: 24px; color: #656565">Re-synthesized our interviews into 9 themes and 1 core problem to find a "why"</h2><div class="ts-body" style="display: flex; flex-direction: column; gap: 16.8px; font-family: 'Instrument Sans', sans-serif; font-weight: 400; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em"><p style="margin: 0">So we pivoted backward to anchor our ideas in a core problem first. We synthesized the highs and lows from our interviews and affinity-mapped them into recurring themes. Out of nine themes, one stood out: a lack of centralized information.</p></div></div><div class="ts-stage ts-media" style="position: relative; width: 100%; aspect-ratio: 965 / 688; container-type: inline-size; overflow: hidden; background: rgb(254, 242, 251); border-radius: 10px"><div style="position: absolute; left: 4.663cqw; top: 38.238cqw; width: 32.021cqw; height: 28.705cqw; "><img src="assets/townshare/resynth-1.png" alt="sticky notes" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: contain"></div><div style="position: absolute; left: 43.834cqw; top: 3.005cqw; width: 25.389cqw; height: 20.933cqw; "><img src="assets/townshare/resynth-2.png" alt="sticky notes" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: contain"></div><div style="position: absolute; left: 73.057cqw; top: 9.948cqw; width: 21.969cqw; height: 21.969cqw; "><img src="assets/townshare/resynth-3.png" alt="sticky notes" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: contain"></div><div style="position: absolute; left: 43.420cqw; top: 48.497cqw; width: 23.938cqw; height: 17.202cqw; "><img src="assets/townshare/resynth-4.png" alt="sticky notes" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: contain"></div><div style="position: absolute; left: 7.979cqw; top: 4.041cqw; width: 14.093cqw; height: 11.710cqw; "><img src="assets/townshare/resynth-5.png" alt="sticky note" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: contain"></div><div style="position: absolute; left: 83.731cqw; top: 57.306cqw; width: 11.399cqw; height: 9.637cqw; "><img src="assets/townshare/resynth-6.png" alt="sticky note" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: contain"></div><div style="position: absolute; left: 16.062cqw; top: 12.746cqw; width: 25.492cqw; height: 23.212cqw; "><img src="assets/townshare/resynth-highlight.png" alt="highlight" loading="lazy" style="width: 100%; height: 100%; border-radius: 100px; display: block; object-fit: contain"></div><div style="position: absolute; left: 50.155cqw; top: 26.839cqw; width: 21.140cqw; height: 20.518cqw; "><img src="assets/townshare/resynth-8.png" alt="sticky notes" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: contain"></div><div style="position: absolute; left: 72.332cqw; top: 34.922cqw; width: 20.207cqw; height: 21.140cqw; "><img src="assets/townshare/resynth-9.png" alt="sticky notes" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: contain"></div></div><div class="ts-grid2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; width: 100%"><div class="ts-box" style="display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: 36px; background: #F8F8F8; border-radius: 10px"><h3 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 18px; line-height: 21.6px; color: #656565">Discovery</h3><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em">Finding information in the first place</p></div><div class="ts-box" style="display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: 36px; background: #F8F8F8; border-radius: 10px"><h3 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 18px; line-height: 21.6px; color: #656565">Real-time Status</h3><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em">Getting live up-to-date information</p></div><div class="ts-box" style="display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: 36px; background: #F8F8F8; border-radius: 10px"><h3 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 18px; line-height: 21.6px; color: #656565">Awareness</h3><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em">Knowing what resources even exist</p></div><div class="ts-box" style="display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: 36px; background: #F8F8F8; border-radius: 10px"><h3 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 18px; line-height: 21.6px; color: #656565">Donation Needs</h3><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em">Knowing what items are needed</p></div></div><div class="ts-callout" style="width: 100%; box-sizing: border-box; padding: 20px 25px; background: rgba(107, 173, 219, 0.05); border-radius: 8px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; color: #6BADDB; text-align: center">If first-time donors could see real-time fridge status, they'd feel confident enough to donate more often.</div></div></sc-if></div></section><section id="ts-ideation" style="display: flex; flex-direction: column; gap: 64px; width: 100%"><div style="display: flex; flex-direction: column; gap: 12px; width: 100%"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">[IDEATION]</p><h2 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 20px; line-height: 24px; color: #656565">Refined every step of Edna’s journey from mid-fi to hi-fi, guided by feedback and usability testing</h2><div class="ts-body" style="display: flex; flex-direction: column; gap: 16.8px; font-family: 'Instrument Sans', sans-serif; font-weight: 400; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em"><p style="margin: 0">Each round of feedback reshaped a moment in Edna’s journey. Follow her through the final flow and see how each step changed from its first version.</p></div></div><div style="display: flex; flex-direction: column; gap: 64px; width: 100%"><div class="ts-pills" role="group" aria-label="Filter"><div class="ts-pills-fixed"><button type="button" class="ts-pill" onClick="{{sAll.pick}}" aria-pressed="{{sAll.pressed}}" style="background: {{sAll.bg}}; color: {{sAll.fg}}; border: 1px solid {{sAll.bd}}">All</button><svg aria-hidden="true" width="3" height="33" viewBox="-1 -1 3 33" fill="none" style="flex: none"><line x1="0.5" x2="0.5" y2="31" stroke="#9F9F9F"></line></svg></div><div class="ts-pillrow-inner"><button type="button" class="ts-pill" onClick="{{s1.pick}}" aria-pressed="{{s1.pressed}}" style="background: {{s1.bg}}; color: {{s1.fg}}; border: 1px solid {{s1.bd}}">1</button><svg aria-hidden="true" width="9" height="9" viewBox="-1 -1 12 12" fill="none" style="flex: none"><path d="M0 4.66667H9.33333M4.66667 9.33333L9.33333 4.66667L4.66667 0" stroke="#6BADDB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg><button type="button" class="ts-pill" onClick="{{s2.pick}}" aria-pressed="{{s2.pressed}}" style="background: {{s2.bg}}; color: {{s2.fg}}; border: 1px solid {{s2.bd}}">2</button><svg aria-hidden="true" width="9" height="9" viewBox="-1 -1 12 12" fill="none" style="flex: none"><path d="M0 4.66667H9.33333M4.66667 9.33333L9.33333 4.66667L4.66667 0" stroke="#6BADDB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg><button type="button" class="ts-pill" onClick="{{s3.pick}}" aria-pressed="{{s3.pressed}}" style="background: {{s3.bg}}; color: {{s3.fg}}; border: 1px solid {{s3.bd}}">3</button><svg aria-hidden="true" width="9" height="9" viewBox="-1 -1 12 12" fill="none" style="flex: none"><path d="M0 4.66667H9.33333M4.66667 9.33333L9.33333 4.66667L4.66667 0" stroke="#6BADDB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg><button type="button" class="ts-pill" onClick="{{s4.pick}}" aria-pressed="{{s4.pressed}}" style="background: {{s4.bg}}; color: {{s4.fg}}; border: 1px solid {{s4.bd}}">4</button><svg aria-hidden="true" width="9" height="9" viewBox="-1 -1 12 12" fill="none" style="flex: none"><path d="M0 4.66667H9.33333M4.66667 9.33333L9.33333 4.66667L4.66667 0" stroke="#6BADDB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg><button type="button" class="ts-pill" onClick="{{s5.pick}}" aria-pressed="{{s5.pressed}}" style="background: {{s5.bg}}; color: {{s5.fg}}; border: 1px solid {{s5.bd}}">5</button><svg aria-hidden="true" width="9" height="9" viewBox="-1 -1 12 12" fill="none" style="flex: none"><path d="M0 4.66667H9.33333M4.66667 9.33333L9.33333 4.66667L4.66667 0" stroke="#6BADDB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg><button type="button" class="ts-pill" onClick="{{s6.pick}}" aria-pressed="{{s6.pressed}}" style="background: {{s6.bg}}; color: {{s6.fg}}; border: 1px solid {{s6.bd}}">6</button><svg aria-hidden="true" width="9" height="9" viewBox="-1 -1 12 12" fill="none" style="flex: none"><path d="M0 4.66667H9.33333M4.66667 9.33333L9.33333 4.66667L4.66667 0" stroke="#6BADDB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg><button type="button" class="ts-pill" onClick="{{s7.pick}}" aria-pressed="{{s7.pressed}}" style="background: {{s7.bg}}; color: {{s7.fg}}; border: 1px solid {{s7.bd}}">7</button><svg aria-hidden="true" width="9" height="9" viewBox="-1 -1 12 12" fill="none" style="flex: none"><path d="M0 4.66667H9.33333M4.66667 9.33333L9.33333 4.66667L4.66667 0" stroke="#6BADDB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg><button type="button" class="ts-pill" onClick="{{s8.pick}}" aria-pressed="{{s8.pressed}}" style="background: {{s8.bg}}; color: {{s8.fg}}; border: 1px solid {{s8.bd}}">8</button></div></div><sc-if value="{{showS1}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-direction: column; gap: 16px; width: 100%"><div style="display: flex; flex-direction: column; gap: 8px; width: 100%"><div style="display: flex; align-items: center; gap: 12px"><p style="margin: 0; flex: none; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">01</p><h3 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 18px; line-height: 21.6px; color: #656565">Edna finds a broken fridge, but reporting it means downloading the app first</h3></div><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em">Edna bikes over with extra corn, opens the fridge and finds it isn’t holding temperature. On the door is a flyer: “Help keep your community fridge up to date.”</p></div><div class="ts-ba-row" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%"><div style="flex: 0 1 458px; min-width: 0"><div class="ts-stage ts-ba" style="position: relative; width: 100%; aspect-ratio: 458 / 306; container-type: inline-size; overflow: hidden; background: #F8F8F8; border-radius: 10px"><div style="position: absolute; left: 86.463cqw; top: 3.057cqw; width: 15.284cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #C4C4C4;letter-spacing:-0.03em">BEFORE</p></div><div style="position: absolute; left: 9.607cqw; top: 8.297cqw; width: 39.083cqw; height: 50.000cqw; "><img src="assets/townshare/s1-qr-flyer.png" alt="QR flyer" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: contain"></div><div style="position: absolute; left: 51.747cqw; top: 33.406cqw; width: 13.319cqw; height: 13.319cqw; "><img src="assets/townshare/s1-app-store.png" alt="app store" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: contain"></div><div style="position: absolute; left: 51.747cqw; top: 50.437cqw; width: 40.611cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #808080; text-align: left;letter-spacing:-0.03em">Scanning the QR code brought you to app store to download our app</p></div></div></div><span class="ts-ba-arrow" style="display: flex"><svg aria-hidden="true" width="9" height="9" viewBox="-1 -1 12 12" fill="none" style="flex: none"><path d="M0 4.66667H9.33333M4.66667 9.33333L9.33333 4.66667L4.66667 0" stroke="#6BADDB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><div style="flex: 0 1 458px; min-width: 0"><div class="ts-stage ts-ba" style="position: relative; width: 100%; aspect-ratio: 458 / 306; container-type: inline-size; overflow: hidden; background: #F8F8F8; border-radius: 10px"><div style="position: absolute; left: 88.210cqw; top: 3.057cqw; width: 15.284cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #C4C4C4;letter-spacing:-0.03em">AFTER</p></div><div style="position: absolute; left: 9.607cqw; top: 8.297cqw; width: 39.083cqw; height: 50.000cqw; "><img src="assets/townshare/s1-qr-flyer.png" alt="QR flyer" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: contain"></div><div style="position: absolute; left: 51.747cqw; top: 33.406cqw; width: 13.319cqw; height: 13.319cqw; "><img src="assets/townshare/s1-townshare.png" alt="TownShare" loading="lazy" style="width: 100%; height: 100%; border-radius: 8px; display: block; object-fit: contain"></div><div style="position: absolute; left: 51.747cqw; top: 50.437cqw; width: 40.611cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #808080; text-align: left;letter-spacing:-0.03em">Scanning the QR code now lands straight on fridge. No downlaod.</p></div></div></div></div><div class="ts-callout" style="width: 100%; box-sizing: border-box; padding: 20px 25px; background: rgba(107, 173, 219, 0.05); border-radius: 8px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; color: #6BADDB; text-align: center">WHY: <strong style="font-weight: 500">The app download was an extra barrier, so we met Edna where she already was: at the fridge.</strong></div></div></sc-if><sc-if value="{{showS2}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-direction: column; gap: 16px; width: 100%"><div style="display: flex; flex-direction: column; gap: 8px; width: 100%"><div style="display: flex; align-items: center; gap: 12px"><p style="margin: 0; flex: none; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">02</p><h3 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 18px; line-height: 21.6px; color: #656565">She can't tell at a glance if a fridge is worth the trip</h3></div><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em">TownShare shows her that someone already reported the problem before she got there. The fridge was open and clean, but only half full and malfunctioning. She is frustrated that she can't donate after biking all the way over there.</p></div><div class="ts-ba-row" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%"><div style="flex: 0 1 458px; min-width: 0"><div class="ts-stage ts-ba" style="position: relative; width: 100%; aspect-ratio: 458 / 306; container-type: inline-size; overflow: hidden; background: #F8F8F8; border-radius: 10px"><div style="position: absolute; left: 86.463cqw; top: 3.057cqw; width: 15.284cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #C4C4C4;letter-spacing:-0.03em">BEFORE</p></div><div style="position: absolute; left: 9.607cqw; top: 12.445cqw; width: 39.956cqw; height: 54.148cqw; display: flex; align-items: flex-end; justify-content: center;"><img src="assets/townshare/s2-before.png" alt="before screen" loading="lazy" style="max-width: 100%; max-height: 100%; border-radius: 12px 12px 0 0; display: block"></div><div style="position: absolute; left: 53.275cqw; top: 50.437cqw; width: 40.611cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #808080; text-align: left;letter-spacing:-0.03em">Status only explained if fridge was active and it's fullness.</p></div></div></div><span class="ts-ba-arrow" style="display: flex"><svg aria-hidden="true" width="9" height="9" viewBox="-1 -1 12 12" fill="none" style="flex: none"><path d="M0 4.66667H9.33333M4.66667 9.33333L9.33333 4.66667L4.66667 0" stroke="#6BADDB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><div style="flex: 0 1 458px; min-width: 0"><div class="ts-stage ts-ba" style="position: relative; width: 100%; aspect-ratio: 458 / 306; container-type: inline-size; overflow: hidden; background: #F8F8F8; border-radius: 10px"><div style="position: absolute; left: 88.210cqw; top: 3.057cqw; width: 15.284cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #C4C4C4;letter-spacing:-0.03em">AFTER</p></div><div style="position: absolute; left: 9.607cqw; top: 12.445cqw; width: 39.956cqw; height: 54.148cqw; display: flex; align-items: flex-end; justify-content: center;"><img src="assets/townshare/s2-after.png" alt="after screen" loading="lazy" style="max-width: 100%; max-height: 100%; border-radius: 12px 12px 0 0; display: block"></div><div style="position: absolute; left: 53.275cqw; top: 50.437cqw; width: 40.611cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #808080; text-align: left;letter-spacing:-0.03em">Four status pills up top: open, cleanliness, fullness and function.</p></div></div></div></div><div class="ts-callout" style="width: 100%; box-sizing: border-box; padding: 20px 25px; background: rgba(107, 173, 219, 0.05); border-radius: 8px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; color: #6BADDB; text-align: center">WHY: <strong style="font-weight: 500">People hesitated because they couldn’t tell a fridge’s state. Pills answer “Is it worth my trip?” at a glance.</strong></div></div></sc-if><sc-if value="{{showS3}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-direction: column; gap: 16px; width: 100%"><div style="display: flex; flex-direction: column; gap: 8px; width: 100%"><div style="display: flex; align-items: center; gap: 12px"><p style="margin: 0; flex: none; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">03</p><h3 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 18px; line-height: 21.6px; color: #656565">The fridge is broken and she still has corn, but nowhere else to go</h3></div><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em">She puts in her location and sees Castlemont Freedge which is a bikeable distance away. It's also open, clean, working, and stocked 2 hours ago.</p></div><div class="ts-ba-row" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%"><div style="flex: 0 1 458px; min-width: 0"><div class="ts-stage ts-ba" style="position: relative; width: 100%; aspect-ratio: 458 / 306; container-type: inline-size; overflow: hidden; background: #F8F8F8; border-radius: 10px"><div style="position: absolute; left: 86.463cqw; top: 3.057cqw; width: 15.284cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #C4C4C4;letter-spacing:-0.03em">BEFORE</p></div><div style="position: absolute; left: 9.607cqw; top: 12.227cqw; width: 39.956cqw; height: 54.803cqw; display: flex; align-items: flex-end; justify-content: center;"><img src="assets/townshare/s3-s4-before.png" alt="before screen" loading="lazy" style="max-width: 100%; max-height: 100%; border-radius: 12px 12px 0 0; display: block"></div><div style="position: absolute; left: 53.275cqw; top: 47.380cqw; width: 40.611cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #808080; text-align: left;letter-spacing:-0.03em">She's stuck at a broken fridge because the app only allows you to set a '"home" fridge.</p></div></div></div><span class="ts-ba-arrow" style="display: flex"><svg aria-hidden="true" width="9" height="9" viewBox="-1 -1 12 12" fill="none" style="flex: none"><path d="M0 4.66667H9.33333M4.66667 9.33333L9.33333 4.66667L4.66667 0" stroke="#6BADDB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><div style="flex: 0 1 458px; min-width: 0"><div class="ts-stage ts-ba" style="position: relative; width: 100%; aspect-ratio: 458 / 306; container-type: inline-size; overflow: hidden; background: #F8F8F8; border-radius: 10px"><div style="position: absolute; left: 88.210cqw; top: 3.057cqw; width: 15.284cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #C4C4C4;letter-spacing:-0.03em">AFTER</p></div><div style="position: absolute; left: 9.607cqw; top: 12.227cqw; width: 39.956cqw; height: 54.803cqw; display: flex; align-items: flex-end; justify-content: center;"><img src="assets/townshare/s3-after.png" alt="after screen" loading="lazy" style="max-width: 100%; max-height: 100%; border-radius: 12px 12px 0 0; display: block"></div><div style="position: absolute; left: 53.275cqw; top: 50.655cqw; width: 40.611cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #808080; text-align: left;letter-spacing:-0.03em">She searches by location and compares nearby fridges by status.</p></div></div></div></div><div class="ts-callout" style="width: 100%; box-sizing: border-box; padding: 20px 25px; background: rgba(107, 173, 219, 0.05); border-radius: 8px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; color: #6BADDB; text-align: center">WHY: <strong style="font-weight: 500">A broken fridge shouldn’t end a donation. She needs the next closest one.</strong></div></div></sc-if><sc-if value="{{showS4}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-direction: column; gap: 16px; width: 100%"><div style="display: flex; flex-direction: column; gap: 8px; width: 100%"><div style="display: flex; align-items: center; gap: 12px"><p style="margin: 0; flex: none; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">04</p><h3 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 18px; line-height: 21.6px; color: #656565">At first, she isn't sure what the fridge accepts</h3></div><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em">Each fridge page shows what it accepts and its rules.</p></div><div class="ts-ba-row" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%"><div style="flex: 0 1 458px; min-width: 0"><div class="ts-stage ts-ba" style="position: relative; width: 100%; aspect-ratio: 458 / 306; container-type: inline-size; overflow: hidden; background: #F8F8F8; border-radius: 10px"><div style="position: absolute; left: 86.463cqw; top: 3.057cqw; width: 15.284cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #C4C4C4;letter-spacing:-0.03em">BEFORE</p></div><div style="position: absolute; left: 9.607cqw; top: 12.009cqw; width: 39.956cqw; height: 54.803cqw; display: flex; align-items: flex-end; justify-content: center;"><img src="assets/townshare/s3-s4-before.png" alt="before screen" loading="lazy" style="max-width: 100%; max-height: 100%; border-radius: 12px 12px 0 0; display: block"></div><div style="position: absolute; left: 53.275cqw; top: 47.380cqw; width: 40.611cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #808080; text-align: left;letter-spacing:-0.03em">Community guidelines are hidden underneath Rules. Overcrowded text on surface as well.</p></div></div></div><span class="ts-ba-arrow" style="display: flex"><svg aria-hidden="true" width="9" height="9" viewBox="-1 -1 12 12" fill="none" style="flex: none"><path d="M0 4.66667H9.33333M4.66667 9.33333L9.33333 4.66667L4.66667 0" stroke="#6BADDB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><div style="flex: 0 1 458px; min-width: 0"><div class="ts-stage ts-ba" style="position: relative; width: 100%; aspect-ratio: 458 / 306; container-type: inline-size; overflow: hidden; background: #F8F8F8; border-radius: 10px"><div style="position: absolute; left: 88.210cqw; top: 3.057cqw; width: 15.284cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #C4C4C4;letter-spacing:-0.03em">AFTER</p></div><div style="position: absolute; left: 8.515cqw; top: 12.009cqw; width: 39.956cqw; height: 54.803cqw; display: flex; align-items: flex-end; justify-content: center;"><img src="assets/townshare/s4-after.png" alt="after screen" loading="lazy" style="max-width: 100%; max-height: 100%; border-radius: 12px 12px 0 0; display: block"></div><div style="position: absolute; left: 53.275cqw; top: 50.437cqw; width: 40.611cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #808080; text-align: left;letter-spacing:-0.03em">Each guideline sits individually and is given context to click into.</p></div></div></div></div><div class="ts-callout" style="width: 100%; box-sizing: border-box; padding: 20px 25px; background: rgba(107, 173, 219, 0.05); border-radius: 8px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; color: #6BADDB; text-align: center">WHY: <strong style="font-weight: 500">Residents didn’t know what was needed. Guidelines give first-time donors confidence.</strong></div></div></sc-if><sc-if value="{{showS5}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-direction: column; gap: 16px; width: 100%"><div style="display: flex; flex-direction: column; gap: 8px; width: 100%"><div style="display: flex; align-items: center; gap: 12px"><p style="margin: 0; flex: none; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">05</p><h3 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 18px; line-height: 21.6px; color: #656565">Updating the fridge takes too many steps after a long bike ride</h3></div><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em">At Castlemont she drops off her corn and taps “Update me.” How clean is it? Clean. How full? Pretty full. Is it functioning? Yes.</p></div><div class="ts-ba-row" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%"><div style="flex: 0 1 458px; min-width: 0"><div class="ts-stage ts-ba" style="position: relative; width: 100%; aspect-ratio: 458 / 306; container-type: inline-size; overflow: hidden; background: #F8F8F8; border-radius: 10px"><div style="position: absolute; left: 86.463cqw; top: 3.057cqw; width: 15.284cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #C4C4C4;letter-spacing:-0.03em">BEFORE</p></div><div style="position: absolute; left: 8.079cqw; top: 12.227cqw; width: 39.956cqw; height: 54.803cqw; display: flex; align-items: flex-end; justify-content: center;"><img src="assets/townshare/s5-before-1.png" alt="before screen" loading="lazy" style="max-width: 100%; max-height: 100%; border-radius: 12px 12px 0 0; display: block"></div><div style="position: absolute; left: 51.747cqw; top: 12.227cqw; width: 39.956cqw; height: 54.803cqw; display: flex; align-items: flex-end; justify-content: center;"><img src="assets/townshare/s5-before-2.png" alt="before screen" loading="lazy" style="max-width: 100%; max-height: 100%; border-radius: 12px 12px 0 0; display: block"></div><div style="position: absolute; left: 22.052cqw; top: 5.240cqw; width: 55.895cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #808080; text-align: left;letter-spacing:-0.03em">Usability testing revealed questions felt repetitive</p></div></div></div><span class="ts-ba-arrow" style="display: flex"><svg aria-hidden="true" width="9" height="9" viewBox="-1 -1 12 12" fill="none" style="flex: none"><path d="M0 4.66667H9.33333M4.66667 9.33333L9.33333 4.66667L4.66667 0" stroke="#6BADDB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><div style="flex: 0 1 458px; min-width: 0"><div class="ts-stage ts-ba" style="position: relative; width: 100%; aspect-ratio: 458 / 306; container-type: inline-size; overflow: hidden; background: #F8F8F8; border-radius: 10px"><div style="position: absolute; left: 88.210cqw; top: 3.057cqw; width: 15.284cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #C4C4C4;letter-spacing:-0.03em">AFTER</p></div><div style="position: absolute; left: 8.515cqw; top: 12.227cqw; width: 39.956cqw; height: 54.803cqw; display: flex; align-items: flex-end; justify-content: center;"><img src="assets/townshare/s5-after.png" alt="after screen" loading="lazy" style="max-width: 100%; max-height: 100%; border-radius: 12px 12px 0 0; display: block"></div><div style="position: absolute; left: 53.275cqw; top: 53.712cqw; width: 40.611cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #808080; text-align: left;letter-spacing:-0.03em">3 simple questions, 3 taps.</p></div></div></div></div><div class="ts-callout" style="width: 100%; box-sizing: border-box; padding: 20px 25px; background: rgba(107, 173, 219, 0.05); border-radius: 8px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; color: #6BADDB; text-align: center">WHY: <strong style="font-weight: 500">Status only stays real-time if updating takes seconds.</strong></div></div></sc-if><sc-if value="{{showS6}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-direction: column; gap: 16px; width: 100%"><div style="display: flex; flex-direction: column; gap: 8px; width: 100%"><div style="display: flex; align-items: center; gap: 12px"><p style="margin: 0; flex: none; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">06</p><h3 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 18px; line-height: 21.6px; color: #656565">Her update can’t show what she donated and what she has to say</h3></div><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em">She uploads a photo of her corn from her gallery and writes, “Biked here just now! Decided to drop off some corn and organize it a bit.”</p></div><div class="ts-ba-row" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%"><div style="flex: 0 1 458px; min-width: 0"><div class="ts-stage ts-ba" style="position: relative; width: 100%; aspect-ratio: 458 / 306; container-type: inline-size; overflow: hidden; background: #F8F8F8; border-radius: 10px"><div style="position: absolute; left: 86.463cqw; top: 3.057cqw; width: 15.284cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #C4C4C4;letter-spacing:-0.03em">BEFORE</p></div><div style="position: absolute; left: 9.607cqw; top: 12.009cqw; width: 39.956cqw; height: 54.803cqw; display: flex; align-items: flex-end; justify-content: center;"><img src="assets/townshare/s6-before.png" alt="before screen" loading="lazy" style="max-width: 100%; max-height: 100%; border-radius: 12px 12px 0 0; display: block"></div><div style="position: absolute; left: 53.275cqw; top: 50.437cqw; width: 40.611cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #808080; text-align: left;letter-spacing:-0.03em">Describe what you bring with preset pills you can pick up from.</p></div></div></div><span class="ts-ba-arrow" style="display: flex"><svg aria-hidden="true" width="9" height="9" viewBox="-1 -1 12 12" fill="none" style="flex: none"><path d="M0 4.66667H9.33333M4.66667 9.33333L9.33333 4.66667L4.66667 0" stroke="#6BADDB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><div style="flex: 0 1 458px; min-width: 0"><div class="ts-stage ts-ba" style="position: relative; width: 100%; aspect-ratio: 458 / 306; container-type: inline-size; overflow: hidden; background: #F8F8F8; border-radius: 10px"><div style="position: absolute; left: 88.210cqw; top: 3.057cqw; width: 15.284cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #C4C4C4;letter-spacing:-0.03em">AFTER</p></div><div style="position: absolute; left: 9.607cqw; top: 12.009cqw; width: 39.956cqw; height: 54.803cqw; display: flex; align-items: flex-end; justify-content: center;"><img src="assets/townshare/s6-after.png" alt="after screen" loading="lazy" style="max-width: 100%; max-height: 100%; border-radius: 12px 12px 0 0; display: block"></div><div style="position: absolute; left: 53.275cqw; top: 50.437cqw; width: 40.611cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #808080; text-align: left;letter-spacing:-0.03em">More autonomy over describing your purpose of visit.</p></div></div></div></div><div class="ts-callout" style="width: 100%; box-sizing: border-box; padding: 20px 25px; background: rgba(107, 173, 219, 0.05); border-radius: 8px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; color: #6BADDB; text-align: center">WHY: <strong style="font-weight: 500">Photos show what was donated and what the fridge really looks like and captions provide equal access for individuals.</strong></div></div></sc-if><sc-if value="{{showS7}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-direction: column; gap: 16px; width: 100%"><div style="display: flex; flex-direction: column; gap: 8px; width: 100%"><div style="display: flex; align-items: center; gap: 12px"><p style="margin: 0; flex: none; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">07</p><h3 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 18px; line-height: 21.6px; color: #656565">Her donation ends on a dead-end “thank you”</h3></div><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em">A thank-you receipt pops up and prompts her to check out her contribution. She sees her update alongside her neighbors’ posts.</p></div><div class="ts-ba-row" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%"><div style="flex: 0 1 458px; min-width: 0"><div class="ts-stage ts-ba" style="position: relative; width: 100%; aspect-ratio: 458 / 306; container-type: inline-size; overflow: hidden; background: #F8F8F8; border-radius: 10px"><div style="position: absolute; left: 86.463cqw; top: 3.057cqw; width: 15.284cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #C4C4C4;letter-spacing:-0.03em">BEFORE</p></div><div style="position: absolute; left: 9.607cqw; top: 12.009cqw; width: 39.956cqw; height: 54.803cqw; display: flex; align-items: flex-end; justify-content: center;"><img src="assets/townshare/s7-before.png" alt="before screen" loading="lazy" style="max-width: 100%; max-height: 100%; border-radius: 12px 12px 0 0; display: block"></div><div style="position: absolute; left: 53.275cqw; top: 50.437cqw; width: 40.611cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #808080; text-align: left;letter-spacing:-0.03em">A simple “Thank you for submitting” that ended the flow.</p></div></div></div><span class="ts-ba-arrow" style="display: flex"><svg aria-hidden="true" width="9" height="9" viewBox="-1 -1 12 12" fill="none" style="flex: none"><path d="M0 4.66667H9.33333M4.66667 9.33333L9.33333 4.66667L4.66667 0" stroke="#6BADDB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><div style="flex: 0 1 458px; min-width: 0"><div class="ts-stage ts-ba" style="position: relative; width: 100%; aspect-ratio: 458 / 306; container-type: inline-size; overflow: hidden; background: #F8F8F8; border-radius: 10px"><div style="position: absolute; left: 88.210cqw; top: 3.057cqw; width: 15.284cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #C4C4C4;letter-spacing:-0.03em">AFTER</p></div><div style="position: absolute; left: 9.607cqw; top: 12.009cqw; width: 39.956cqw; height: 54.803cqw; display: flex; align-items: flex-end; justify-content: center;"><img src="assets/townshare/s7-after.png" alt="after screen" loading="lazy" style="max-width: 100%; max-height: 100%; border-radius: 12px 12px 0 0; display: block"></div><div style="position: absolute; left: 53.275cqw; top: 50.437cqw; width: 40.611cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.620cqw); line-height: 1.2; color: #808080; text-align: left;letter-spacing:-0.03em">The receipt links straight to her update in the community feed.</p></div></div></div></div><div class="ts-callout" style="width: 100%; box-sizing: border-box; padding: 20px 25px; background: rgba(107, 173, 219, 0.05); border-radius: 8px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; color: #6BADDB; text-align: center">WHY: <strong style="font-weight: 500">Feeling her impact is what brings Edna back to donate again.</strong></div></div></sc-if><sc-if value="{{showS8}}" hint-placeholder-val="{{true}}"><div style="display: flex; flex-direction: column; gap: 16px; width: 100%"><div style="display: flex; flex-direction: column; gap: 8px; width: 100%"><div style="display: flex; align-items: center; gap: 12px"><p style="margin: 0; flex: none; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">08</p><h3 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 18px; line-height: 21.6px; color: #656565">Features we left out</h3></div><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em">Not every idea made it into Edna’s day, but these would definitely be future steps we'd consider.</p></div><div class="ts-ba-row ts-ba-cut" style="display: flex; align-items: center; gap: 16px; width: 100%"><div style="flex: 1 1 0; min-width: 0"><div class="ts-stage ts-ba" style="position: relative; width: 100%; aspect-ratio: 474 / 306; container-type: inline-size; overflow: hidden; background: #F8F8F8; border-radius: 10px"><div style="position: absolute; left: 91.983cqw; top: 2.954cqw; width: 8.439cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.532cqw); line-height: 1.2; color: #C4C4C4;letter-spacing:-0.03em">CUT</p></div><div style="position: absolute; left: 14.135cqw; top: 16.245cqw; width: 71.730cqw; height: 32.068cqw; "><img src="assets/townshare/cut-streaks.png" alt="streaks screen" loading="lazy" style="width: 100%; height: 100%; border-radius: 12px; display: block; object-fit: contain"></div><div style="position: absolute; left: 25.949cqw; top: 50.844cqw; width: 48.101cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.532cqw); line-height: 1.2; color: #808080; text-align: center;letter-spacing:-0.03em">Streaks to incentivize users to donate more!</p></div></div></div><div style="flex: 1 1 0; min-width: 0"><div class="ts-stage ts-ba" style="position: relative; width: 100%; aspect-ratio: 474 / 306; container-type: inline-size; overflow: hidden; background: #F8F8F8; border-radius: 10px"><div style="position: absolute; left: 91.983cqw; top: 2.954cqw; width: 8.439cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.532cqw); line-height: 1.2; color: #C4C4C4;letter-spacing:-0.03em">CUT</p></div><div style="position: absolute; left: 17.511cqw; top: 16.456cqw; width: 65.190cqw; height: 31.857cqw; "><img src="assets/townshare/cut-notifications.png" alt="notifications screen" loading="lazy" style="width: 100%; height: 100%; border-radius: 12px; display: block; object-fit: contain"></div><div style="position: absolute; left: 20.886cqw; top: 50.844cqw; width: 58.017cqw;  "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: max(10px, 2.532cqw); line-height: 1.2; color: #808080; text-align: center;letter-spacing:-0.03em">Notifications for real-time alerts and shared updates!</p></div></div></div></div><div class="ts-callout" style="width: 100%; box-sizing: border-box; padding: 20px 25px; background: rgba(107, 173, 219, 0.05); border-radius: 8px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; color: #6BADDB; text-align: center">WHY: <strong style="font-weight: 500">Streaks, badges, and notifications needed an app download, so we cut them to keep the flow fast.</strong></div></div></sc-if></div></section><section id="ts-solution2" style="display: flex; flex-direction: column; gap: 32px; width: 100%"><div style="display: flex; flex-direction: column; gap: 12px; width: 100%"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">[SOLUTION]</p><h2 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 20px; line-height: 24px; color: #656565">From a broken fridge to a fresh donation: the final TownShare flow</h2><div class="ts-body" style="display: flex; flex-direction: column; gap: 16.8px; font-family: 'Instrument Sans', sans-serif; font-weight: 400; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em"><p style="margin: 0">Scan, check, find, update, share. After five rounds of iteration, here’s Edna’s full journey.</p></div></div><video class="ts-media" src="assets/townshare/overview.mov" autoplay muted loop playsinline preload="auto" aria-label="final TownShare flow" style="width: 100%; aspect-ratio: 964/542; border-radius: 10px; display: block; object-fit: cover"></video></section><section id="ts-impact" style="display: flex; flex-direction: column; gap: 16px; width: 100%; padding-bottom: 64px"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">[IMPACT]</p><div class="ts-impact-row" style="display: flex; align-items: center; justify-content: center; gap: 16px; width: 100%"><div style="flex: 0 0 333px; display: flex; flex-direction: column; gap: 16px"><div class="ts-box" style="display: flex; flex-direction: column; gap: 16px; box-sizing: border-box; min-height: 144px; padding: 24px 25px 20px; background: #F5F5F5; border-radius: 8px"><div style="display: flex; align-items: center; gap: 12px"><img src="assets/townshare/impact-metrics.png" alt="impact icon" loading="lazy" style="flex: none; width: 35px; height: 34px; display: block; object-fit: contain"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 16.8px; color: #656565;letter-spacing:-0.03em">Metrics</p></div><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080;letter-spacing:-0.03em">20 out of 20 cohort members said they would use this product!</p></div><div class="ts-box" style="display: flex; flex-direction: column; gap: 16px; box-sizing: border-box; min-height: 144px; padding: 24px 25px 20px; background: #F5F5F5; border-radius: 8px"><div style="display: flex; align-items: center; gap: 12px"><img src="assets/townshare/icon.png" alt="TownShare icon" loading="lazy" style="flex: none; width: 30px; height: 38px; display: block; object-fit: contain"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 16.8px; color: #656565;letter-spacing:-0.03em">Takeaways</p></div><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080;letter-spacing:-0.03em">Learning to narrow our focus earlier. Nonetheless, each pivot taught us something new.</p></div><div class="ts-box" style="display: flex; flex-direction: column; gap: 16px; box-sizing: border-box; min-height: 144px; padding: 24px 25px 20px; background: #F5F5F5; border-radius: 8px"><div style="display: flex; align-items: center; gap: 12px"><img src="assets/townshare/impact-next.png" alt="next steps icon" loading="lazy" style="flex: none; width: 33px; height: 37px; display: block; object-fit: contain"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 16.8px; color: #656565;letter-spacing:-0.03em">Next Steps</p></div><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080;letter-spacing:-0.03em">A year-one pilot goal of 2 fridges and 20 volunteer stewards. Revising and expanding app on Lovable.</p></div></div><iframe src="assets/townshare/imessage.html" title="interactive iMessage chat" loading="lazy" style="flex: 1 1 615px; min-width: 0; height: 464px; border-radius: 10px; display: block; border: 0"></iframe></div></section>
-</div>
-</main>
-</div>
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":11400}}'>
+.logo-stamp:focus-visible{outline:2px solid var(--ts);outline-offset:4px}
 
-class Component extends DCLogic {
-  constructor(props) {
-    super(props);
-    this.state = { r: 'all', s: 'all', active: 0 };
-    this.sections = ['ts-overview', 'ts-context', 'ts-problem', 'ts-solution', 'ts-research', 'ts-ideation', 'ts-solution2', 'ts-impact'];
-  }
-  componentDidMount() {
-    this.ticking = false;
-    this.onScroll = () => {
-      if (this.ticking) return;
-      this.ticking = true;
-      requestAnimationFrame(() => {
-        this.ticking = false;
-        const line = window.innerHeight * 0.4;
-        let idx = 0;
-        this.sections.forEach((id, i) => {
-          const el = document.getElementById(id);
-          if (el && el.getBoundingClientRect().top <= line) idx = i;
-        });
-        if (idx !== this.state.active) this.setState({ active: idx });
-      });
-    };
-    window.addEventListener('scroll', this.onScroll, { passive: true });
-    window.addEventListener('resize', this.onScroll);
-    this.onScroll();
-  }
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.onScroll);
-    window.removeEventListener('resize', this.onScroll);
-  }
-  goTo(i, e) {
-    if (e && e.preventDefault) e.preventDefault();
-    const el = document.getElementById(this.sections[i]);
-    if (el) {
-      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-    }
-  }
-  renderVals() {
-    const st = this.state;
-    const pill = (group, value) => {
-      const on = st[group] === value;
-      return {
-        pick: () => this.setState({ [group]: value }),
-        pressed: on ? 'true' : 'false',
-        bg: on ? 'rgba(107, 173, 219, 0.19)' : 'rgb(243, 243, 241)',
-        fg: on ? 'rgb(107, 173, 219)' : 'rgb(159, 159, 159)',
-        bd: on ? '#6BADDB' : '#9F9F9F'
-      };
-    };
-    const show = (group, value) => st[group] === 'all' || st[group] === value;
-    const navItem = (i) => {
-      const d = Math.abs(i - st.active);
-      return {
-        w: d === 0 ? 24 : d === 1 ? 20 : d === 2 ? 18 : 16,
-        op: d === 0 ? 1 : 0,
-        cur: d === 0 ? 'true' : 'false',
-        go: (e) => this.goTo(i, e)
-      };
-    };
-    const v = {
-      rAll: pill('r', 'all'), rHyp: pill('r', 'hyp'), rRew: pill('r', 'rew'), rUser: pill('r', 'user'), rV1: pill('r', 'v1'), rRes: pill('r', 'res'),
-      showRHyp: show('r', 'hyp'), showRRew: show('r', 'rew'), showRUser: show('r', 'user'), showRV1: show('r', 'v1'), showRRes: show('r', 'res'),
-      sAll: pill('s', 'all')
-    };
-    for (let i = 1; i <= 8; i++) { v['s' + i] = pill('s', String(i)); v['showS' + i] = show('s', String(i)); }
-    ['navOverview', 'navContext', 'navProblem', 'navSolution', 'navResearch', 'navIdeation', 'navSolution2', 'navImpact']
-      .forEach((k, i) => { v[k] = navItem(i); });
-    return v;
-  }
+/* side nav: a short line per section, the current one longer with its label */
+.cs-nav{position:fixed;left:20px;top:50%;transform:translateY(-50%);z-index:5;display:flex;flex-direction:column;gap:4px}
+.cs-nav a{display:flex;align-items:center;gap:12px;height:16px;padding:4px 0;text-decoration:none;color:var(--text);font-family:"Schoolbell",cursive;font-size:12px}
+.cs-nav a i{display:block;width:16px;height:1px;background:#959595;transition:width .25s ease}
+.cs-nav a span{opacity:0;white-space:nowrap;transition:opacity .25s ease}
+.cs-nav a:hover span,.cs-nav a[aria-current="true"] span{opacity:1}
+.cs-nav a[aria-current="true"] i{width:24px;background:var(--text)}
+.cs-nav a:focus-visible{outline:2px solid var(--ts);outline-offset:2px}
+
+.cs{max-width:1028px;margin:0 auto;padding:96px 32px 120px}
+.cs-section{padding-top:120px;scroll-margin-top:24px}
+
+/* type */
+.eyebrow{display:flex;align-items:center;gap:4px;margin-bottom:16px;font-weight:500;font-size:11px;line-height:1.2;letter-spacing:.06em;text-transform:uppercase;color:var(--ts-ink)}
+.eyebrow::before{content:"["}
+.eyebrow::after{content:"]"}
+h1,h2,h3{margin:0;font-family:var(--helvetica-neue);font-weight:400;color:var(--text-strong)}
+h1{font-size:44px;line-height:1.08;letter-spacing:-0.035em;max-width:760px}
+h2{font-size:30px;line-height:1.15;letter-spacing:-0.03em;max-width:720px}
+h3{font-size:19px;line-height:1.3;letter-spacing:-0.02em}
+.lead{max-width:640px;margin-top:20px;font-size:17px;line-height:1.55;color:var(--text)}
+.prose{max-width:640px;display:flex;flex-direction:column;gap:14px;font-size:15px;line-height:1.6}
+.prose strong,.lead strong{font-weight:500;color:var(--text-strong)}
+.small{font-size:13px;line-height:1.5}
+.caption{margin-top:10px;font-size:12px;line-height:1.4;color:var(--text-muted)}
+.tag{display:inline-block;padding:3px 8px;border-radius:2px;font-weight:500;font-size:10px;line-height:1.2;letter-spacing:.06em;text-transform:uppercase}
+.tag.before{background:var(--surface-sunken);color:var(--text-muted)}
+.tag.after{background:var(--ts-wash);color:var(--ts-ink)}
+
+/* surfaces */
+.tile{background:var(--surface);border:1px solid #ececec;border-radius:var(--radius-md)}
+.shot{display:flex;align-items:center;justify-content:center;padding:28px;background:var(--surface);border:1px solid #ececec;border-radius:var(--radius-md);overflow:hidden}
+.shot img{max-height:420px;width:auto;object-fit:contain}
+.figure-wide img{width:100%;height:auto;border-radius:var(--radius-sm)}
+
+/* hero */
+/* hero bento from the original case study: tiles placed in % of its width (cqw) */
+.ts-media{outline:1px solid #ececec;outline-offset:-1px}
+.hero-row{display:flex;align-items:flex-end;gap:32px;margin-bottom:40px}
+.hero-row .hero-art{flex:0 1 747px;min-width:0;margin:0}
+.hero-meta{flex:1 1 0;min-width:180px;display:flex;flex-direction:column;gap:24px}
+.hero-logo{width:100%;max-width:220px;height:auto}
+.facts{margin:0;display:flex;flex-direction:column;gap:18px}
+.facts dt{margin-bottom:4px;font-weight:400;font-size:11px;line-height:normal;letter-spacing:-0.03em;text-transform:uppercase;color:var(--text-label)}
+.facts dd{margin:0;font-size:14px;line-height:1.45;color:var(--text-strong)}
+.role-btn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;margin-left:8px;vertical-align:middle;border:1px solid #e2e2e2;border-radius:4px;background:#fff;color:var(--text-strong);cursor:pointer;transition:transform .2s,border-color .2s,color .2s}
+.role-btn:hover,.role-btn[aria-expanded="true"]{border-color:var(--ts)}
+.role-btn .ic{display:flex}
+.role-btn:focus-visible{outline:2px solid var(--ts);outline-offset:2px}
+.role-pop{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(250,250,250,.55);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);opacity:0;transition:opacity .25s ease}
+.role-pop[hidden]{display:none}
+.role-pop.open{opacity:1}
+@media (prefers-reduced-motion:reduce){.role-pop,.role,.role li,.role .aside{transition:none}.role .squiggle path,.role .chk path{stroke-dashoffset:0;animation:none!important}}
+.role{position:relative;width:min(520px,100%);max-height:calc(100vh - 48px);overflow:auto;padding:40px 40px 32px;background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 24px 60px rgba(38,38,38,.12);transform-origin:var(--ox,50%) var(--oy,0);transform:scale(.2) rotate(-6deg);opacity:0;transition:transform .45s cubic-bezier(.2,.9,.25,1.15),opacity .25s ease}
+.role-pop.open .role{transform:rotate(-1deg);opacity:1}
+.role-x{position:absolute;top:14px;right:14px;width:30px;height:30px;border:0;border-radius:4px;background:transparent;font-size:20px;line-height:1;color:var(--text-label);cursor:pointer}
+.role-x:hover{background:#f4f4f4;color:var(--text-strong)}
+.role h3{position:relative;display:inline-block;margin:0 0 22px;font-family:"Schoolbell",cursive;font-weight:400;font-size:30px;line-height:1.1;letter-spacing:0;color:var(--text-strong)}
+.role .squiggle{position:absolute;left:-2px;right:-4px;bottom:-9px;width:calc(100% + 6px);height:10px;color:var(--ts)}
+.role .squiggle path,.role .chk path{stroke-dasharray:1;stroke-dashoffset:1}
+.role-pop.open .squiggle path{animation:icon-draw .6s .3s ease-out forwards}
+.role ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.role li{display:grid;grid-template-columns:18px minmax(0,1fr);gap:12px;align-items:start;font-size:15px;line-height:1.45;color:var(--text-strong)}
+.role li b{font-weight:500;color:var(--ts-ink)}
+.role .chk{width:18px;height:18px;margin-top:1px;color:var(--ts)}
+.role li,.role .aside{opacity:0;transform:translateY(6px);transition:opacity .3s ease,transform .3s ease;transition-delay:calc(.45s + var(--i) * 90ms)}
+.role-pop.open .role li,.role-pop.open .role .aside{opacity:1;transform:none}
+.role-pop.open .chk path{animation:icon-draw .35s ease-out forwards;animation-delay:calc(.55s + var(--i) * 90ms)}
+.role .aside{margin-top:24px;padding-top:0;font-size:13px;line-height:1.5;color:var(--text-muted)}
+.role .aside span{margin-right:4px;font-family:"Schoolbell",cursive;font-size:15px;letter-spacing:.03em;color:var(--ts-ink)}
+
+/* problem */
+h2.wide{max-width:900px}
+.problem-row{margin-top:32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:center}
+/* fridge photo sits tilted inside a card with a handwritten note, like the About page */
+.photo-card{position:relative;margin:0;container-type:inline-size}
+.photos{position:relative;height:70cqw}
+.photo{position:absolute;overflow:hidden;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.06);transform:rotate(var(--r));transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.photo:hover{transform:rotate(var(--rh)) scale(1.03);z-index:2}
+.photo img{display:block;width:100%;height:100%;object-fit:cover}
+/* back photo: 62cqw wide at 4:3, so its bottom sits at 2 + 46.5 = 48.5cqw (+7px for the tilt; the note sits 16px under it) */
+.photo.back{--r:-2deg;--rh:-3.5deg;left:0;top:2cqw;width:62cqw;aspect-ratio:4/3}
+.photo.front{--r:3deg;--rh:4.5deg;left:44cqw;top:30cqw;width:44cqw;aspect-ratio:496/426;z-index:1}
+.photo-note{position:absolute;left:2cqw;top:calc(48.5cqw + 23px);margin:0;font-family:"Schoolbell",cursive;font-size:12px;line-height:1.15;letter-spacing:0;color:var(--text-strong);transform:rotate(-2deg)}
+.photo-note .ink{display:block;white-space:nowrap;clip-path:inset(-30% 100% -30% 0)}
+.photo-arrow{position:absolute;left:calc(2cqw + 104px);top:calc(48.5cqw + 9px);width:24px;height:24px;overflow:visible;transform:scaleX(-1)}
+.photo-arrow path{stroke:var(--text-strong);stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
+/* the caption writes one line at a time, then the arrow draws */
+.photo-card.seen .photo-note .ink{animation:write .7s linear .2s forwards}
+.photo-card.seen .photo-note .ink + .ink{animation-duration:.45s;animation-delay:.95s}
+.photo-card.seen .photo-arrow path{animation:icon-draw .45s cubic-bezier(.45,0,.25,1) 1.5s forwards}
+.photo-card.seen .photo-arrow path + path{animation-delay:1.9s;animation-duration:.25s}
+@keyframes write{to{clip-path:inset(-30% 0 -30% 0)}}
+@media (prefers-reduced-motion: reduce){.photo,.photo:hover{transition:none}.photo-note .ink{clip-path:none}.photo-arrow path{stroke-dashoffset:0}.photo-card.seen .photo-note .ink,.photo-card.seen .photo-arrow path{animation:none}}
+.stat{padding:22px 22px 20px;text-align:left}
+.stat b{display:block;margin-bottom:8px;font-family:var(--helvetica-neue);font-weight:400;font-size:40px;line-height:1;letter-spacing:-0.04em;color:var(--text-strong)}
+.stat p{font-size:13px;line-height:1.45}
+.hmw{margin-top:32px;padding:36px 40px;border-radius:var(--radius-md);background:var(--ts-wash);border:1px solid rgba(107,173,219,.35)}
+.hmw .eyebrow{margin-bottom:12px}
+.hmw .eyebrow::before,.hmw .eyebrow::after{display:none}
+.hmw p:not(.eyebrow){font-family:var(--helvetica-neue);font-size:24px;line-height:1.3;letter-spacing:-0.025em;color:var(--text-strong)}
+
+/* research */
+/* scope: three tiles in the hero bento's style (#F8F8F8, 12px corners, #ECECEC stroke). The photo groups
+   shrink as the scope narrows; hover a photo to see who it is (the last tile keeps its captions visible). */
+.scope-tiles{margin-top:40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);grid-template-rows:auto auto;grid-auto-flow:column;gap:12px}
+/* the two earlier stages stack small on the left; where we landed (Pivot 02) gets the big tile on the right */
+.scope-tile.past{gap:4px;padding:16px 18px}
+.scope-tile.past .groups{padding:10px 0 12px;gap:8px}
+.scope-tile.past .cluster{--s:40px}
+.scope-tile.past .group-name{font-size:9px}
+.scope-tile.past h3{font-size:16px}
+/* earlier stages: the reason is hidden until you hover (or focus) the tile; it fades in where the icons were */
+.scope-tile.past{position:relative;outline-offset:-1px;cursor:default}
+.scope-tile.past p{position:absolute;left:18px;right:18px;top:58px;bottom:16px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:14px;line-height:1.5;color:var(--text-strong);opacity:0;pointer-events:none;transition:opacity .25s ease}
+.scope-tile.past .groups{transition:opacity .25s ease}
+.scope-tile.past:hover .groups,.scope-tile.past:focus-visible .groups{opacity:0}
+.scope-tile.past:hover p,.scope-tile.past:focus-visible p{opacity:1}
+.scope-tile.past:focus-visible{outline:2px solid var(--ts)}
+/* earlier stages use simple line icons so the photos in Pivot 02 carry the attention */
+.groups.icons{gap:18px;padding:14px 0 16px}
+/* fixed item width + a spacer where Pivot 01 has no arrow, so both icon rows line up */
+.icon-item{width:104px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.group-arrow.spacer{visibility:hidden}
+.icon-item svg{width:28px;height:28px;stroke:var(--text-muted);stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.icon-item .group-name{order:-1}
+.groups.icons .group-arrow{margin-top:18px}
+.scope-tile.past .scope-tag{color:var(--text-label)}
+.scope-tile.focus{grid-row:1 / span 2;outline-color:var(--ts)}
+.scope-tile.focus h3{font-size:22px}
+.scope-tile.focus p{font-size:14px}
+.scope-tile.focus .cluster{--s:96px}
+.scope-tile.focus .groups{gap:20px}
+.scope-tile.focus .group-note{font-size:14px}
+.scope-tile.focus .group{gap:18px}
+.scope-tile.focus .group-arrow{margin-top:-8px}
+/* the fridge pair tilts the other way so the two clusters don't look identical */
+.cluster.alt .snap:nth-child(1){--r:4deg;top:0}
+.cluster.alt .snap:nth-child(2){--r:-3deg;top:calc(var(--s) * .08);z-index:1}
+.scope-tile{display:flex;flex-direction:column;gap:8px;padding:20px 20px 22px;background:#F8F8F8;border-radius:12px;outline:1px solid #ECECEC;outline-offset:-1px}
+.scope-tag{font-weight:500;font-size:10px;line-height:1.2;letter-spacing:.06em;text-transform:uppercase;color:var(--ts-ink)}
+.scope-tile h3{font-size:18px}
+.scope-tile p{font-size:13px;line-height:1.5}
+.groups{flex:1;display:flex;align-items:center;justify-content:center;gap:10px;padding:14px 0 18px}
+.group{display:flex;flex-direction:column;align-items:center;gap:8px}
+.group-name{font-weight:500;font-size:10px;line-height:1.2;letter-spacing:.06em;text-transform:uppercase;color:var(--text-label);white-space:nowrap}
+.group-arrow{margin-top:18px;color:var(--text-label)}
+.group-note{font-family:"Schoolbell",cursive;font-size:12px;line-height:1;letter-spacing:0;color:var(--text-strong);white-space:nowrap}
+/* in the last tile, hovering a photo lifts it in front so the one underneath can be seen */
+/* photo clusters scale with --s (photo size) */
+.cluster{--s:52px;position:relative;height:calc(var(--s) * 1.3)}
+.cluster.n3{width:calc(var(--s) * 2.2)}
+.cluster.n2{width:calc(var(--s) * 1.7)}
+.cluster.n1{width:calc(var(--s) + 4px)}
+.snap{position:absolute;top:calc(var(--s) * .12);left:0;width:var(--s);margin:0;outline:none;transform:rotate(var(--r,0deg));transition:transform .45s cubic-bezier(.22,1,.36,1)}
+.snap:nth-child(1){--r:-5deg}
+.snap:nth-child(2){--r:3deg;left:calc(var(--s) * .6);top:0;z-index:1}
+.snap:nth-child(3){--r:6deg;left:calc(var(--s) * 1.16);top:calc(var(--s) * .18);z-index:2}
+.cluster.n2 .snap:nth-child(2){left:calc(var(--s) * .66)}
+.snap-img{position:relative;width:var(--s);height:var(--s);overflow:hidden;border-radius:4px;background:#ececea;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.snap-img img{display:block;width:100%;height:100%;object-fit:cover}
+/* until a photo is added, its slot shows the file name to drop in */
+.snap-img:not(:has(img))::after{content:attr(data-todo);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:4px;font-size:7px;line-height:1.2;text-align:center;word-break:break-all;color:#a9a9a6}
+.snap:hover,.snap:focus-visible{transform:rotate(0deg) scale(1.12);z-index:5}
+.snap:focus-visible .snap-img{outline:2px solid var(--ts);outline-offset:2px}
+.snap-tip{position:absolute;left:50%;top:calc(100% + 8px);padding:0;white-space:nowrap;font-family:"Schoolbell",cursive;font-size:12px;line-height:1;letter-spacing:0;color:var(--text-strong);transform:translateX(-50%) translateY(-3px);opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease}
+.snap:hover .snap-tip,.snap:focus-visible .snap-tip{opacity:1;transform:translateX(-50%)}
+@media (prefers-reduced-motion: reduce){.snap,.snap-tip{transition:none}}
+
+.glance-nums{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.glance-nums .stat b{font-size:34px}
+.mine{outline:1.5px solid var(--ts);outline-offset:-1.5px}
+.mine .who{display:inline-block;margin-top:8px}
+.interviews{display:grid;grid-template-columns:667fr 1156fr 1436fr;gap:12px}
+.interviews img{width:100%;height:100%;object-fit:cover;border-radius:var(--radius-md);filter:grayscale(.15)}
+
+.insight .n{font-family:var(--helvetica-neue);font-size:13px;color:var(--ts-ink)}
+
+
+.sub-eyebrow{margin:72px 0 16px;font-weight:500;font-size:11px;line-height:1.2;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted)}
+/* synthesis: the nine theme clusters from FigJam (placed as on the original board, pink removed) in a bento-style box,
+   with the chosen theme broken into its four parts on the right; real-time status (where we started) in blue */
+.board{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);gap:24px;align-items:center;padding:20px 24px;background:#F8F8F8;border-radius:12px;outline:1px solid #ECECEC;outline-offset:-1px}
+.board-map{position:relative;aspect-ratio:965/688;container-type:inline-size}
+.board-map img{position:absolute;display:block;object-fit:contain}
+.board-legend{display:flex;flex-direction:column;gap:16px}
+.board-tag{font-weight:500;font-size:10px;line-height:1.2;letter-spacing:.06em;text-transform:uppercase;color:var(--ts-ink)}
+.subs{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;counter-reset:sub}
+.sub{display:grid;grid-template-columns:28px minmax(0,1fr);row-gap:2px;counter-increment:sub}
+.sub::before{content:counter(sub,decimal-leading-zero);grid-row:span 2;padding-top:3px;font-size:11px;font-weight:500;letter-spacing:.02em;color:var(--text-label)}
+.sub b{font-family:var(--helvetica-neue);font-weight:400;font-size:16px;letter-spacing:-0.03em;color:var(--text-strong)}
+.sub span{font-size:13px;line-height:1.45}
+.sub.on::before,.sub.on b{color:var(--ts-ink)}
+.sub.on b::after{content:"starting point";margin-left:8px;padding:2px 7px;border-radius:2px;background:var(--ts-wash);font-family:var(--sans);font-weight:500;font-size:10px;letter-spacing:.02em;vertical-align:2px;color:var(--ts-ink)}
+.heard-after{margin:72px 0 20px;display:flex;flex-direction:column;gap:8px;max-width:760px}
+.heard-after h3{font-size:20px}
+.heard-after p{font-size:15px;line-height:1.6}
+.process{margin-top:72px}
+.process > h3{font-size:20px}
+.tabs{margin:14px 0 12px;display:flex;flex-wrap:wrap;gap:8px}
+.tabs button{padding:10px 16px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);font-family:var(--sans);font-size:13px;letter-spacing:-0.03em;color:var(--text);transition:border-color .2s ease,background .2s ease,color .2s ease}
+.tabs button:hover{border-color:#cfcfcf}
+.tabs button[aria-selected="true"]{border-color:var(--ts);background:var(--ts-wash);color:var(--ts-ink);font-weight:500}
+.tabs button:focus-visible{outline:2px solid var(--ts);outline-offset:2px}
+.panel{padding:24px 24px 26px;display:flex;flex-direction:column;gap:14px}
+.panel[hidden]{display:none}
+.panel h3{font-size:20px}
+.panel > p{font-size:15px;line-height:1.6}
+.panel > p.caption{margin-top:-4px;font-size:12px;line-height:1.4;color:var(--text-muted)}
+.panel figure{margin:6px 0 0}
+/* interviews: three big numbers instead of a paragraph */
+.int-facts{display:flex;flex-wrap:wrap;gap:20px 64px}
+.int-facts div{display:flex;flex-direction:column;gap:4px}
+.int-facts b{font-family:var(--helvetica-neue);font-weight:400;font-size:32px;line-height:1;letter-spacing:-0.03em;color:var(--text-strong)}
+.int-facts span{max-width:260px;font-size:13px;line-height:1.45}
+.int-facts .me b{color:var(--ts-ink)}
+.panel .interviews{max-width:900px}
+.panel figure > img{width:100%;height:auto;border-radius:var(--radius-sm)}
+/* value chain: the image's own #F8F8F8 extended with extra padding so the text has room to breathe */
+.panel figure > img.vc{box-sizing:border-box;padding:80px 112px;background:#F8F8F8;border-radius:12px}
+/* feedback panel: two equal columns that line up with the hypothesis cards above; both images sit in same-height
+   #F8F8F8 boxes, the value chain smaller and centered so it gets white space around it */
+.panel-figs{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:stretch}
+.panel-figs figure{display:flex;flex-direction:column}
+.panel-figs .fig-box{flex:1;display:flex;align-items:center;justify-content:center;background:#F8F8F8;border-radius:12px;overflow:hidden}
+.panel-figs .fig-box img{display:block;width:100%;height:auto}
+.panel-figs .fig-box.small{padding:16px}
+.panel-figs .fig-box.small img{width:100%}
+/* each pivot step sits right above the image that shows it */
+.step-text{margin-bottom:10px;font-size:14px;line-height:1.45;color:var(--text)}
+.step-text b{display:block;margin-bottom:2px;font-weight:500;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ts-ink)}
+.hyp{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hyp div{padding:14px 16px;border-radius:var(--radius-sm);background:var(--surface-sunken);font-size:13px;line-height:1.5;color:var(--text-muted)}
+.hyp .new{background:var(--ts-wash);color:var(--text-strong)}
+.hyp b{display:block;margin-bottom:4px;font-weight:500;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-label)}
+.hyp .new b{color:var(--ts-ink)}
+
+/* decisions */
+.decision{margin-top:96px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.55fr);gap:48px;align-items:start}
+.decision:first-of-type{margin-top:48px}
+.decision > div:first-child{position:sticky;top:40px}
+.ba.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.decision .num{display:block;font-family:var(--helvetica-neue);font-size:12px;line-height:1.2;letter-spacing:-0.03em;color:var(--ts-ink)}
+.decision h3{margin-top:10px;font-size:22px}
+.decision .why{margin-top:14px;font-size:14px;line-height:1.6}
+.decision .call{margin-top:20px;padding:16px 18px;border-radius:var(--radius-md);background:var(--ts-wash);border:1px solid rgba(107,173,219,.35);font-family:var(--helvetica-neue);font-size:17px;line-height:1.4;letter-spacing:-0.03em;color:var(--text-strong)}
+.decision .call b{display:block;margin-bottom:4px;font-family:var(--sans);font-weight:500;font-size:10px;line-height:1.2;letter-spacing:.06em;text-transform:uppercase;color:var(--ts-ink)}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.ba figure{margin:0;display:grid;grid-row:span 2;grid-template-rows:subgrid;row-gap:0}
+.ba .shot{flex:1;min-height:340px;padding:24px 20px}
+.ba .shot img{max-height:380px}
+.decision img[src*="/full/"],.change img[src*="/full/"],.decision .qr-flow .flyer{border-radius:8px}
+.decision img[src*="/full/before"],.change img[src*="/full/before"]{outline:1px solid #ececec;outline-offset:-1px}
+.ba figcaption{display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin-top:10px;font-size:12px;line-height:1.45;color:var(--text-muted)}
+.ba-wide{grid-column:1 / -1}
+/* QR flow strip used in decision 01 */
+.qr-flow{display:flex;align-items:center;justify-content:center;gap:14px;flex:1;min-height:340px;padding:24px 18px}
+.qr-flow img{height:auto}
+.qr-flow .flyer{width:38%}
+.qr-flow .icon{width:22%}
+.qr-flow .screen{width:40%}
+.qr-flow .arrow{flex:none;width:18px;height:18px;color:#bdbdbd}
+.qr-flow .x{position:relative}
+.qr-flow .x::after{content:"download first";position:absolute;left:50%;bottom:-22px;transform:translateX(-50%);white-space:nowrap;font-size:10px;color:var(--text-muted)}
+.cuts{margin-top:64px;padding:32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:40px;align-items:center}
+.cuts-imgs{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cuts-imgs img{width:100%;height:auto;border-radius:var(--radius-sm);opacity:.75;filter:grayscale(.4)}
+.cuts-imgs img[src*="streaks"]{outline:1px solid #e2e2e2;outline-offset:-1px}
+.ownership{margin-top:12px;padding:24px 28px;display:grid;grid-template-columns:200px 1fr;gap:24px;font-size:14px;line-height:1.6}
+.ownership h3{font-size:15px}
+
+/* final experience */
+.journey{margin-top:48px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;counter-reset:st}
+.step{display:flex;flex-direction:column}
+.step .shot{aspect-ratio:1/1;padding:16px 10px 0;align-items:flex-start}
+.step .shot img{width:100%;max-height:none;height:auto}
+.step .shot.flyer{align-items:center;padding:16px}
+.step .shot.flyer img{width:auto;height:100%}
+.step .k{margin-top:16px;display:flex;align-items:baseline;gap:8px}
+.step .k span{font-family:var(--helvetica-neue);font-size:12px;color:var(--ts-ink)}
+.step .k h3{font-size:16px}
+.step p{margin-top:6px;font-size:13px;line-height:1.5}
+.step p.scr{margin-top:8px;font-weight:500;font-size:10px;line-height:1.2;letter-spacing:.06em;text-transform:uppercase;color:var(--text-label)}
+.step p.scr+p{margin-top:4px}
+.walk{margin-top:40px;display:grid;grid-template-columns:minmax(0,2.6fr) minmax(0,1fr);gap:24px;align-items:center}
+.walk video{width:100%;height:auto;border-radius:var(--radius-md);background:#F2F2F0}
+.proto-btn{display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:14px 20px;border-radius:var(--radius-md);background:var(--ts-wash);border:1px solid rgba(107,173,219,.35);font-family:var(--helvetica-neue);font-weight:400;font-size:16px;letter-spacing:-0.03em;color:var(--ts-ink);text-decoration:none;transition:background .15s,border-color .15s}
+.proto-btn:hover{background:rgba(107,173,219,.16);border-color:var(--ts)}
+.proto-btn:focus-visible{outline:2px solid var(--ts);outline-offset:2px}
+.note{display:flex;gap:12px;padding:18px 20px;border-radius:var(--radius-md);background:var(--surface-sunken);font-size:13px;line-height:1.5}
+.note svg{flex:none;margin-top:2px}
+
+/* testing */
+.test{margin-top:48px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.4fr);gap:40px;align-items:stretch}
+.test-facts{position:sticky;top:40px;align-self:start;display:flex;flex-direction:column;gap:12px}
+.changes{margin-top:20px;display:flex;flex-direction:column;gap:24px}
+.chg{display:grid;grid-template-columns:24px minmax(0,1fr);column-gap:12px;row-gap:2px;align-content:center}
+.chg::before{content:"";grid-row:span 2;width:24px;height:24px;border-radius:6px;background:var(--ts-wash) url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2712%27 height=%2712%27 viewBox=%270 0 12 12%27 fill=%27none%27%3E%3Cpath d=%27M2.5 6.2l2.3 2.3 4.7-5%27 stroke=%27%23276a9b%27 stroke-width=%271.5%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E") center/12px no-repeat}
+.changes .chg-label{margin-bottom:-4px;font-family:var(--sans);font-weight:500;font-size:11px;line-height:1.5;letter-spacing:.06em;text-transform:uppercase;color:var(--text-label)}
+.changes h3{font-size:15px;letter-spacing:-0.03em}
+.changes .n{font-style:normal;color:var(--ts-ink)}
+.changes p{font-size:13px;line-height:1.45}
+.list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;font-size:14px;line-height:1.5}
+.list li{position:relative;padding-left:18px}
+.list li::before{content:"";position:absolute;left:0;top:.68em;width:8px;height:1px;background:var(--ts)}
+.change .ba{grid-template-columns:2fr 1fr}
+.change .ba .shot{min-height:400px}
+.quote{margin-top:48px;padding:24px 28px;font-family:var(--helvetica-neue);font-size:17px;line-height:1.5;letter-spacing:-0.015em;color:var(--text)}
+.quote b{display:block;margin-bottom:8px;font-family:var(--sans);font-weight:500;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-label)}
+
+/* outcomes */
+.impact-row{margin-top:48px;display:flex;align-items:stretch;gap:16px}
+.impact-boxes{flex:0 0 333px;display:flex;flex-direction:column;gap:16px}
+.ibox{flex:1;display:flex;flex-direction:column;gap:16px;min-height:144px;padding:24px 25px 20px;background:#F5F5F5;border-radius:8px}
+.ihead{display:flex;align-items:center;gap:12px}
+.ihead img{flex:none;display:block;object-fit:contain}
+.ihead h3{font-family:var(--sans);font-weight:400;font-size:14px;line-height:1.2;color:var(--text-strong)}
+.ibox p{font-size:12px;line-height:1.45;color:#808080}
+.impact-row iframe{flex:1 1 615px;min-width:0;height:476px;border:0;border-radius:10px;display:block}
+.out{margin-top:48px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.out .tile{padding:24px;display:flex;flex-direction:column;gap:12px}
+.out h3{font-size:16px}
+.out p,.out li{font-size:14px;line-height:1.55}
+.out .future{border-style:dashed;border-color:#cfdfeb;background:transparent}
+.feedback{margin-top:12px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:24px;align-items:center;padding:24px}
+.feedback iframe{width:100%;height:420px;border:0;border-radius:10px;display:block}
+.learned{margin-top:72px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;counter-reset:lrn}
+.learned div{counter-increment:lrn}
+.learned div::before{content:counter(lrn,decimal-leading-zero);display:block;margin-bottom:10px;font-family:var(--helvetica-neue);font-size:12px;letter-spacing:-0.03em;color:var(--ts-ink)}
+.learned h3{font-size:17px}
+.learned p{margin-top:10px;font-size:14px;line-height:1.6}
+.end{margin-top:96px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;font-size:13px}
+.end a{color:var(--text);text-decoration:none}
+.end a:hover{color:var(--text-strong)}
+
+
+/* Helvetica letter spacing matches the homepage name and tagline: -0.03em */
+h1,h2,h3,.decision h3,.tile h3,.pivot h3,.insight h3,.out h3,.learned h3,.role h3,.ownership h3,.step .k h3,.test-facts h3,.walk h3,.feedback h3,.glance h3,.focus h3,.cuts h3,.stat b,.glance-nums .stat b,.needs b,.hmw p:not(.eyebrow),.decision .call,.quote,.insight .n,.decision .num,.step .k span{letter-spacing:-0.03em}
+
+@media (max-width: 1180px){ .cs-nav{display:none} }
+@media (max-width: 900px){
+  .decision > div:first-child,.test-facts{position:static}
+  .cs{padding:88px 24px 96px}
+  h1{font-size:36px} h2{font-size:26px}
+  .cs-section{padding-top:96px}
+  .hero-row{flex-direction:column;align-items:stretch}
+  .hero-row .hero-art{flex:none}
+  .hero-logo{max-width:180px}
+  .facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 24px}
+  .role,.ownership{grid-template-columns:1fr;gap:14px}
+  .role{padding:36px 24px 26px} .role h3{font-size:26px}
+  .impact-row{flex-direction:column;align-items:stretch} .impact-boxes{flex:none}
+  .problem-row,.decision,.test,.cuts,.walk,.feedback{grid-template-columns:minmax(0,1fr);gap:28px}
+  .out,.learned{grid-template-columns:minmax(0,1fr)}
+  .board{grid-template-columns:minmax(0,1fr)}
+  .scope-tiles{grid-template-columns:minmax(0,1fr);grid-template-rows:none;grid-auto-flow:row}
+  .cluster{--s:60px}
+  .scope-tile.focus{grid-row:auto}
+  .scope-tile.focus .cluster{--s:72px}
+  .panel-figs,.hyp{grid-template-columns:minmax(0,1fr)}
+  .int-facts{flex-direction:column;gap:14px}
+  .panel figure > img.vc{padding:20px 16px}
+  .journey{grid-template-columns:repeat(5,minmax(160px,1fr));overflow-x:auto;scroll-snap-type:x mandatory;margin-right:-24px;padding-right:24px;scrollbar-width:none}
+  .journey::-webkit-scrollbar{display:none}
+  .step{scroll-snap-align:start}
 }
+@media (max-width: 640px){
+  .interviews{grid-template-columns:667fr 1156fr}
+  .interviews img:nth-child(3){grid-column:1 / -1}
+  .cs{padding:80px 16px 80px}
+  .logo-stamp{top:17.575px;left:16px}
+  h1{font-size:30px} h2{font-size:23px}
+  .lead{font-size:16px}
+  .facts{grid-template-columns:1fr 1fr}
+  .role ul{grid-template-columns:minmax(0,1fr)}
+  .glance-nums{grid-template-columns:1fr 1fr}
+  .ba,.ba.three,.change .ba{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+  .ba.three .before,.ba.qr figure{grid-column:1 / -1}
+  .ba .shot{min-height:0;padding:14px 10px}
+  .ba .shot img{max-height:300px}
+  .change{padding:16px}
+  .hmw{padding:26px 22px} .hmw p:not(.eyebrow){font-size:20px}
+  .journey{margin-right:-16px;padding-right:16px}
+  .end{flex-direction:column}
+}
+@media (prefers-reduced-motion: reduce){ .cs-nav a i,.cs-nav a span{transition:none} }
+</style>
+</head>
+<body>
+<a class="logo-stamp" href="./" aria-label="Home"><img src="assets/logo-stamp.png" alt=""></a>
 
+<nav class="cs-nav" aria-label="Case study sections">
+  <a href="#overview"><i></i><span>overview</span></a>
+  <a href="#problem"><i></i><span>problem</span></a>
+  <a href="#research"><i></i><span>research</span></a>
+  <a href="#decisions"><i></i><span>design decisions</span></a>
+  <a href="#experience"><i></i><span>final experience</span></a>
+  <a href="#testing"><i></i><span>testing</span></a>
+  <a href="#outcomes"><i></i><span>outcomes</span></a>
+</nav>
+
+<main class="cs">
+
+<!-- 1 · Hero -->
+<header id="overview" class="cs-section" style="padding-top:0">
+  <div class="hero-row">
+    <div class="hero-art"><div class="ts-stage ts-hero-stage" style="position: relative; width: 100%; aspect-ratio: 747 / 470; container-type: inline-size; overflow: hidden; "><div class="ts-media" style="position: absolute; left: 0.000cqw; top: 0.000cqw; width: 37.216cqw; height: 17.671cqw; height: auto; aspect-ratio: 278/132; background: #F8F8F8; border-radius: 12px"></div><div class="ts-media" style="position: absolute; left: 0.000cqw; top: 18.608cqw; width: 37.216cqw; height: 44.311cqw; aspect-ratio: 278/331; height: auto; background: #F8F8F8; border-radius: 12px"></div><div class="ts-media" style="position: absolute; left: 38.153cqw; top: 0.000cqw; width: 61.847cqw; height: 41.232cqw; aspect-ratio: 462/308; height: auto; background: #F8F8F8; border-radius: 12px"><video src="assets/townshare/hero-flow.mp4" autoplay muted loop playsinline preload="metadata" aria-label="TownShare flow" style="width: 100%; height: 100%; border-radius: 10px; display: block; object-fit: cover"></video></div><div class="ts-media" style="position: absolute; left: 37.885cqw; top: 42.169cqw; width: 35.743cqw; height: 20.750cqw; aspect-ratio: 267/155; height: auto; background: #F8F8F8; border-radius: 12px"></div><div class="ts-media" style="position: absolute; left: 74.699cqw; top: 42.169cqw; width: 25.301cqw; height: 20.750cqw; aspect-ratio: 189/155; height: auto; background: #F8F8F8; border-radius: 12px"></div><div style="position: absolute; left: 4.284cqw; top: 25.569cqw; width: 28.648cqw; height: 37.349cqw; "><img src="assets/townshare/hero-home.png" alt="TownShare home screen" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: contain"></div><div style="position: absolute; left: 46.452cqw; top: 44.311cqw; width: 18.876cqw; height: 18.608cqw; "><video src="assets/townshare/hero-phone.mov" autoplay muted loop playsinline preload="metadata" aria-label="TownShare check-in clip" style="width: 100%; height: 100%; display: block; object-fit: cover"></video></div><div style="position: absolute; left: 79.116cqw; top: 49.799cqw; width: 16.600cqw; height: 6.693cqw; "><img src="assets/townshare/green-team-logo.png" alt="Green Team logo" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: contain"></div><div style="position: absolute; left: 4.953cqw; top: 3.882cqw; width: 8.032cqw; height: 10.040cqw; "><img src="assets/townshare/icon.png" alt="" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: contain"></div><div style="position: absolute; left: 12.316cqw; top: 7.631cqw; width: 21.419cqw;  "><p style="margin: 0; font-family: Archivo, sans-serif; font-weight: 700; font-size: 3.909cqw; line-height: 1.2; letter-spacing: -0.04em; color: #FEA900">TownShare</p><p style="margin: 0 0 0 0.3cqw; font-family: 'DM Sans', sans-serif; font-size: 1.222cqw; line-height: 1.2; letter-spacing: -0.04em; color: #037B46">Nourishing Oakland, Together.</p></div></div></div>
+    <div class="hero-meta">
+      <img class="hero-logo" src="assets/townshare/logo.png" alt="TownShare">
+      <dl class="facts">
+      <div><dt>Program</dt><dd>BRIDGEGOOD</dd></div>
+      <div><dt>Timeline</dt><dd>4 weeks</dd></div>
+      <div><dt>Team</dt><dd>3 designers</dd></div>
+      <div><dt>My role</dt><dd>Prototype &amp; Experience Lead</dd></div>
+      <div><dt>Tools</dt><dd>Figma, Jira, Lovable, Otter.ai, Claude, ChatGPT</dd></div>
+    </dl>
+    </div>
+  </div>
+
+  <h1>Making community fridge donations easier to navigate <button class="role-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="role-pop" aria-label="What I owned on this project"><span class="ic"><svg width="20" height="18" viewBox="0 0 14.2514 12.8232" fill="none" aria-hidden="true"><path d="M0.5 5.62379C0.975428 5.62332 1.89582 5.54895 2.63547 5.2649" pathLength="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.63547 5.2649C2.89551 5.16503 3.13321 5.03925 3.32138 4.88165C4.17686 4.16516 4.58113 2.96729 4.86437 2.12396C5.07364 1.50083 4.94675 0.998223 4.78062 0.696345C4.61966 0.403862 4.0791 0.496185 3.55765 0.603515C2.9262 0.733489 2.54609 1.5098 2.2794 2.09225C1.97174 2.76419 2.13541 3.69004 2.41175 4.70102C2.46791 4.90648 2.54412 5.09366 2.63547 5.2649Z" pathLength="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.63547 5.2649C3.01381 5.97412 3.6519 6.40992 4.20105 6.73848C4.85861 7.13189 5.75393 6.9488 6.71951 6.69175C7.2482 6.55101 7.69852 6.20827 8.09339 5.77468" pathLength="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.09339 5.77468C8.61849 5.19807 9.04556 4.46079 9.42852 3.82418C9.89596 3.04714 9.88336 2.12394 9.69144 1.5309C9.61136 1.28345 9.22378 1.41188 9.05243 1.4435C8.65357 1.51712 8.33606 2.00425 8.03216 2.51801C7.72323 3.04028 7.78025 4.40053 7.90012 5.34486C7.92092 5.50877 7.99076 5.64986 8.09339 5.77468Z" pathLength="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.09339 5.77468C8.33758 6.07169 8.76743 6.27653 9.16407 6.47716C9.80393 6.8008 10.9914 6.79564 11.8606 6.71479C12.4057 6.43626 12.8713 6.01315 13.514 5.17956C13.6432 4.99651 13.6964 4.90493 13.7513 4.81058" pathLength="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M0.996806 9.86932C1.0001 9.8726 1.00338 9.87589 1.03267 9.83753C1.06195 9.79917 1.11713 9.71905 1.11134 9.64584C1.10554 9.57263 1.0371 9.50875 0.882332 9.44293" pathLength="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M11.8393 9.3561C11.8364 9.3561 11.8505 9.34088 11.878 9.30942" pathLength="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M11.878 9.30942C11.9078 9.27528 11.9533 9.22199 12.0097 9.14828C12.0607 9.08162 12.0466 8.99033 12.0171 8.98282C11.9876 8.97531 11.9285 9.04535 11.8981 9.12302C11.8745 9.18315 11.8692 9.24658 11.878 9.30942Z" pathLength="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M11.878 9.30942C11.8806 9.32777 11.8844 9.34606 11.8892 9.3642C11.9108 9.44452 11.954 9.51944 12.031 9.6053" pathLength="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.16035 10.8647C6.72892 10.8647 5.79432 10.8906 5.71426 10.9872C5.37531 11.3962 5.67598 12.0053 5.768 12.0817C5.89532 12.1501 6.10395 12.2243 6.33709 12.2894C6.436 12.3131 6.49551 12.3181 6.55683 12.3232" pathLength="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></h1>
+  <p class="lead">TownShare helps Oakland residents find community fridges, check their latest condition, and feel confident dropping off food.</p>
+
+
+  <div class="role-pop" id="role-pop" hidden>
+  <div class="role" role="dialog" aria-modal="true" aria-labelledby="role-title" tabindex="-1">
+    <button class="role-x" type="button" aria-label="Close">×</button>
+    <h3 id="role-title">What I owned!
+      <svg class="squiggle" viewBox="0 0 160 10" fill="none" aria-hidden="true" preserveAspectRatio="none"><path d="M2 6.5c14-4 26 2.5 40-1s25-3 39 .5 26 3 40-.5 24-3 37 0" pathLength="1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </h3>
+    <ul>
+      <li style="--i:0"><svg class="chk" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.5 8.6c1.2 1 2.2 2.2 3.2 3.6 1.9-3.6 4.4-6.6 7.8-9.2" pathLength="1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Led the user journey and information architecture</span></li>
+      <li style="--i:1"><svg class="chk" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.5 8.6c1.2 1 2.2 2.2 3.2 3.6 1.9-3.6 4.4-6.6 7.8-9.2" pathLength="1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Designed initial wireframes through mid-fidelity</span></li>
+      <li style="--i:2"><svg class="chk" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.5 8.6c1.2 1 2.2 2.2 3.2 3.6 1.9-3.6 4.4-6.6 7.8-9.2" pathLength="1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Built the interactive prototype</span></li>
+      <li style="--i:3"><svg class="chk" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.5 8.6c1.2 1 2.2 2.2 3.2 3.6 1.9-3.6 4.4-6.6 7.8-9.2" pathLength="1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Conducted <b>6</b> of our <b>17</b> interviews</span></li>
+      <li style="--i:4"><svg class="chk" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.5 8.6c1.2 1 2.2 2.2 3.2 3.6 1.9-3.6 4.4-6.6 7.8-9.2" pathLength="1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Facilitated usability testing with <b>4</b> participants</span></li>
+    </ul>
+    <p class="aside" style="--i:5"><span>team effort ~</span> Ideation and key decisions were made together. Our UI Lead led visual identity, and a teammate wrote the research script.</p>
+  </div>
+  </div>
+</header>
+
+<!-- 2 · Problem -->
+<section id="problem" class="cs-section">
+  <p class="eyebrow">The problem</p>
+  <h2 class="wide">Good food goes to waste, but finding somewhere to donate isn’t always easy.</h2>
+  <div class="problem-row">
+    <figure class="photo-card">
+      <div class="photos">
+        <div class="photo back"><img src="assets/townshare/community-fridge.jpg" alt="Three painted community fridges under a wooden shelter in Oakland, one labeled “Free food / Comida gratis”" loading="lazy"></div>
+        <div class="photo front"><img src="assets/townshare/community-fridge-2.jpg" alt="A graffiti-painted community fridge and food pantry shelf against a brick wall" loading="lazy"></div>
+      </div>
+      <figcaption class="photo-note"><span class="ink">one of many fridges</span><span class="ink">in Oakland</span></figcaption>
+      <svg class="photo-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 23C9.5 16 10 9 12 2" pathLength="1"/><path d="M8 6L12 2L15.5 6.5" pathLength="1"/></svg>
+    </figure>
+    <div class="prose">
+      <p>Community fridges connect surplus food with neighbors who need it. But potential donors often lack accessible information about where fridges are, what they accept, and whether they’re currently usable.</p>
+      <p>Without that information, making a donation can feel uncertain before someone even leaves home.</p>
+    </div>
+  </div>
+  <div class="hmw">
+    <p class="eyebrow">Design opportunity</p>
+    <p>How might we make community fridge information more accessible and actionable, so Oakland residents feel confident taking the first step toward donating?</p>
+  </div>
+</section>
+
+<!-- 3 · Research -->
+<section id="research" class="cs-section">
+  <p class="eyebrow">Research &amp; scope</p>
+  <h2>We started with the whole food system, and research helped us find where to focus.</h2>
+  <p class="lead">The original concept was too broad for a four-week project. Feedback and interviews helped us narrow the audience and opportunity.</p>
+
+  <div class="scope-tiles">
+    <div class="scope-tile past" tabindex="0">
+      <span class="scope-tag">Initial scope</span>
+      <h3>Whole food ecosystem</h3>
+      <div class="groups icons"><div class="icon-item"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 9 5 4h14l1.5 5"/><path d="M3.5 9h17v1a2.8 2.8 0 0 1-5.6 0 2.8 2.8 0 0 1-5.6 0 2.8 2.8 0 0 1-5.8 0z"/><path d="M5 12.5V20h14v-7.5"/><path d="M10 20v-5h4v5"/></svg><span class="group-name">Providers</span></div><span class="group-arrow" aria-hidden="true">→</span><div class="icon-item"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20H4z"/><path d="M12 17s-3.2-1.9-3.2-3.8a1.7 1.7 0 0 1 3.2-.8 1.7 1.7 0 0 1 3.2.8C15.2 15.1 12 17 12 17z"/></svg><span class="group-name">Community orgs</span></div><span class="group-arrow" aria-hidden="true">→</span><div class="icon-item"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3.5 20c0-3.2 2.5-5.6 5.5-5.6s5.5 2.4 5.5 5.6"/><circle cx="17" cy="9" r="2.4"/><path d="M15.6 14.4c2.7.3 4.9 2.5 4.9 5.6"/></svg><span class="group-name">Consumers</span></div></div>
+      <p>Good food exists but doesn’t reach people who need it.</p>
+    </div>
+    <div class="scope-tile past" tabindex="0">
+      <span class="scope-tag">Pivot</span>
+      <h3>Just providers</h3>
+      <div class="groups icons"><div class="icon-item"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 9h11v4.5A5.5 5.5 0 0 1 10.5 19h0A5.5 5.5 0 0 1 5 13.5z"/><path d="M16 10.5h1.3a2.3 2.3 0 0 1 0 4.6H16"/><path d="M8.5 3.5v3M12 3.5v3"/></svg><span class="group-name">Cafes</span></div><span class="group-arrow spacer" aria-hidden="true">→</span><div class="icon-item"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3v18"/><path d="M4.5 3v5a2.5 2.5 0 0 0 5 0V3"/><path d="M17 21V3c-2.2 1.6-3 4.5-3 7.5 0 1.4.9 2.5 3 2.5"/></svg><span class="group-name">Restaurants</span></div><span class="group-arrow spacer" aria-hidden="true">→</span><div class="icon-item"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9h16v11H4z"/><path d="M4 9l2.2-4.5h11.6L20 9"/><path d="M9.5 13h5"/></svg><span class="group-name">Food banks</span></div></div>
+      <p>PayPal’s feedback pushed us to pick one group instead.</p>
+    </div>
+    <div class="scope-tile focus">
+      <span class="scope-tag">Where we landed</span>
+      <h3>Just consumers</h3>
+      <div class="groups"><div class="group"><span class="group-name">Consumers</span><div class="cluster n2"><figure class="snap" tabindex="0" aria-label="Welcome to Oakland sign"><div class="snap-img"><img src="assets/townshare/scope/oakland.jpg" alt="Welcome to Oakland sign" loading="lazy"></div></figure><figure class="snap" tabindex="0" aria-label="The Fox Oakland theater sign downtown"><div class="snap-img"><img src="assets/townshare/scope/oakland-fox.jpg" alt="The Fox Oakland theater sign downtown" loading="lazy"></div></figure></div><p class="group-note">Oakland residents</p></div><span class="group-arrow" aria-hidden="true">→</span><div class="group"><span class="group-name">Donation</span><div class="cluster n2 alt"><figure class="snap" tabindex="0" aria-label="Three painted community fridges under a wooden shelter in Oakland"><div class="snap-img"><img src="assets/townshare/scope/fridge-shed.jpg" alt="Three painted community fridges under a wooden shelter in Oakland" loading="lazy"></div></figure><figure class="snap" tabindex="0" aria-label="A graffiti-painted community fridge and pantry shelf"><div class="snap-img"><img src="assets/townshare/scope/fridge.jpg" alt="A graffiti-painted community fridge and pantry shelf" loading="lazy"></div></figure></div><p class="group-note">Community fridges</p></div></div>
+    </div>
+  </div>
+  <div class="heard-after">
+    <h3>We synthesized our interviews into 9 themes and 1 core problem to find a “why.”</h3>
+    <p>We chose real-time fridge status as our starting point, while supporting discovery and donation guidance through the broader experience.</p>
+  </div>
+  <div class="board">
+    <div class="board-map" role="img" aria-label="Our interview notes grouped into nine themes">
+      <img src="assets/townshare/clear/resynth-1.png" alt="Lack of centralized information cluster" loading="lazy" style="left:4.663cqw;top:38.238cqw;width:32.021cqw;height:28.705cqw">
+      <img src="assets/townshare/clear/resynth-2.png" alt="Personal organization cluster" loading="lazy" style="left:43.834cqw;top:3.005cqw;width:25.389cqw;height:20.933cqw">
+      <img src="assets/townshare/clear/resynth-3.png" alt="Knowledge of what actually happens cluster" loading="lazy" style="left:73.057cqw;top:9.948cqw;width:21.969cqw;height:21.969cqw">
+      <img src="assets/townshare/clear/resynth-4.png" alt="Food going bad before donating cluster" loading="lazy" style="left:43.42cqw;top:48.497cqw;width:23.938cqw;height:17.202cqw">
+      <img src="assets/townshare/clear/resynth-5.png" alt="Incentives cluster" loading="lazy" style="left:7.979cqw;top:4.041cqw;width:14.093cqw;height:11.71cqw">
+      <img src="assets/townshare/clear/resynth-6.png" alt="Distance cluster" loading="lazy" style="left:83.731cqw;top:57.306cqw;width:11.399cqw;height:9.637cqw">
+      <img src="assets/townshare/clear/resynth-highlight.png" alt="Time / convenience cluster" loading="lazy" style="left:16.062cqw;top:12.746cqw;width:25.492cqw;height:23.212cqw">
+      <img src="assets/townshare/clear/resynth-8.png" alt="Social connection cluster" loading="lazy" style="left:50.155cqw;top:26.839cqw;width:21.14cqw;height:20.518cqw">
+      <img src="assets/townshare/clear/resynth-9.png" alt="Easier to donate financially cluster" loading="lazy" style="left:72.332cqw;top:34.922cqw;width:20.207cqw;height:21.14cqw">
+    </div>
+    <div class="board-legend">
+      <span class="board-tag">Lack of centralized information</span>
+      <ul class="subs">
+      <li class="sub"><b>Discovery</b><span>Finding information in the first place</span></li>
+      <li class="sub on"><b>Real-time status</b><span>Getting live, up-to-date information</span></li>
+      <li class="sub"><b>Awareness</b><span>Knowing what resources even exist</span></li>
+      <li class="sub"><b>Donation needs</b><span>Knowing what items are needed</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="process">
+    <h3>Explore our research in more depth</h3>
+    <div class="tabs" role="tablist" aria-label="Research in more depth">
+      <button role="tab" id="tab-hyp" aria-controls="panel-hyp" aria-selected="true">Original hypothesis</button>
+      <button role="tab" id="tab-piv" aria-controls="panel-piv" aria-selected="false" tabindex="-1">Feedback &amp; pivots</button>
+      <button role="tab" id="tab-int" aria-controls="panel-int" aria-selected="false" tabindex="-1">Interviews</button>
+      <button role="tab" id="tab-syn" aria-controls="panel-syn" aria-selected="false" tabindex="-1">Synthesis</button>
+    </div>
+
+    <div class="panel tile" role="tabpanel" id="panel-hyp" aria-labelledby="tab-hyp">
+      <p>Better coordination between restaurants, food banks, and families would redistribute more excess food. Edible food exists, but the people who need it can’t always access it, so we set out to cover the whole ecosystem.</p>
+      <figure><img class="vc" src="assets/townshare/value-chain-original.png" alt="Original value chain spanning the whole food ecosystem" loading="lazy"><figcaption class="caption">Our original value chain, covering the entire ecosystem</figcaption></figure>
+    </div>
+
+    <div class="panel tile" role="tabpanel" id="panel-piv" aria-labelledby="tab-piv" hidden>
+      <div class="panel-figs steps">
+        <figure>
+          <figcaption class="step-text"><b>PayPal review →</b>Pick one specific user, not the whole food system.</figcaption>
+          <div class="fig-box small"><img src="assets/townshare/value-chain-rebuilt.png" alt="Value chain rebuilt around one user using PayPal's framework" loading="lazy"></div>
+        </figure>
+        <figure>
+          <figcaption class="step-text"><b>Mentor feedback →</b>Providers were still too big. We each pitched a stakeholder and dot-voted.</figcaption>
+          <div class="fig-box"><img src="assets/townshare/impact-feasibility.png" alt="Impact vs. feasibility grid with dot votes" loading="lazy"></div>
+        </figure>
+      </div>
+      <div class="hyp">
+        <div><b>Old hypothesis</b>Better coordination across the food chain redistributes more food.</div>
+        <div class="new"><b>New hypothesis</b>An easy way to donate to community fridges increases household donations.</div>
+      </div>
+    </div>
+
+    <div class="panel tile" role="tabpanel" id="panel-int" aria-labelledby="tab-int" hidden>
+      <div class="int-facts">
+        <div><b>17</b><span>one-on-one interviews</span></div>
+        <div><b>14</b><span>Oakland residents: 4 fridge donors, 7 other donors, 3 never donated</span></div>
+        <div class="me"><b>6</b><span>interviews I led</span></div>
+      </div>
+      <p>Most knew about free fridges but hesitated, because they didn’t know what was needed or how to donate.</p>
+      <figure>
+        <div class="interviews">
+          <img src="assets/townshare/interview-1.png" alt="Remote interview with a participant" loading="lazy">
+          <img src="assets/townshare/interview-2.png" alt="Remote interview with a participant" loading="lazy">
+          <img src="assets/townshare/interview-3.jpg" alt="Remote interview with a participant, face blurred" loading="lazy">
+        </div>
+        <figcaption class="caption">Remote interviews, transcribed with Otter.ai</figcaption>
+      </figure>
+    </div>
+
+    <div class="panel tile" role="tabpanel" id="panel-syn" aria-labelledby="tab-syn" hidden>
+      <p>Our first Crazy 8s forced one catch-all solution onto many problems. So we regrouped our notes into nine themes and found the common thread: fragmented information.</p>
+      <div class="panel-figs">
+        <figure><div class="fig-box"><img src="assets/townshare/crazy8s-1.jpg" alt="Crazy 8s sketches: map, inventory tracker, list and tile views, photo updates, journey map and guides" loading="lazy"></div></figure>
+        <figure><div class="fig-box"><img src="assets/townshare/crazy8s-2.jpg" alt="Crazy 8s sketches: fridge locator, mutual aid fund, pick-up route, fridge log, reminders, forum and QR check-in" loading="lazy"></div></figure>
+      </div>
+      <p class="caption">Crazy 8s from another teammate and me, before we stepped back</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · Design decisions -->
+<section id="decisions" class="cs-section">
+  <p class="eyebrow">Key design decisions</p>
+  <h2>Turning uncertainty into an easier donation experience.</h2>
+  <p class="lead">I facilitated Crazy 8s and translated the refined opportunity into user flows, wireframes, and an interactive prototype. Four decisions shaped the experience.</p>
+
+  <article class="decision">
+    <div>
+      <span class="num">01</span>
+      <h3>Meet donors where they are</h3>
+      <p class="why">Scanning the flyer sent people to the App Store. Downloading an app before seeing the fridge was too much to ask.</p>
+      <p class="call"><b>Decision</b>A mobile web experience instead of a downloadable app.</p>
+    </div>
+    <div class="ba qr">
+      <figure class="before">
+        <div class="shot qr-flow">
+          <img class="flyer" src="assets/townshare/s1-qr-flyer.png" alt="QR flyer on the fridge" loading="lazy">
+          <svg class="arrow" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <img class="icon x" src="assets/townshare/s1-app-store.png" alt="App Store" loading="lazy">
+        </div>
+        <figcaption><span class="tag before">Before</span>Scanning the code opened the App Store.</figcaption>
+      </figure>
+      <figure class="after">
+        <div class="shot qr-flow">
+          <img class="flyer" src="assets/townshare/s1-qr-flyer.png" alt="" loading="lazy">
+          <svg class="arrow" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <img class="screen" src="assets/townshare/full/home-homies.png" alt="Fridge page opened in the browser" loading="lazy">
+        </div>
+        <figcaption><span class="tag after">After</span>Scanning the code opens that fridge’s page in the browser. Nothing to download.</figcaption>
+      </figure>
+    </div>
+  </article>
+
+  <article class="decision">
+    <div>
+      <span class="num">02</span>
+      <h3>Make fridge conditions easy to understand</h3>
+      <p class="why">People couldn’t tell if a fridge was worth the trip. We surfaced what donors asked about: open, clean, how full, and working.</p>
+      <p class="call"><b>Decision</b>Lead with the information donors need before the trip.</p>
+    </div>
+    <div class="ba three">
+      <figure class="before">
+        <div class="shot"><img src="assets/townshare/full/before-home.png" alt="Early fridge page showing only whether it was active and how full" loading="lazy"></div>
+        <figcaption><span class="tag before">Before</span>Status showed only whether the fridge was active and how full, and you could set just one “home” fridge.</figcaption>
+      </figure>
+      <figure class="after">
+        <div class="shot"><img src="assets/townshare/full/home-homies.png" alt="Revised fridge page with four status pills" loading="lazy"></div>
+        <figcaption><span class="tag after">After</span>Four status pills answer “is it worth the trip?” at a glance.</figcaption>
+      </figure>
+      <figure class="after">
+        <div class="shot"><img src="assets/townshare/full/change-location.png" alt="Nearby fridge search with distance" loading="lazy"></div>
+        <figcaption><span class="tag after">After</span>Search by location and compare nearby fridges.</figcaption>
+      </figure>
+    </div>
+  </article>
+
+  <article class="decision">
+    <div>
+      <span class="num">03</span>
+      <h3>Make updates simple to contribute</h3>
+      <p class="why">Status only stays current if checking in is quick. We cut the check-in to three questions and swapped preset tags for a photo and caption.</p>
+      <p class="call"><b>Decision</b>Reduce the effort it takes to check in on a fridge.</p>
+    </div>
+    <div class="ba">
+      <figure class="before">
+        <div class="shot"><img src="assets/townshare/full/before-pills.png" alt="Preset pills for describing a donation" loading="lazy"></div>
+        <figcaption><span class="tag before">Before</span>Describe your visit with preset pills.</figcaption>
+      </figure>
+      <figure class="after">
+        <div class="shot"><img src="assets/townshare/full/your-photos.png" alt="Photo upload with a caption" loading="lazy"></div>
+        <figcaption><span class="tag after">After</span>Add a photo and a caption in your own words.</figcaption>
+      </figure>
+    </div>
+  </article>
+
+  <article class="decision">
+    <div>
+      <span class="num">04</span>
+      <h3>Connect donations to community impact</h3>
+      <p class="why">Participants wanted to know where their food went, so the flow no longer ends on a plain “thank you.”</p>
+      <p class="call"><b>Decision</b>Give donors a way to see and share the impact of their contribution.</p>
+    </div>
+    <div class="ba">
+      <figure class="before">
+        <div class="shot"><img src="assets/townshare/full/before-thanks.png" alt="Simple thank-you message ending the flow" loading="lazy"></div>
+        <figcaption><span class="tag before">Before</span>A “thank you for submitting” that ended the flow.</figcaption>
+      </figure>
+      <figure class="after">
+        <div class="shot"><img src="assets/townshare/full/thank-you.png" alt="Receipt that links to the community feed" loading="lazy"></div>
+        <figcaption><span class="tag after">After</span>The receipt links to your update in the community feed.</figcaption>
+      </figure>
+    </div>
+  </article>
+
+  <div class="cuts tile">
+    <div>
+      <h3>What we left out</h3>
+      <p class="small" style="margin-top:10px">Streaks, badges, and notifications all needed an app we’d ruled out, so we kept the focus on the core donation journey.</p>
+    </div>
+    <div class="cuts-imgs">
+      <figure style="margin:0"><img src="assets/townshare/cut-streaks.png" alt="Explored: donation streaks" loading="lazy"><p class="caption">Streaks</p></figure>
+      <figure style="margin:0"><img src="assets/townshare/cut-notifications.png" alt="Explored: push notifications" loading="lazy"><p class="caption">Notifications</p></figure>
+    </div>
+  </div>
+
+  <div class="ownership tile">
+    <h3>Who did what</h3>
+    <p>I led the user journey, wireframes, and prototype. Decisions were a team effort; our UI Lead led visual styling.</p>
+  </div>
+</section>
+
+<!-- 5 · Final experience -->
+<section id="experience" class="cs-section">
+  <p class="eyebrow">The final experience</p>
+  <h2>From finding a fridge to sharing an update</h2>
+  <p class="lead">One connected journey: a donor scans the flyer on a fridge, checks its condition, finds another nearby if needed, then leaves an update for the next person.</p>
+
+  <div class="journey">
+    <div class="step">
+      <div class="shot flyer"><img src="assets/townshare/s1-qr-flyer.png" alt="QR flyer on a community fridge" loading="lazy"></div>
+      <div class="k"><span>01</span><h3>Scan</h3></div>
+    </div>
+    <div class="step">
+      <div class="shot"><img src="assets/townshare/feat-status.png" style="width:96.4%" alt="Fridge status and guidelines" loading="lazy"></div>
+      <div class="k"><span>02</span><h3>Check</h3></div>
+    </div>
+    <div class="step">
+      <div class="shot"><img src="assets/townshare/feat-nearby.png" alt="Nearby fridges" loading="lazy"></div>
+      <div class="k"><span>03</span><h3>Find</h3></div>
+    </div>
+    <div class="step">
+      <div class="shot"><img src="assets/townshare/feat-checkin.png" style="width:96.5%" alt="Three-question check-in" loading="lazy"></div>
+      <div class="k"><span>04</span><h3>Update</h3></div>
+    </div>
+    <div class="step">
+      <div class="shot"><img src="assets/townshare/feat-community.png" style="width:92.1%" alt="Community updates feed" loading="lazy"></div>
+      <div class="k"><span>05</span><h3>Connect</h3></div>
+    </div>
+  </div>
+
+  <div class="walk">
+    <video src="assets/townshare/overview.mov" autoplay muted loop playsinline preload="metadata" aria-label="Walkthrough of the TownShare prototype"></video>
+    <div>
+      <h3>Prototype walkthrough</h3>
+      <div class="note" style="margin-top:20px">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="#6BADDB" stroke-width="1.3"/><path d="M8 7v4.2M8 4.6v.1" stroke="#6BADDB" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <p>This prototype uses sample data. It shows how community-reported status could be surfaced, but isn’t connected to live fridge data or a launched service.</p>
+      </div>
+      <a class="proto-btn" href="https://townshare.lovable.app/" target="_blank" rel="noopener">View live prototype <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · Testing -->
+<section id="testing" class="cs-section">
+  <p class="eyebrow">Usability testing</p>
+  <h2>We tested whether people could understand the experience and move through it.</h2>
+  <p class="lead">Participants walked through the prototype using a structured script while we observed confusion, hesitation, and unnecessary steps. I facilitated testing and iterated on the experience.</p>
+
+  <div class="test">
+    <div class="test-facts">
+      <div class="glance-nums" style="grid-template-columns:1fr 1fr">
+        <div class="stat tile"><b>4</b><p>participants</p></div>
+        <div class="stat tile mine"><b>Me</b><p>as facilitator</p></div>
+      </div>
+      <div class="changes">
+        <p class="chg-label">What changed</p>
+        <div class="chg"><h3>Simplified check-in</h3><p>Questions cut from <em class="n">7</em> to <em class="n">3</em>.</p></div>
+        <div class="chg"><h3>Clearer instructions</h3><p>Improved text clarity and guidance.</p></div>
+        <div class="chg"><h3>Fewer steps</h3><p>Check-in went from <em class="n">3</em> screens to <em class="n">1</em>.</p></div>
+      </div>
+    </div>
+    <div class="change">
+      <div class="ba">
+        <figure class="before">
+          <div class="shot" style="gap:10px"><img src="assets/townshare/full/before-test-purpose.png" alt="Check-in step one: purpose of visit" loading="lazy" style="width:31%"><img src="assets/townshare/full/before-test-questions.png" alt="Check-in step two: a long list of general questions" loading="lazy" style="width:31%"><img src="assets/townshare/full/before-test-items.png" alt="Check-in step three: choose which items you brought" loading="lazy" style="width:31%"></div>
+          <figcaption><span class="tag before">Before testing</span>Three screens of repetitive questions.</figcaption>
+        </figure>
+        <figure class="after">
+          <div class="shot"><img src="assets/townshare/full/test-after.png" alt="Three-question check-in" loading="lazy"></div>
+          <figcaption><span class="tag after">After testing</span>Three questions on one screen.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote tile">
+    <b>What I’d do differently</b>
+    I sometimes guided participants too much, which may have shaped what they did and said. Next time, I’d definitely use more open-ended prompts and note separately what people do on their own versus after getting help.
+  </div>
+</section>
+
+<!-- 7 · Outcomes -->
+<section id="outcomes" class="cs-section">
+  <p class="eyebrow">Outcomes &amp; reflection</p>
+  <h2>A focused concept and a testable prototype</h2>
+
+  <div class="impact-row">
+    <div class="impact-boxes">
+      <div class="ibox">
+        <div class="ihead"><img src="assets/townshare/icon.png" alt="" loading="lazy" style="width:30px;height:38px"><h3>What we delivered</h3></div>
+        <p>A mobile web prototype for finding fridges, checking status, checking in, and sharing updates.</p>
+      </div>
+      <div class="ibox">
+        <div class="ihead"><img src="assets/townshare/impact-metrics.png" alt="" loading="lazy" style="width:35px;height:34px"><h3>How it landed</h3></div>
+        <p>Mentors and our cohort responded positively. TownShare didn’t launch, so impact wasn’t measured.</p>
+      </div>
+      <div class="ibox">
+        <div class="ihead"><img src="assets/townshare/impact-next.png" alt="" loading="lazy" style="width:33px;height:37px"><h3>Next steps</h3></div>
+        <p>A proposed pilot with 2 fridges and 20 volunteer stewards to test if updates stay accurate.</p>
+      </div>
+    </div>
+    <iframe src="assets/townshare/imessage.html" title="Messages from our cohort after the final presentation" loading="lazy"></iframe>
+  </div>
+
+  <div class="learned">
+    <div>
+      <h3>Narrowing scope is a design skill.</h3>
+      <p>Starting broad helped us understand the ecosystem, but we only made progress once we chose a specific audience and an actionable problem.</p>
+    </div>
+    <div>
+      <h3>The whole journey matters.</h3>
+      <p>A useful feature isn’t enough if the steps before and after it create friction, as the App Store detour showed.</p>
+    </div>
+    <div>
+      <h3>Research should shape the solution.</h3>
+      <p>Interviews surfaced needs beyond our first idea, like convenience, clarity, and connection, and those needs changed what we built.</p>
+    </div>
+  </div>
+
+  <nav class="end" aria-label="More work">
+    <a href="./">← Back to work</a>
+    <a href="#overview">Back to top ↑</a>
+  </nav>
+</section>
+
+</main>
+
+<script>
+// Highlight the section in view in the side nav
+(() => {
+  const links = [...document.querySelectorAll('.cs-nav a')];
+  const secs = links.map(a => document.querySelector(a.getAttribute('href')));
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const line = innerHeight * 0.4;
+    let idx = 0;
+    secs.forEach((s, i) => { if (s && s.getBoundingClientRect().top <= line) idx = i; });
+    links.forEach((a, i) => a.setAttribute('aria-current', i === idx ? 'true' : 'false'));
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  addEventListener('resize', update);
+  update();
+})();
+// Research process tabs
+(() => {
+  const tabs = [...document.querySelectorAll('.tabs [role="tab"]')];
+  const select = t => {
+    tabs.forEach(x => {
+      const on = x === t;
+      x.setAttribute('aria-selected', on);
+      x.tabIndex = on ? 0 : -1;
+      document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
+    });
+  };
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => select(t));
+    t.addEventListener('keydown', e => {
+      const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+      if (!d) return;
+      e.preventDefault();
+      const n = tabs[(i + d + tabs.length) % tabs.length];
+      select(n); n.focus();
+    });
+  });
+})();
+// Fridge photo note writes itself in when it scrolls into view
+(() => {
+  const card = document.querySelector('.photo-card');
+  if (!card) return;
+  if (!('IntersectionObserver' in window)) return card.classList.add('seen');
+  const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { card.classList.add('seen'); io.disconnect(); } }, { threshold: 0.5 });
+  io.observe(card);
+})();
+</script>
+
+<script>
+// "What I did" popover from the about icon next to the title
+(() => {
+  const btn = document.querySelector('.role-btn'), pop = document.getElementById('role-pop');
+  const box = pop.querySelector('.role'), x = pop.querySelector('.role-x');
+  const open = () => {
+    pop.hidden = false;
+    const b = btn.getBoundingClientRect();
+    box.style.setProperty('--ox', (b.left + b.width / 2 - box.offsetLeft) + 'px');
+    box.style.setProperty('--oy', (b.top + b.height / 2 - box.offsetTop) + 'px');
+    requestAnimationFrame(() => pop.classList.add('open'));
+    btn.setAttribute('aria-expanded', 'true');
+    box.focus();
+  };
+  const close = () => {
+    pop.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    setTimeout(() => { pop.hidden = true; }, 300);
+    btn.focus();
+  };
+  // draw the icon stroke by stroke, like the homepage nav icons
+  const ic = btn.querySelector('.ic'), paths = [...ic.querySelectorAll('path')];
+  const lens = paths.map(p => p.getTotalLength()), total = lens.reduce((a, b) => a + b, 0);
+  let t = 0;
+  paths.forEach((p, i) => {
+    p.style.animationDelay = (t / total) * 900 + 'ms';
+    p.style.animationDuration = (lens[i] / total) * 900 + 'ms';
+    t += lens[i];
+  });
+  const draw = () => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    ic.classList.remove('drawing'); void ic.offsetWidth; ic.classList.add('drawing');
+  };
+  setTimeout(draw, 400);
+  btn.addEventListener('mouseenter', draw);
+  btn.addEventListener('focus', draw);
+  btn.addEventListener('click', open);
+  x.addEventListener('click', close);
+  pop.addEventListener('click', e => { if (e.target === pop) close(); });
+  addEventListener('keydown', e => { if (e.key === 'Escape' && !pop.hidden) close(); });
+})();
 </script>
 </body>
 </html>

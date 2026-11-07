@@ -59,7 +59,7 @@
       <p class="wish-pop" role="status" aria-live="polite"></p>
       <p class="wish-toast" aria-live="polite">Your wish has been planted</p>
       <p class="wish-count"></p>
-      <p class="wish-hint" aria-hidden="true"><span class="ink">psst… make a wish!</span><svg viewBox="0 0 34 30" fill="none"><path d="M2 5C12 3 22 8 27 22" pathLength="1"/><path d="M21.5 19.5L27.5 23.5L30 16.5" pathLength="1"/></svg></p>
+      <p class="wish-hint" aria-hidden="true"><span class="ink">psst… make a wish!</span><svg viewBox="0 0 34 20" fill="none"><path d="M2 13C10 5 21 5 30 11" pathLength="1"/><path d="M24 6L30.5 11.5L23 13.5" pathLength="1"/></svg></p>
       <button class="wish-open" type="button" aria-expanded="false" aria-controls="wish-panel">
         <span class="stamp"><img src="/assets/logo-stamp.png" alt=""></span>
         <span class="wish-eyebrow">Make a wish</span>
