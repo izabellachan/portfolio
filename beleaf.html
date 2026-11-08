@@ -2,254 +2,769 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>izabella chan</title>
-<script src="./dc.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BELEAF · izabella chan</title>
+<meta name="description" content="BELEAF: exploring a wearable fall-alert concept and companion app. A product design case study by Izabella Chan.">
 <script src="assets/cursor.js"></script>
 <link rel="icon" href="/assets/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-</head>
-<body>
-<x-dc>
-<helmet>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&amp;family=Archivo:wght@700&amp;family=DM+Sans:wght@400&amp;family=Schoolbell&amp;family=Lexend:wght@700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&amp;family=Schoolbell&amp;family=Lexend:wght@700&amp;display=swap">
+<link rel="stylesheet" href="assets/site.css">
 <style>
-/* Cursor: gray dot (--text #656565 at 30% opacity) */
-html,html *{cursor:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2712%27 height=%2712%27%3E%3Ccircle cx=%276%27 cy=%276%27 r=%276%27 fill=%27%23656565%27 fill-opacity=%27.3%27/%3E%3C/svg%3E") 6 6,auto !important}
-/* while the mouse is pressed, the dot shrinks */
-html:active,html *:active{cursor:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%278%27 height=%278%27%3E%3Ccircle cx=%274%27 cy=%274%27 r=%274%27 fill=%27%23656565%27 fill-opacity=%27.3%27/%3E%3C/svg%3E") 4 4,auto !important}
-body{margin:0;background:#FAFAFA}
-.ph{display:flex;align-items:center;justify-content:center;box-sizing:border-box;background:#ECECEA;color:#A9A9A6;font-family:'Instrument Sans',sans-serif;font-size:10px;line-height:1.2;text-align:center;padding:4px;overflow:hidden;letter-spacing:-0.03em}
-.ph span{max-width:100%;overflow:hidden;text-overflow:ellipsis}
-.ts-pills{display:flex;align-items:center;gap:16px;width:100%;overflow-x:auto;scrollbar-width:none}
-.ts-pills::-webkit-scrollbar{display:none}
-.ts-pillrow-inner{display:flex;align-items:center;gap:8px;flex:none}
-.ts-pills-fixed{position:sticky;left:0;z-index:1;display:flex;align-items:center;gap:16px;flex:none;background:#FAFAFA;padding-right:4px}
-.ts-pill{flex:none;border:0;margin:0;cursor:pointer;padding:8px 16px;border-radius:16px;font-family:'Instrument Sans',sans-serif;font-weight:500;font-size:12px;line-height:14.4px;transition:background-color .2s ease,color .2s ease;white-space:nowrap;letter-spacing:-0.03em}
-.ts-pill:focus-visible,.ts-nav-item:focus-visible{outline:2px solid #6BADDB;outline-offset:2px}
-.ts-nav{position:sticky;top:0;height:720px;width:64px;flex:none;z-index:5}
-.ts-nav-inner{width:120px;height:720px;display:flex;flex-direction:column;justify-content:center;gap:4px;padding:16px;box-sizing:border-box}
-.ts-nav-item{display:flex;align-items:center;gap:12px;padding:6px 0;text-decoration:none;color:#656565;font-family:"Schoolbell",cursive;font-weight:400;font-size:12px;line-height:15.6px;height:16px;box-sizing:content-box;margin:-6px 0}
-.ts-nav-line{display:block;height:1px;background:#959595;flex:none;transition:width .25s ease}
-.ts-nav-label{transition:opacity .25s ease;white-space:nowrap}
-.ts-nav-item:hover .ts-nav-label{opacity:1 !important}
-@media (max-width: 1100px){
-  .ts-main{padding:64px 32px 0 !important}
-}
-@media (max-width: 900px){
-  .ts-nav{display:none}
-  .ts-main{padding:88px 24px 0 !important}
-  .ts-hero{flex-wrap:wrap}
-  .ts-hero-art{flex:1 1 100% !important}
-  .ts-hero-meta{flex:1 1 100% !important}
-  .ts-meta-list{flex-direction:row !important;flex-wrap:wrap;width:100% !important;gap:16px 24px !important}
-  .ts-meta-list > div{flex:1 1 140px;min-width:0}
-  .ts-rework{flex-direction:column;padding:24px !important;gap:24px !important}
-  .ts-rework > img{width:100%;flex:none !important}
-  .ts-hypcol{flex:none !important;width:100%}
-  .ts-ur{flex-direction:column;align-items:stretch !important}
-  .ts-ur-stats{flex:none !important}
-  .ts-impact-row{flex-direction:column;align-items:stretch !important}
-  .ts-impact-row > div:first-child{flex:none !important}
-}
-@media (max-width: 720px){
-  .ts-main{padding:80px 16px 0 !important}
-  .ts-row3{flex-direction:column}
-  .ts-row4{flex-wrap:wrap}
-  .ts-row4 > .ts-feat{flex:1 1 calc(50% - 8px) !important}
-  .ts-row2{flex-direction:column}
-  .ts-grid2{grid-template-columns:minmax(0,1fr) !important}
-  .ts-ba-row{flex-direction:column;align-items:stretch !important}
-  .ts-ba-row > div{flex:none !important;width:100%}
-  .ts-ba-arrow{align-self:center;transform:rotate(90deg)}
-  .ts-ur-photos{padding:20px !important}
-}
-.ts-row3 > .ts-stat{flex:1 1 0;min-width:0}
-.ts-media,.ts-feat,.ts-imgcard,.ts-rework,.ts-ur-photos,.ts-ba,.ts-stat,.ts-box{outline:1px solid #ECECEC;outline-offset:-1px}
-.ts-callout{outline:1px solid #6BADDB;outline-offset:-1px}
+/* BELEAF case study (draft redesign). Same system as townshare.html; the accent is the same blue as TownShare. */
+:root{--bl:#6BADDB;--bl-wash:rgba(107,173,219,.08);--bl-line:rgba(107,173,219,.35);--bl-ink:var(--accent-text);--body:var(--text-muted)}
+body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans);letter-spacing:-0.03em;-webkit-font-smoothing:antialiased}
+img,video{display:block;max-width:100%}
+p{margin:0}
+
 .logo-stamp{display:flex;align-items:center;justify-content:center;position:fixed;top:21.575px;left:20px;z-index:6;width:29.205px;height:28.057px}
 .logo-stamp img{display:block;width:27.744px;height:26.524px;object-fit:cover;object-position:top;transform:rotate(-3.25deg)}
-@media (max-width: 640px){.logo-stamp{top:17.575px;left:16px}}
-.logo-stamp:focus-visible{outline:2px solid #6BADDB;outline-offset:4px}
-/* beleaf-only layouts */
-/* Problem cards stay a 2x2 grid on tablets; only phones get a single column */
-@media (min-width: 481px) and (max-width: 720px){.ts-problem-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important}.ts-problem-grid > div{min-height:0 !important;padding:24px 16px 20px !important}}
-.ts-split{display:flex;align-items:center;gap:32px;width:100%}
-.ts-split > *{min-width:0}
-.ts-tabs{display:flex;flex-direction:column;flex:0 0 300px}
-.sim-btn{padding:8px 18px;border-radius:4px;border:1px solid #343434;background:#343434;color:#FFFFFF;cursor:pointer;font-size:13px;font-weight:400;font-family:'Instrument Sans',sans-serif}
-.sim-btn:focus-visible{outline:2px solid #6BADDB;outline-offset:2px}
-/* cards drawn by a positioned layout paint over their wrapper's stroke, so the layout carries it */
-.ts-media > .ts-stage{outline:1px solid #ECECEC;outline-offset:-1px}
-.ui-tab{display:flex;flex-direction:column;width:100%;margin:0;padding:18px 20px;border:0;border-radius:12px 0 0 12px;text-align:left;cursor:pointer;font:inherit;transition:background-color .3s ease}
-.ui-tab-desc{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .3s ease,opacity .3s ease}
-.ui-tab-desc > span{overflow:hidden}
-.ui-tab-desc p{padding-top:8px}
-.ui-tab[aria-pressed="true"] .ui-tab-desc{grid-template-rows:1fr;opacity:1}
-/* the recordings have light rows at their very edges from export; a 2% zoom keeps them out of view */
-#ui-video{transition:opacity .2s ease;transform:scale(1.02)}
-@media (prefers-reduced-motion: reduce){.ui-tab,.ui-tab-desc,#ui-video{transition:none}}
-.ui-tab:focus-visible{outline:2px solid #6BADDB;outline-offset:-2px}
+.logo-stamp:focus-visible{outline:2px solid var(--bl);outline-offset:4px}
+
+.cs-nav{position:fixed;left:20px;top:50%;transform:translateY(-50%);z-index:5;display:flex;flex-direction:column;gap:4px}
+.cs-nav a{display:flex;align-items:center;gap:12px;height:16px;padding:4px 0;text-decoration:none;color:var(--text);font-family:"Schoolbell",cursive;font-size:12px}
+.cs-nav a i{display:block;width:16px;height:1px;background:#959595;transition:width .25s ease}
+.cs-nav a span{opacity:0;white-space:nowrap;transition:opacity .25s ease}
+.cs-nav a:hover span,.cs-nav a[aria-current="true"] span{opacity:1}
+.cs-nav a[aria-current="true"] i{width:24px;background:var(--text)}
+.cs-nav a:focus-visible{outline:2px solid var(--bl);outline-offset:2px}
+
+.cs{max-width:1028px;margin:0 auto;padding:96px 32px 120px}
+.cs-section{padding-top:120px;scroll-margin-top:24px}
+
+/* type */
+.eyebrow{display:flex;align-items:center;gap:4px;margin-bottom:16px;font-weight:500;font-size:11px;line-height:1.2;letter-spacing:.06em;text-transform:uppercase;color:var(--bl-ink)}
+.eyebrow::before{content:"["}
+.eyebrow::after{content:"]"}
+h1,h2,h3{margin:0;font-family:var(--helvetica-neue);font-weight:400;color:var(--text-strong);letter-spacing:-0.03em}
+h1{font-size:44px;line-height:1.08;max-width:760px}
+h2{font-size:30px;line-height:1.15;max-width:720px}
+h3{font-size:19px;line-height:1.3}
+.lead{max-width:640px;margin-top:20px;font-size:17px;line-height:1.55;color:var(--text)}
+.prose{max-width:640px;display:flex;flex-direction:column;gap:14px;font-size:15px;line-height:1.6}
+.prose strong,.lead strong{font-weight:500;color:var(--text-strong)}
+.caption{margin-top:10px;font-size:12px;line-height:1.4;color:var(--text-muted)}
+.tag{display:inline-block;padding:3px 8px;border-radius:2px;font-weight:500;font-size:10px;line-height:1.2;letter-spacing:.06em;text-transform:uppercase}
+.tag.gray{background:var(--surface-sunken);color:var(--text-muted)}
+.tag.green{background:var(--bl-wash);color:var(--bl-ink)}
+
+.tile{background:var(--surface);border:1px solid #ececec;border-radius:var(--radius-md)}
+.ts-media{outline:1px solid #ececec;outline-offset:-1px}
+.note{display:flex;gap:12px;padding:18px 20px;border-radius:var(--radius-md);background:var(--surface-sunken);font-size:13px;line-height:1.5}
+.note svg{flex:none;margin-top:2px}
+.note b{font-weight:500;color:var(--text-strong)}
+
+/* hero */
+.hero-row{display:flex;align-items:flex-end;gap:32px;margin-bottom:40px}
+.hero-row .hero-art{flex:0 1 747px;min-width:0;margin:0}
+.hero-meta{flex:1 1 0;min-width:180px;display:flex;flex-direction:column;gap:24px}
+.wordmark{display:flex;align-items:flex-end;gap:8px}
+.wordmark img{width:48px;height:46px;object-fit:contain}
+.wordmark span{font-family:"Lexend",sans-serif;font-weight:700;font-size:24px;line-height:1.2;letter-spacing:0;color:#000}
+.facts{margin:0;display:flex;flex-direction:column;gap:18px}
+.facts dt{margin-bottom:4px;font-weight:400;font-size:11px;line-height:normal;letter-spacing:-0.03em;text-transform:uppercase;color:var(--text-label)}
+.facts dd{margin:0;font-size:14px;line-height:1.45;color:var(--text-strong)}
+.hero-chip{position:absolute;z-index:2;padding:3px 7px;border-radius:2px;background:rgba(255,255,255,.92);font-weight:500;font-size:9px;line-height:1.2;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted)}
+.title-row{display:flex;align-items:flex-start;gap:32px}
+.title-row h1{flex:0 1 747px;min-width:0}
+.title-meta{flex:1 1 0;min-width:180px;padding-top:6px;display:flex;justify-content:flex-end}
+
+/* "What I owned" note card */
+.role-btn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid #e2e2e2;border-radius:4px;background:#fff;color:var(--text-strong);cursor:pointer;transition:border-color .2s}
+.role-btn:hover,.role-btn[aria-expanded="true"]{border-color:var(--bl)}
+.role-btn .ic{display:flex}
+.role-btn:focus-visible{outline:2px solid var(--bl);outline-offset:2px}
+.role-pop{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(250,250,250,.55);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);opacity:0;transition:opacity .25s ease}
+.role-pop[hidden]{display:none}
+.role-pop.open{opacity:1}
+.role{position:relative;width:min(520px,100%);max-height:calc(100vh - 48px);overflow:auto;padding:40px 40px 32px;background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 24px 60px rgba(38,38,38,.12);transform-origin:var(--ox,50%) var(--oy,0);transform:scale(.2) rotate(-6deg);opacity:0;transition:transform .45s cubic-bezier(.2,.9,.25,1.15),opacity .25s ease}
+.role-pop.open .role{transform:rotate(-1deg);opacity:1}
+.role-x{position:absolute;top:14px;right:14px;width:30px;height:30px;border:0;border-radius:4px;background:transparent;font-size:20px;line-height:1;color:var(--text-label);cursor:pointer}
+.role-x:hover{background:#f4f4f4;color:var(--text-strong)}
+.role h3{position:relative;display:inline-block;margin:0 0 22px;font-family:"Schoolbell",cursive;font-weight:400;font-size:30px;line-height:1.1;letter-spacing:0}
+.role .squiggle{position:absolute;left:-2px;bottom:-9px;width:calc(100% + 6px);height:10px;color:var(--bl)}
+.role .squiggle path,.role .chk path{stroke-dasharray:1;stroke-dashoffset:1}
+.role-pop.open .squiggle path{animation:icon-draw .6s .3s ease-out forwards}
+.role ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.role li{display:grid;grid-template-columns:18px minmax(0,1fr);gap:12px;align-items:start;font-size:15px;line-height:1.45;color:var(--text-strong)}
+.role li b{font-weight:500;color:var(--bl-ink)}
+.role .chk{width:18px;height:18px;margin-top:1px;color:var(--bl)}
+.role li,.role .aside{opacity:0;transform:translateY(6px);transition:opacity .3s ease,transform .3s ease;transition-delay:calc(.45s + var(--i) * 90ms)}
+.role-pop.open .role li,.role-pop.open .role .aside{opacity:1;transform:none}
+.role-pop.open .chk path{animation:icon-draw .35s ease-out forwards;animation-delay:calc(.55s + var(--i) * 90ms)}
+.role .aside{margin-top:24px;font-size:13px;line-height:1.5;color:var(--text-muted)}
+.role .aside span{margin-right:4px;font-family:"Schoolbell",cursive;font-size:15px;letter-spacing:.03em;color:var(--bl-ink)}
+
+/* 02 why: the gap between a fall and someone knowing */
+.why-row{margin-top:40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:48px;align-items:center}
+.gap-card{padding:44px 36px 40px;background:#F8F8F8;border-radius:12px;outline:1px solid #ECECEC;outline-offset:-1px}
+.gap-line{position:relative;display:grid;grid-template-columns:auto 1fr auto;align-items:start;gap:0;padding-top:24px}
+.gap-dot{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:10px;width:84px;text-align:center;font-size:12px;line-height:1.3;color:var(--text-strong)}
+.gap-dot i{position:relative;z-index:1;width:12px;height:12px;border-radius:50%;background:var(--text-strong);box-shadow:0 0 0 4px #F8F8F8}
+.gap-dot.fin i{background:var(--bl)}
+.gap-span{position:relative;height:12px}
+.gap-span::before{content:"";position:absolute;left:-36px;right:-36px;top:50%;border-top:1.5px dashed #c9c9c9}
+.gap-span::after{content:"";position:absolute;left:-36px;top:calc(50% - 1px);height:3px;width:0;background:var(--bl);border-radius:2px;transition:width 1.6s cubic-bezier(.45,0,.25,1) .3s}
+.gap-card.seen .gap-span::after{width:calc(100% + 72px)}
+.gap-label{position:absolute;left:50%;top:-30px;transform:translateX(-50%) rotate(-2deg);font-family:"Schoolbell",cursive;font-size:15px;letter-spacing:0;color:var(--bl-ink);white-space:nowrap}
+.gap-q{margin-top:28px;text-align:center;font-family:var(--helvetica-neue);font-size:20px;line-height:1.35;letter-spacing:-0.03em;color:var(--text-strong)}
+
+/* 03 problem */
+.int-facts{margin-top:40px;display:flex;flex-wrap:wrap;gap:20px 64px}
+.int-facts div{display:flex;flex-direction:column;gap:4px}
+.int-facts b{font-family:var(--helvetica-neue);font-weight:400;font-size:32px;line-height:1;letter-spacing:-0.03em;color:var(--text-strong)}
+.int-facts span{max-width:260px;font-size:13px;line-height:1.45}
+.themes{margin-top:32px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;counter-reset:th}
+.theme{display:flex;flex-direction:column;counter-increment:th}
+.theme .art{display:flex;align-items:center;justify-content:center;aspect-ratio:1/1;padding:18px;background:#fff;border-radius:12px;outline:1px solid #ECECEC;outline-offset:-1px}
+.theme .art img{width:100%;height:auto}
+.theme h3{margin-top:16px;font-size:16px}
+.theme h3::before{content:counter(th,decimal-leading-zero);display:block;margin-bottom:6px;font-size:12px;color:var(--bl-ink)}
+.theme p{margin-top:6px;font-size:13px;line-height:1.5}
+.limit{margin-top:24px;max-width:760px}
+
+/* 04 direction: need → response */
+.map{margin-top:40px;display:flex;flex-direction:column;gap:10px}
+.map-head,.map-row{display:grid;grid-template-columns:minmax(0,1fr) 48px minmax(0,1.15fr);align-items:stretch}
+.map-head{padding:0 4px 4px;font-weight:500;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-label)}
+.map-head span:last-child{grid-column:3;color:var(--bl-ink)}
+.map-row .need,.map-row .resp{display:flex;align-items:center;gap:14px;padding:18px 20px;border-radius:var(--radius-md);font-size:15px;line-height:1.4}
+.map-row .need{background:#F5F5F5;color:var(--text)}
+.map-row .resp{background:var(--bl-wash);border:1px solid var(--bl-line);font-family:var(--helvetica-neue);font-size:17px;letter-spacing:-0.03em;color:var(--text-strong)}
+.map-row .resp small{display:block;margin-top:3px;font-family:var(--sans);font-size:12px;line-height:1.4;color:var(--text-muted)}
+.map-row .arr{display:flex;align-items:center;justify-content:center;color:#bdbdbd}
+.map-row .k{flex:none;font-size:12px;color:var(--text-label)}
+.map-row{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;transition-delay:calc(var(--i) * 110ms)}
+.map.seen .map-row{opacity:1;transform:none}
+
+/* 05 system */
+.flow{margin-top:40px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;align-items:stretch}
+.node{position:relative;display:flex;flex-direction:column;gap:8px;padding:18px 16px 18px;margin-right:22px;background:var(--surface);border:1px solid #ececec;border-radius:var(--radius-md)}
+.node:last-child{margin-right:0;background:var(--bl-wash);border-color:var(--bl-line)}
+.node:not(:last-child)::after{content:"";position:absolute;right:-17px;top:50%;width:12px;height:12px;background:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 12 12%27 fill=%27none%27%3E%3Cpath d=%27M1 6h9M6.5 2.5 10 6l-3.5 3.5%27 stroke=%27%23bdbdbd%27 stroke-width=%271.3%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E") center/12px no-repeat;transform:translateY(-50%)}
+.node .k{font-size:11px;color:var(--bl-ink)}
+.node h3{font-size:15px;line-height:1.25}
+.node p{font-size:12px;line-height:1.45}
+.node .part{margin-top:auto;padding-top:6px;font-weight:500;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-label)}
+.sys{margin-top:48px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:40px;align-items:center}
+.parts{display:flex;flex-direction:column;gap:18px}
+.parts div{display:grid;grid-template-columns:28px minmax(0,1fr);column-gap:12px}
+.parts .ico{grid-row:span 2;width:28px;height:28px;border-radius:6px;background:var(--bl-wash);display:flex;align-items:center;justify-content:center;color:var(--bl-ink)}
+.parts h3{font-size:15px}
+.parts p{font-size:13px;line-height:1.5}
+.circuit{margin:0}
+.circuit img{width:100%;height:auto;border-radius:12px}
+/* detection logic: illustrative walk-through of the three conditions */
+.logic{margin-top:64px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:40px;align-items:center}
+.logic h3{font-size:20px}
+.logic .prose{margin-top:12px;font-size:14px}
+.conds{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.cond{padding:16px;border-radius:var(--radius-md);background:var(--surface);border:1px solid #ececec;transition:background .3s,border-color .3s}
+.cond b{display:block;font-family:var(--helvetica-neue);font-weight:400;font-size:16px;letter-spacing:-0.03em;color:var(--text-strong)}
+.cond span{display:block;margin-top:4px;font-size:12px;line-height:1.4}
+.cond.on{background:var(--bl-wash);border-color:var(--bl)}
+.cond.off{background:#fbf3f2;border-color:#e3b4ae}
+.result{margin-top:10px;padding:14px 16px;border-radius:var(--radius-md);background:#F5F5F5;font-size:13px;line-height:1.5;color:var(--text);min-height:21px}
+.sim-btns{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px}
+.sim-btns button{padding:9px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface);font-family:var(--sans);font-size:13px;letter-spacing:-0.03em;color:var(--text);cursor:pointer;transition:border-color .2s}
+.sim-btns button:hover{border-color:var(--bl)}
+.sim-btns button:focus-visible{outline:2px solid var(--bl);outline-offset:2px}
+.demo{margin-top:64px;display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1fr);gap:24px;align-items:center}
+.demo video{width:100%;height:auto;border-radius:var(--radius-md);background:#111;outline:1px solid #ececec;outline-offset:-1px}
+.demo h3{font-size:18px}
+.demo p{margin-top:10px;font-size:14px;line-height:1.55}
+
+/* 06 app */
+.figma-tag{display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:7px 12px;border-radius:4px;border:1px dashed #c9c9c9;font-size:12px;color:var(--text)}
+.figma-tag i{width:7px;height:7px;border-radius:50%;background:#c9c9c9}
+.app{margin-top:40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:40px;align-items:center}
+.screens{display:flex;flex-direction:column;gap:6px}
+.scr{display:grid;grid-template-columns:24px minmax(0,1fr);column-gap:12px;width:100%;margin:0;padding:16px 18px;border:1px solid transparent;border-radius:var(--radius-md);background:transparent;text-align:left;font:inherit;color:inherit;cursor:pointer;transition:background .25s,border-color .25s}
+.scr .n{grid-row:span 2;padding-top:2px;font-size:12px;color:var(--text-label)}
+.scr b{font-family:var(--helvetica-neue);font-weight:400;font-size:17px;letter-spacing:-0.03em;color:var(--text-strong)}
+.scr .d{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .3s ease,opacity .3s ease}
+.scr .d > span{overflow:hidden}
+.scr .d p{padding-top:6px;font-size:13px;line-height:1.5}
+.scr .d em{font-style:normal;display:block;margin-top:8px;font-family:"Schoolbell",cursive;font-size:14px;letter-spacing:.02em;color:var(--bl-ink)}
+.scr[aria-pressed="true"]{background:var(--surface);border-color:#ececec}
+.scr[aria-pressed="true"] .n{color:var(--bl-ink)}
+.scr[aria-pressed="true"] .d{grid-template-rows:1fr;opacity:1}
+.scr:focus-visible{outline:2px solid var(--bl);outline-offset:-2px}
+.stage{position:relative;aspect-ratio:1/1.02;background:#F3F3F1;border-radius:20px;outline:1px solid #ECECEC;outline-offset:-1px;container-type:inline-size;overflow:hidden}
+.phone{position:absolute;left:50%;top:7cqw;width:43cqw;transform:translateX(-50%);aspect-ratio:1063/2166}
+.phone .scrn{position:absolute;left:4.6%;top:2%;width:90.8%;height:96.2%;background:#000;border-radius:5.4cqw;overflow:hidden}
+.phone video{width:100%;height:100%;object-fit:cover;transform:scale(1.02);transition:opacity .2s ease}
+.phone img{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.stage .tag{position:absolute;left:16px;top:16px}
+.stills{margin-top:12px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.still{display:flex;align-items:center;justify-content:center;padding:28px 20px;background:#F8F8F8;border-radius:12px;outline:1px solid #ECECEC;outline-offset:-1px}
+.still img,.still video{height:340px;width:auto;border-radius:18px}
+/* the full walkthrough plays in the same phone frame as the screens above */
+.phone.mini{position:relative;left:auto;top:auto;transform:none;width:auto;height:340px}
+.phone.mini .scrn{border-radius:14.5% / 6.7%}
+.still .phone.mini img{position:absolute;inset:0;width:100%;height:100%;border-radius:0}
+.still .phone.mini video{width:100%;height:100%;border-radius:0}
+.still-cap{margin-top:10px;font-size:12px;line-height:1.45;color:var(--text-muted)}
+.principles{margin-top:56px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;counter-reset:pr}
+.principles div{counter-increment:pr}
+.principles div::before{content:counter(pr,decimal-leading-zero);display:block;margin-bottom:10px;font-size:12px;color:var(--bl-ink)}
+.principles h3{font-size:17px}
+.principles p{margin-top:8px;font-size:14px;line-height:1.6}
+
+/* 07 testing */
+.story{margin-top:48px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.55fr);gap:48px;align-items:start}
+.story > div:first-child{position:sticky;top:40px}
+.story .num{display:block;font-size:12px;color:var(--bl-ink)}
+.story h3{margin-top:10px;font-size:22px}
+.pr{display:grid;grid-template-columns:minmax(0,1fr) 36px minmax(0,1fr);align-items:stretch}
+.pr > div{padding:20px 22px;border-radius:var(--radius-md);font-size:14px;line-height:1.55}
+.pr .p{background:#F5F5F5;color:var(--text)}
+.pr .r{background:var(--bl-wash);border:1px solid var(--bl-line);color:var(--text-strong)}
+.pr b{display:block;margin-bottom:6px;font-weight:500;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-label)}
+.pr .r b{color:var(--bl-ink)}
+.pr .arr{display:flex;align-items:center;justify-content:center;color:#bdbdbd;padding:0;background:none}
+.ledger{margin-top:72px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ledger .tile{padding:24px 26px}
+.ledger h3{font-size:16px}
+.ledger ul{margin:16px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
+.ledger li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;font-size:14px;line-height:1.5;color:var(--text-strong)}
+.ledger .no li{color:var(--text)}
+.ledger li svg{margin-top:2px}
+
+/* 08 outcome */
+.deliv{margin-top:48px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.dv .m{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#F8F8F8;border-radius:12px;outline:1px solid #ECECEC;outline-offset:-1px}
+.dv .m img{max-height:82%;width:auto}
+.dv .m video{width:100%;height:100%;object-fit:cover}
+.dv h3{margin-top:14px;font-size:15px}
+.dv p{margin-top:4px;font-size:13px;line-height:1.45}
+.interest{margin-top:48px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.55fr);gap:16px;align-items:stretch}
+.big{display:flex;flex-direction:column;justify-content:space-between;gap:24px;padding:28px;border-radius:var(--radius-md);background:var(--bl-wash);border:1px solid var(--bl-line)}
+.big .num{font-family:var(--helvetica-neue);font-size:72px;line-height:.95;letter-spacing:-0.05em;color:var(--text-strong)}
+.big .num small{font-size:34px;color:var(--text-muted)}
+.big .q{font-family:var(--helvetica-neue);font-size:17px;line-height:1.4;letter-spacing:-0.03em;color:var(--text-strong)}
+.big .q b{display:block;margin-bottom:6px;font-family:var(--sans);font-weight:500;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--bl-ink)}
+.big p.s{font-size:12px;line-height:1.5;color:var(--text-muted)}
+.interest iframe{width:100%;height:461px;border:0;border-radius:10px;display:block}
+.tryon{margin-top:12px;display:grid;grid-template-columns:1.2fr repeat(5,minmax(0,1fr));gap:12px;align-items:stretch}
+.tryon > *{display:flex;align-items:flex-end;justify-content:center;height:230px;padding:14px 8px 0;background:#F8F8F8;border-radius:12px;outline:1px solid #ECECEC;outline-offset:-1px;overflow:hidden}
+.tryon > div:first-child{flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:20px;background:transparent;outline:0}
+.tryon > div:first-child h3{font-size:16px}
+.tryon > div:first-child p{margin-top:6px;font-size:13px;line-height:1.45}
+.tryon img{height:100%;width:auto;max-width:none}
+.learned{margin-top:96px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;counter-reset:lrn}
+.learned div{counter-increment:lrn}
+.learned div::before{content:counter(lrn,decimal-leading-zero);display:block;margin-bottom:10px;font-size:12px;color:var(--bl-ink)}
+.learned h3{font-size:17px}
+.learned p{margin-top:10px;font-size:14px;line-height:1.6}
+.next{margin-top:56px;padding:32px 36px;border-radius:var(--radius-md);background:var(--bl-wash);border:1px solid var(--bl-line)}
+.next .eyebrow{margin-bottom:12px}
+.next .eyebrow::before,.next .eyebrow::after{display:none}
+.next ol{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;counter-reset:nx}
+.next li{counter-increment:nx;font-family:var(--helvetica-neue);font-size:17px;line-height:1.4;letter-spacing:-0.03em;color:var(--text-strong)}
+.next li::before{content:counter(nx);display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;margin-right:10px;border-radius:50%;background:#fff;border:1px solid var(--bl-line);font-family:var(--sans);font-size:11px;color:var(--bl-ink);vertical-align:2px}
+.end{margin-top:96px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;font-size:13px}
+.end a{color:var(--text);text-decoration:none}
+.end a:hover{color:var(--text-strong)}
+
+@media (prefers-reduced-motion:reduce){
+  .role-pop,.role,.role li,.role .aside,.map-row,.gap-span::after,.cs-nav a i,.cs-nav a span{transition:none}
+  .role .squiggle path,.role .chk path{stroke-dashoffset:0;animation:none!important}
+  .map-row{opacity:1;transform:none}
+}
+@media (max-width: 1180px){ .cs-nav{display:none} }
 @media (max-width: 900px){
-  .ts-split{flex-direction:column;align-items:stretch}
-  .ts-split > *{flex:none !important;width:100% !important}
-  .ts-tabs{flex:none;padding-top:0 !important}
-  .desktop-break{display:none}
-  .ts-solution-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
-  .ts-solution-row > :nth-child(2){grid-column:1 / -1;order:3}
-  #ts-impact .ts-box{min-height:0 !important;padding:20px 25px !important}
+  .cs{padding:88px 24px 96px}
+  h1{font-size:36px} h2{font-size:26px}
+  .cs-section{padding-top:96px}
+  .hero-row{flex-direction:column;align-items:stretch}
+  .hero-row .hero-art{flex:none}
+  .facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 24px}
+  .title-row{gap:16px} .title-meta{flex:none;min-width:0}
+  .role{padding:36px 24px 26px} .role h3{font-size:26px}
+  .why-row,.sys,.logic,.demo,.app,.story,.interest{grid-template-columns:minmax(0,1fr);gap:28px}
+  .story > div:first-child{position:static}
+  .themes{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .flow{grid-template-columns:minmax(0,1fr);gap:22px}
+  .node{margin-right:0}
+  .node:not(:last-child)::after{right:auto;left:50%;top:auto;bottom:-17px;transform:translateX(-50%) rotate(90deg)}
+  .deliv{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stills{grid-template-columns:repeat(3,minmax(200px,1fr));overflow-x:auto;margin-right:-24px;padding-right:24px;scrollbar-width:none}
+  .learned,.principles,.next ol,.ledger{grid-template-columns:minmax(0,1fr)}
+  .tryon{grid-template-columns:repeat(5,minmax(110px,1fr));overflow-x:auto;scrollbar-width:none;margin-right:-24px;padding-right:24px}
+  .tryon > div:first-child{display:none}
+}
+@media (max-width: 640px){
+  .cs{padding:80px 16px 80px}
+  .logo-stamp{top:17.575px;left:16px}
+  h1{font-size:30px} h2{font-size:23px}
+  .lead{font-size:16px}
+  .facts{grid-template-columns:1fr 1fr}
+  .gap-card{padding:36px 18px 30px}
+  .gap-dot{width:68px}
+  .gap-q{font-size:18px}
+  .map-head{display:none}
+  .map-row{grid-template-columns:minmax(0,1fr);gap:4px}
+  .map-row .arr{height:20px;transform:rotate(90deg)}
+  .pr{grid-template-columns:minmax(0,1fr)}
+  .pr .arr{height:28px;transform:rotate(90deg)}
+  .conds{grid-template-columns:minmax(0,1fr)}
+  .still img,.still video,.phone.mini{height:300px}
+  .phone{top:11cqw}
+  .stills{margin-right:-16px;padding-right:16px}
+  .tryon{margin-right:-16px;padding-right:16px}
+  .interest iframe{height:420px}
+  .big .num{font-size:60px}
+  .next{padding:26px 22px}
+  .end{flex-direction:column}
 }
 </style>
-</helmet>
+</head>
+<body>
 <a class="logo-stamp" href="./" aria-label="Home"><img src="assets/logo-stamp.png" alt=""></a>
-<div style="width: 100%; min-height: 100vh; background: #FAFAFA; display: flex; align-items: flex-start">
-<nav class="ts-nav" aria-label="Case study sections"><div class="ts-nav-inner"><a class="ts-nav-item" href="#ts-overview" onClick="{{navOverview.go}}" aria-current="{{navOverview.cur}}"><span class="ts-nav-line" style="width: {{navOverview.w}}px"></span><span class="ts-nav-label" style="opacity: {{navOverview.op}}">overview</span></a><a class="ts-nav-item" href="#ts-context" onClick="{{navContext.go}}" aria-current="{{navContext.cur}}"><span class="ts-nav-line" style="width: {{navContext.w}}px"></span><span class="ts-nav-label" style="opacity: {{navContext.op}}">context</span></a><a class="ts-nav-item" href="#ts-why" onClick="{{navWhy.go}}" aria-current="{{navWhy.cur}}"><span class="ts-nav-line" style="width: {{navWhy.w}}px"></span><span class="ts-nav-label" style="opacity: {{navWhy.op}}">why</span></a><a class="ts-nav-item" href="#ts-problem" onClick="{{navProblem.go}}" aria-current="{{navProblem.cur}}"><span class="ts-nav-line" style="width: {{navProblem.w}}px"></span><span class="ts-nav-label" style="opacity: {{navProblem.op}}">problem</span></a><a class="ts-nav-item" href="#ts-ideation" onClick="{{navIdeation.go}}" aria-current="{{navIdeation.cur}}"><span class="ts-nav-line" style="width: {{navIdeation.w}}px"></span><span class="ts-nav-label" style="opacity: {{navIdeation.op}}">ideation</span></a><a class="ts-nav-item" href="#ts-solution" onClick="{{navSolution.go}}" aria-current="{{navSolution.cur}}"><span class="ts-nav-line" style="width: {{navSolution.w}}px"></span><span class="ts-nav-label" style="opacity: {{navSolution.op}}">solution</span></a><a class="ts-nav-item" href="#ts-impact" onClick="{{navImpact.go}}" aria-current="{{navImpact.cur}}"><span class="ts-nav-line" style="width: {{navImpact.w}}px"></span><span class="ts-nav-label" style="opacity: {{navImpact.op}}">impact</span></a></div></nav>
-<main class="ts-main" style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 64px; box-sizing: border-box; padding: 64px 61.5px 0 61.5px">
-<div style="width: 100%; max-width: 964px; display: flex; flex-direction: column; gap: 64px">
-<section id="ts-overview" class="ts-hero" style="display: flex; align-items: flex-end; gap: 32px; width: 100%"><div class="ts-hero-art" style="flex: 0 1 747px; min-width: 0"><div class="ts-stage" style="position: relative; width: 100%; aspect-ratio: 747 / 470; container-type: inline-size; overflow: hidden; "><div style="position: absolute; left: 0.000cqw; top: 0.000cqw; width: 21.553cqw; height: 16.867cqw; background: #F8F8F8; border-radius: 10px; border-radius: 12px" class="ts-media"><img src="assets/beleaf/hero-1.png" alt="beleaf device" style="width: 100%; height: 100%; position: absolute; left: 9.94%; top: 16.67%; width: 79.5%; height: 67.46%; display: block; object-fit: contain"></div><div style="position: absolute; left: 23.293cqw; top: 0.000cqw; width: 21.553cqw; height: 16.867cqw; background: #F8F8F8; border-radius: 10px; border-radius: 12px" class="ts-media"><img src="assets/beleaf/hero-2.png" alt="beleaf on the wrist" style="position: absolute; left: 13.66%; top: 16.67%; width: 72.05%; height: 66.67%; border-radius: 4px; display: block; object-fit: contain"></div><div style="position: absolute; left: 0.000cqw; top: 18.608cqw; width: 44.712cqw; height: 44.311cqw; background: #F8F8F8; border-radius: 10px; border-radius: 12px" class="ts-media"><img src="assets/beleaf/hero-phone-1.png" alt="beleaf app home screen" style="position: absolute; left: 17.66%; top: 15.71%; width: 31.44%; height: 68.58%; border-radius: 13px; display: block; object-fit: contain"><img src="assets/beleaf/hero-phone-2.png" alt="beleaf emergency screen" style="position: absolute; left: 51.5%; top: 16.31%; width: 30.84%; height: 67.37%; border-radius: 13px; display: block; object-fit: contain"></div><div style="position: absolute; left: 46.319cqw; top: 0.000cqw; width: 53.681cqw; height: 29.853cqw; "><video class="ts-media" src="assets/beleaf/code.mp4" autoplay muted loop playsinline preload="auto" aria-label="fall-detection code and sensor test" style="width: 100%; height: 100%; border-radius: 10px; display: block; object-fit: cover"></video></div><div style="position: absolute; left: 46.319cqw; top: 31.593cqw; width: 53.681cqw; height: 31.325cqw; "><video class="ts-media" src="assets/beleaf/app-demo.mp4" autoplay muted loop playsinline preload="auto" aria-label="MIT App Inventor app demo" style="width: 100%; height: 100%; border-radius: 10px; display: block; object-fit: cover"></video></div></div></div><div class="ts-hero-meta" style="flex: 0 0 185px; display: flex; flex-direction: column; gap: 24px; align-items: flex-start"><div style="display: flex; align-items: flex-end; gap: 8px"><img src="assets/beleaf/logo-icon.png" alt="beleaf logo" style="width: 48px; height: 46px; display: block; object-fit: contain"><p style="margin: 0; font-family: 'Lexend', sans-serif; font-weight: 700; font-size: 24px; line-height: 28.8px; color: #000000">BELEAF</p></div><div class="ts-meta-list" style="display: flex; flex-direction: column; gap: 16px; width: 185px"><div style="display: flex; flex-direction: column; gap: 4px"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">[TIMELINE]</p><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 18px; color: #9F9F9F;letter-spacing:-0.03em">1 week</p></div><div style="display: flex; flex-direction: column; gap: 4px"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">[ROLE]</p><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 18px; color: #9F9F9F;letter-spacing:-0.03em">Product Developer</p></div><div style="display: flex; flex-direction: column; gap: 4px"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">[TEAM]</p><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 18px; color: #9F9F9F;letter-spacing:-0.03em">Just me and a partner!</p></div><div style="display: flex; flex-direction: column; gap: 4px"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">[TOOLS]</p><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 18px; color: #9F9F9F;letter-spacing:-0.03em">Python, Arduino (C++), MIT App Inventor, Figma</p></div></div></div></section><section id="ts-context" style="width: 100%"><div style="display: flex; flex-direction: column; gap: 12px; width: 100%"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">[CONTEXT]</p><h2 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 20px; line-height: 24px; color: #656565">A fall-detection wearable and companion app, built to give seniors immediate help and families peace</h2><div class="ts-body" style="display: flex; flex-direction: column; gap: 16.8px; font-family: 'Instrument Sans', sans-serif; font-weight: 400; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em"><p style="margin: 0">Falls are one of the most common safety risks for seniors. For people living independently, the danger isn’t just the fall, it’s the silence afterward. BELEAF pairs a physical wearable with a mobile alert app so that when a fall happens, help gets notified automatically, without anyone needing to reach for a phone.</p></div></div></section><section id="ts-why" style="width: 100%"><div style="display: flex; flex-direction: column; gap: 12px; width: 100%"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">[WHY I BUILT THIS]</p><h2 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 20px; line-height: 24px; color: #656565">This project started with my grandmother</h2><div class="ts-body" style="display: flex; flex-direction: column; gap: 16.8px; font-family: 'Instrument Sans', sans-serif; font-weight: 400; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em"><p style="margin: 0">She fell in her backyard, and in that gap — before anyone knew, before anyone could help — is exactly where people get hurt worst. I wanted to know: could technology close that gap, without making her feel monitored or fragile in the process?</p></div></div></section><section id="ts-problem" style="display: flex; flex-direction: column; gap: 32px; width: 100%"><div style="display: flex; flex-direction: column; gap: 12px; width: 100%"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">[PROBLEM]</p><h2 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 20px; line-height: 24px; color: #656565">Grounding the problem in real experiences</h2><div class="ts-body" style="display: flex; flex-direction: column; gap: 16.8px; font-family: 'Instrument Sans', sans-serif; font-weight: 400; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em"><p style="margin: 0">I interviewed 6 caregivers and family members about how they currently support senior safety, and where it breaks down.</p></div></div><div class="ts-grid2 ts-problem-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; width: 100%"><div class="ts-media" style="background: #F8F8F8; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; box-sizing: border-box; padding: 34px 24px 24px; min-height: 266px"><img src="assets/beleaf/problem-1.png" alt="Emergency support arrives too late" loading="lazy" style="width: 50.1%; aspect-ratio: 239 / 172; border-radius: 4px; display: block; object-fit: contain"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080; text-align: center;letter-spacing:-0.03em">Emergency support arrives too late</p></div><div class="ts-media" style="background: #F8F8F8; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; box-sizing: border-box; padding: 34px 24px 24px; min-height: 266px"><img src="assets/beleaf/problem-2.png" alt="Safety systems feel clinical or intrusive" loading="lazy" style="width: 50.1%; aspect-ratio: 239 / 172; border-radius: 4px; display: block; object-fit: contain"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080; text-align: center;letter-spacing:-0.03em">Safety systems feel clinical or intrusive</p></div><div class="ts-media" style="background: #F8F8F8; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; box-sizing: border-box; padding: 34px 24px 24px; min-height: 266px"><img src="assets/beleaf/problem-3.png" alt="Caregivers struggle with uncertainty" loading="lazy" style="width: 50.1%; aspect-ratio: 239 / 172; border-radius: 4px; display: block; object-fit: contain"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080; text-align: center;letter-spacing:-0.03em">Caregivers struggle with uncertainty</p></div><div class="ts-media" style="background: #F8F8F8; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; box-sizing: border-box; padding: 34px 24px 24px; min-height: 266px"><img src="assets/beleaf/problem-4.png" alt="Response delayed if phone isn’t nearby" loading="lazy" style="width: 50.1%; aspect-ratio: 239 / 172; border-radius: 4px; display: block; object-fit: contain"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080; text-align: center;letter-spacing:-0.03em">Response delayed if phone isn’t nearby</p></div></div><div class="ts-callout" style="width: 100%; box-sizing: border-box; padding: 20px 25px; background: rgba(107, 173, 219, 0.05); border-radius: 8px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; color: #6BADDB; text-align: center">The tools meant to keep seniors safe often make them feel less independent. <br class="desktop-break"><strong style="font-weight: 500">So people avoid using them, which defeats the purpose.</strong></div></section><section id="ts-ideation" style="display: flex; flex-direction: column; gap: 64px; width: 100%"><div style="display: flex; flex-direction: column; gap: 32px; width: 100%"><div style="display: flex; flex-direction: column; gap: 12px; width: 100%"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">[IDEATION]</p><h2 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 20px; line-height: 24px; color: #656565">Building the embedded system</h2><div class="ts-body" style="display: flex; flex-direction: column; gap: 16.8px; font-family: 'Instrument Sans', sans-serif; font-weight: 400; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em"><p style="margin: 0">We wired and tested our 3 components separately before integrating: an MPU-6050 (accelerometer + gyroscope), a piezo buzzer, and an HC-06 Bluetooth module. Once sensor and actuator worked independently, we had our MVP.</p></div></div><div class="ts-split" style="justify-content: space-between"><div style="flex: 0 1 420px; display: flex; flex-direction: column; gap: 12px"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">COMPONENT SELECTION</p><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em"><span style="color: #656565">MPU-6050 (accelerometer + gyroscope)</span> — reads motion/orientation</p><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em"><span style="color: #656565">Piezo buzzer</span> — alarm that plays a local, immediate alert</p><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em"><span style="color: #656565">HC-06 Bluetooth</span> — link to the alert app</p></div><div class="ts-media" style="background: #F8F8F8; border-radius: 10px; border-radius: 12px; flex: 0 1 466px; display: flex; flex-direction: column; align-items: center; gap: 10px; box-sizing: border-box; padding: 44px 41px 24px"><img src="assets/beleaf/circuit.png" alt="circuit diagram" loading="lazy" style="width: 100%; aspect-ratio: 384 / 253; border-radius: 4px; display: block; object-fit: contain"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080; text-align: center;letter-spacing:-0.03em">Circuit diagram</p></div></div></div><div class="ts-split" style="justify-content: space-between"><div style="flex: 0 1 282px; display: flex; flex-direction: column; gap: 12px"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">DETECTION LOGIC</p><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em">The device reads accelerometer/gyroscope data continuously. Detection runs on 3 triggers evaluated from the amplitude vector — only when all three activate, in order, does the system register a fall, sound the buzzer, and hand off to Python to send the alert via SMTP.</p><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 16.8px; color: #656565;letter-spacing:-0.03em">Try our logic out! →</p></div><div style="flex: 0 1 650px; display: flex; flex-direction: column"><svg width="100%" viewBox="0 0 680 340" role="img" aria-label="Fall detection logic: impact, orientation and persistence must all trigger" style="aspect-ratio: 680 / 340; display: block; font-family: 'Instrument Sans', sans-serif"><defs><marker id="sim-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#999" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs><rect x="250" y="20" width="180" height="44" rx="8" fill="#FFFFFF" stroke="#E2E2E2" stroke-width="0.5"/><text x="340" y="42" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#444441">Sensor reads data</text><line x1="340" y1="64" x2="140" y2="110" stroke="#999" stroke-width="1.5" marker-end="url(#sim-arrow)"/><line x1="340" y1="64" x2="340" y2="110" stroke="#999" stroke-width="1.5" marker-end="url(#sim-arrow)"/><line x1="340" y1="64" x2="540" y2="110" stroke="#999" stroke-width="1.5" marker-end="url(#sim-arrow)"/><g><rect x="50" y="110" width="180" height="64" rx="8" fill="{{simImpact.fill}}" stroke="{{simImpact.stroke}}" stroke-width="{{simImpact.sw}}"/><text x="140" y="132" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#444441">Impact</text><text x="140" y="152" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#444441">Amplitude spike</text></g><g><rect x="250" y="110" width="180" height="64" rx="8" fill="{{simOrient.fill}}" stroke="{{simOrient.stroke}}" stroke-width="{{simOrient.sw}}"/><text x="340" y="132" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#444441">Orientation</text><text x="340" y="152" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#444441">Shift to lying down</text></g><g><rect x="450" y="110" width="180" height="64" rx="8" fill="{{simPersist.fill}}" stroke="{{simPersist.stroke}}" stroke-width="{{simPersist.sw}}"/><text x="540" y="132" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#444441">Persistence</text><text x="540" y="152" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#444441">Holds 10s+</text></g><line x1="140" y1="174" x2="340" y2="250" stroke="#999" stroke-width="1.5" marker-end="url(#sim-arrow)"/><line x1="340" y1="174" x2="340" y2="250" stroke="#999" stroke-width="1.5" marker-end="url(#sim-arrow)"/><line x1="540" y1="174" x2="340" y2="250" stroke="#999" stroke-width="1.5" marker-end="url(#sim-arrow)"/><g><rect x="250" y="250" width="180" height="64" rx="8" fill="{{simResult.fill}}" stroke="{{simResult.stroke}}" stroke-width="{{simResult.sw}}"/><text x="340" y="272" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#444441">{{simResult.title}}</text><text x="340" y="292" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#444441">{{simResult.sub}}</text></g><path d="M430 282 L650 282 L650 42 L432 42" fill="none" stroke="#b4b2a9" stroke-width="0.5" marker-end="url(#sim-arrow)"/><path d="M250 282 L20 282 L20 42 L248 42" fill="none" stroke="#b4b2a9" stroke-width="0.5" marker-end="url(#sim-arrow)"/></svg><div style="display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-top: 28px"><button type="button" class="sim-btn" onClick="{{simFall}}">Simulate a real fall</button><button type="button" class="sim-btn" onClick="{{simSit}}">Simulate sitting down fast</button></div><p aria-live="polite" style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080; text-align: center;letter-spacing:-0.03em; color: #9F9F9F; min-height: 24px; margin-top: 12px">{{simStatus}}</p></div></div><div class="ts-split" style="justify-content: space-between"><div style="flex: 0 1 382px; display: flex; flex-direction: column; gap: 12px"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">WHY THE SAFETY MEASURES?</p><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em">Every false alarm erodes trust in the device. So the extra complexity in the detection logic directly answers the same problem the interviews surfaced: people abandon safety tools that feel unreliable or intrusive.</p></div><video class="ts-media" src="assets/beleaf/code.mp4" autoplay muted loop playsinline preload="auto" aria-label="fall-detection code and sensor test" style="flex: 0 1 550px; width: 100%; aspect-ratio: 550 / 309; border-radius: 10px; display: block; object-fit: cover"></video></div><div style="display: flex; flex-direction: column; gap: 32px; width: 100%"><div style="display: flex; flex-direction: column; gap: 12px; width: 100%"><h2 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 20px; line-height: 24px; color: #656565">Building the emergency alert app</h2><div class="ts-body" style="display: flex; flex-direction: column; gap: 16.8px; font-family: 'Instrument Sans', sans-serif; font-weight: 400; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em"><p style="margin: 0">A simple MIT App Inventor app to pair over Bluetooth and register an emergency contact, plus a lightweight Figma exploration of a fuller product experience. Kept intentionally secondary — the app exists to deliver what the hardware detects, not the other way around.</p></div></div><div class="ts-split" style="justify-content: space-between; align-items: flex-start"><div class="ts-media" style="background: #F8F8F8; border-radius: 10px; border-radius: 12px; flex: 0 1 600px; display: flex; flex-direction: column; align-items: center; gap: 16px; box-sizing: border-box; padding: 24px 0 20px"><iframe id="app-proto" src="assets/beleaf/app.html" title="beleaf alert app prototype" loading="lazy" style="width: 100%; height: 442px; border: 0; display: block"></iframe><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080; text-align: center;letter-spacing:-0.03em">Try it out!</p></div><div style="flex: 0 1 331px; display: flex; flex-direction: column; align-items: center; gap: 16px"><video class="ts-media" src="assets/beleaf/app-demo.mp4" autoplay muted loop playsinline preload="auto" aria-label="video demoing MIT App Inventor" style="width: 100%; aspect-ratio: 331 / 216; border-radius: 10px; display: block; object-fit: cover"></video><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080; text-align: center;letter-spacing:-0.03em">Video demoing MIT App Inventor</p></div></div></div><div style="display: flex; flex-direction: column; gap: 32px; width: 100%"><div style="display: flex; flex-direction: column; gap: 12px; width: 100%"><h2 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 20px; line-height: 24px; color: #656565">Designing the UI interface with simplicity in mind</h2><div class="ts-body" style="display: flex; flex-direction: column; gap: 16.8px; font-family: 'Instrument Sans', sans-serif; font-weight: 400; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em"><p style="margin: 0">The UI for beleaf was designed to reflect the same core values as the physical device: clarity, speed, and emotional comfort. Since the product supports users in high-stress moments, every decision, from typography to layout, focused on reducing friction and promoting trust.</p></div></div><div class="ts-split" style="gap: 0; align-items: flex-start"><div class="ts-tabs" role="group" aria-label="App screens" style="padding-top: 40px"><button type="button" class="ui-tab" onClick="{{tabOnboarding.pick}}" aria-pressed="{{tabOnboarding.pressed}}" style="background: {{tabOnboarding.bg}}"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 16.8px; color: #656565;letter-spacing:-0.03em">Onboarding</p><span class="ui-tab-desc"><span><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080; text-align: left;letter-spacing:-0.03em">One task per screen instead of a long form, to reduce drop-off for less tech-confident users</p></span></span></button><button type="button" class="ui-tab" onClick="{{tabSos.pick}}" aria-pressed="{{tabSos.pressed}}" style="background: {{tabSos.bg}}"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 16.8px; color: #656565;letter-spacing:-0.03em">Emergency SOS</p><span class="ui-tab-desc"><span><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080; text-align: left;letter-spacing:-0.03em">Largest, most central element on the screen in circumstances of an emergencies</p></span></span></button><button type="button" class="ui-tab" onClick="{{tabCalendar.pick}}" aria-pressed="{{tabCalendar.pressed}}" style="background: {{tabCalendar.bg}}"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 16.8px; color: #656565;letter-spacing:-0.03em">Calendar</p><span class="ui-tab-desc"><span><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080; text-align: left;letter-spacing:-0.03em">Another feature we wanted to include but didn't get the time to implement. This calendar feature, monitored by caregivers, allows users to keep track of medications or appointments as it's often things can be forgotten</p></span></span></button><button type="button" class="ui-tab" onClick="{{tabProfile.pick}}" aria-pressed="{{tabProfile.pressed}}" style="background: {{tabProfile.bg}}"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 16.8px; color: #656565;letter-spacing:-0.03em">Edit Profile</p><span class="ui-tab-desc"><span><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080; text-align: left;letter-spacing:-0.03em">Be able to edit your emergency contact anytime</p></span></span></button></div><div class="ts-media" style="flex: 1 1 668px; border-radius: 24px"><div class="ts-stage" style="position: relative; width: 100%; aspect-ratio: 668 / 434; container-type: inline-size; overflow: hidden; background: #F3F3F1; border-radius: 24px"><div style="position: absolute; left: 38.219cqw; top: 6.939cqw; width: 23.634cqw; height: 50.914cqw; background: #000000; border-radius: 3.132cqw; overflow: hidden"><video id="ui-video" class="ts-media" src="assets/beleaf/onboarding.mov" autoplay muted loop playsinline preload="auto" aria-label="beleaf onboarding screens" style="width: 100%; height: 100%; border-radius: 0; display: block; object-fit: cover"></video></div><div style="position: absolute; left: 36.976cqw; top: 5.838cqw; width: 26.048cqw; height: 52.994cqw; pointer-events: none;"><img src="assets/beleaf/ui-frame.png" alt="" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: contain"></div></div></div></div></div><div style="display: flex; flex-direction: column; gap: 16px; width: 100%"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">DEBUGGING AND ITERATION</p><div class="ts-grid2" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; width: 100%"><div class="ts-box" style="display: flex; flex-direction: column; gap: 12px; box-sizing: border-box; padding: 24px 25px; min-height: 126px; background: #F5F5F5; border-radius: 8px"><svg aria-hidden="true" width="10" height="17" viewBox="-1 -1 10 17" fill="none" style="display: block; flex: none"><path d="M0 3.66667L7.33333 11L3.66667 14.6667V0L7.33333 3.66667L0 11" stroke="#6BADDB" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 16.8px; color: #656565;letter-spacing:-0.03em">Bluetooth Instability</p><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080;letter-spacing:-0.03em">A problem we frequently ran into was the HC-06 constantly dropping connection. This resulted in our messages not getting through</p></div><div class="ts-box" style="display: flex; flex-direction: column; gap: 12px; box-sizing: border-box; padding: 24px 25px; min-height: 126px; background: #F5F5F5; border-radius: 8px"><svg aria-hidden="true" width="14" height="13" viewBox="0 0 14 13" fill="none" style="display: block; flex: none"><path d="M4.91667 12.5C3.56944 12.5 2.41319 12.0625 1.44792 11.1875C0.482639 10.3125 0 9.22222 0 7.91667C0 6.61111 0.482639 5.52083 1.44792 4.64583C2.41319 3.77083 3.56944 3.33333 4.91667 3.33333H10.1667L8 1.16667L9.16667 0L13.3333 4.16667L9.16667 8.33333L8 7.16667L10.1667 5H4.91667C4.04167 5 3.28125 5.27778 2.63542 5.83333C1.98958 6.38889 1.66667 7.08333 1.66667 7.91667C1.66667 8.75 1.98958 9.44444 2.63542 10C3.28125 10.5556 4.04167 10.8333 4.91667 10.8333H10.8333V12.5H4.91667Z" fill="#6BADDB"/></svg><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 16.8px; color: #656565;letter-spacing:-0.03em">Sensor Misfires</p><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080;letter-spacing:-0.03em">The fall sensor also kept making mistakes at first, so we had to test it again and again until it worked right.</p></div></div></div></section><section id="ts-solution" style="display: flex; flex-direction: column; gap: 32px; width: 100%"><div style="display: flex; flex-direction: column; gap: 12px; width: 100%"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">[SOLUTION]</p><h2 style="margin: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400; font-size: 20px; line-height: 24px; color: #656565">18 out of 20 in our cohort wanted this for everyday, on-demand support</h2><div class="ts-body" style="display: flex; flex-direction: column; gap: 16.8px; font-family: 'Instrument Sans', sans-serif; font-weight: 400; font-size: 14px; line-height: 21px; color: #9F9F9F;letter-spacing:-0.03em"><p style="margin: 0">No waiting or searching for a phone: the device detects falls automatically and alerts emergency contacts, while the companion app allows users to send help with a single tap. The core problem is solved at the hardware layer, not patched over with a better button.</p></div></div><div class="ts-split ts-solution-row" style="gap: 16px; align-items: stretch"><div class="ts-media" style="flex: 0 1 266px; border-radius: 10px"><div class="ts-stage" style="position: relative; width: 100%; aspect-ratio: 266 / 470; container-type: inline-size; overflow: hidden; background: #F8F8F8; border-radius: 10px"><div style="position: absolute; left: 20.677cqw; top: 24.060cqw; width: 58.647cqw; height: 119.173cqw; "><video class="ts-media" src="assets/beleaf/walkthrough.mp4" autoplay muted loop playsinline preload="auto" aria-label="full app walkthrough" style="width: 100%; height: 100%; border-radius: 26px; display: block; object-fit: cover"></video></div><div style="position: absolute; left: 0.000cqw; top: 147.744cqw; width: 100.000cqw; "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080; text-align: center;letter-spacing:-0.03em">Full app walkthrough</p></div></div></div><div style="flex: 0 1 401px; display: flex; flex-direction: column; gap: 13px"><video class="ts-media" src="assets/beleaf/code.mp4" autoplay muted loop playsinline preload="auto" aria-label="fall-detection code and sensor test" style="width: 100%; aspect-ratio: 401 / 223; border-radius: 10px; display: block; object-fit: cover"></video><video class="ts-media" src="assets/beleaf/app-demo.mp4" autoplay muted loop playsinline preload="auto" aria-label="MIT App Inventor app demo" style="width: 100%; aspect-ratio: 401 / 234; border-radius: 10px; display: block; object-fit: cover"></video></div><div class="ts-media" style="flex: 0 1 266px; border-radius: 10px"><div class="ts-stage" style="position: relative; width: 100%; aspect-ratio: 266 / 470; container-type: inline-size; overflow: hidden; background: #F8F8F8; border-radius: 10px"><div style="position: absolute; left: 26.316cqw; top: 4.511cqw; width: 46.617cqw; height: 38.722cqw; "><img src="assets/beleaf/tryon-device.png" alt="beleaf device" loading="lazy" style="width: 100%; height: 100%; border-radius: 4px; display: block; object-fit: contain"></div><div style="position: absolute; left: 0.000cqw; top: 42.105cqw; width: 100.000cqw; "><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080; text-align: center;letter-spacing:-0.03em">Product try-on</p></div><div style="position: absolute; left: 0.000cqw; top: 46.241cqw; width: 37.218cqw; height: 56.391cqw; "><img src="assets/beleaf/tryon-3.png" alt="product try-on photo" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: contain"></div><div style="position: absolute; left: 62.782cqw; top: 50.000cqw; width: 30.827cqw; height: 58.647cqw; "><img src="assets/beleaf/tryon-2.png" alt="product try-on photo" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: contain"></div><div style="position: absolute; left: 34.962cqw; top: 71.053cqw; width: 37.218cqw; height: 56.391cqw; "><img src="assets/beleaf/tryon-4.png" alt="product try-on photo" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: contain"></div><div style="position: absolute; left: 5.263cqw; top: 110.150cqw; width: 37.218cqw; height: 56.391cqw; "><img src="assets/beleaf/tryon-1.png" alt="product try-on photo" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: contain"></div><div style="position: absolute; left: 65.038cqw; top: 112.030cqw; width: 30.827cqw; height: 58.647cqw; "><img src="assets/beleaf/tryon-5.png" alt="product try-on photo" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: contain"></div></div></div></div></section><section id="ts-impact" style="display: flex; flex-direction: column; gap: 16px; width: 100%; padding-bottom: 64px"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: 10px; line-height: 12px; color: #6BADDB;letter-spacing:-0.03em">[IMPACT]</p><div class="ts-impact-row" style="display: flex; align-items: center; justify-content: center; gap: 16px; width: 100%"><div style="flex: 0 0 333px; display: flex; flex-direction: column; gap: 16px"><div class="ts-box" style="display: flex; flex-direction: column; gap: 16px; box-sizing: border-box; min-height: 143px; padding: 24px 25px 20px; background: #F5F5F5; border-radius: 8px"><div style="display: flex; align-items: center; gap: 12px"><img src="assets/beleaf/logo-icon.png" alt="" loading="lazy" style="flex: none; width: 29px; height: 28px; display: block; object-fit: contain"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 16.8px; color: #656565;letter-spacing:-0.03em">Metrics</p></div><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080;letter-spacing:-0.03em">18 out of 20 in our cohort wanted this for everyday, on-demand support</p></div><div class="ts-box" style="display: flex; flex-direction: column; gap: 16px; box-sizing: border-box; min-height: 143px; padding: 24px 25px 20px; background: #F5F5F5; border-radius: 8px"><div style="display: flex; align-items: center; gap: 12px"><img src="assets/beleaf/impact-takeaways.png" alt="" loading="lazy" style="flex: none; width: 35px; height: 36px; display: block; object-fit: contain"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 16.8px; color: #656565;letter-spacing:-0.03em">Takeaways</p></div><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080;letter-spacing:-0.03em">Importance of research and setting clear goals early so we can keep our scope focused</p></div><div class="ts-box" style="display: flex; flex-direction: column; gap: 16px; box-sizing: border-box; min-height: 143px; padding: 24px 25px 20px; background: #F5F5F5; border-radius: 8px"><div style="display: flex; align-items: center; gap: 12px"><img src="assets/beleaf/impact-next.png" alt="" loading="lazy" style="flex: none; width: 37px; height: 36px; display: block; object-fit: contain"><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 14px; line-height: 16.8px; color: #656565;letter-spacing:-0.03em">Next Steps</p></div><p style="margin: 0; font-family: 'Instrument Sans', sans-serif; font-size: 12px; line-height: 17.4px; color: #808080;letter-spacing:-0.03em">Test with real older adults for actual human movement and the UI for accessbility</p></div></div><iframe src="assets/beleaf/imessage.html" title="interactive iMessage chat" loading="lazy" style="flex: 1 1 615px; min-width: 0; height: 461px; border-radius: 10px; display: block; border: 0"></iframe></div></section>
-</div>
+
+<nav class="cs-nav" aria-label="Case study sections">
+  <a href="#overview"><i></i><span>overview</span></a>
+  <a href="#why"><i></i><span>why</span></a>
+  <a href="#problem"><i></i><span>problem</span></a>
+  <a href="#direction"><i></i><span>direction</span></a>
+  <a href="#system"><i></i><span>wearable system</span></a>
+  <a href="#app"><i></i><span>companion app</span></a>
+  <a href="#testing"><i></i><span>debugging &amp; testing</span></a>
+  <a href="#outcome"><i></i><span>outcome</span></a>
+</nav>
+
+<main class="cs">
+
+<!-- 01 · Hero -->
+<header id="overview" class="cs-section" style="padding-top:0">
+  <div class="hero-row">
+    <div class="hero-art"><div style="position: relative; width: 100%; aspect-ratio: 747 / 470; container-type: inline-size; overflow: hidden"><div class="ts-media" style="position: absolute; left: 0; top: 0; width: 21.553cqw; height: 16.867cqw; background: #F8F8F8; border-radius: 12px"><img src="assets/beleaf/hero-1.png" alt="BELEAF circuit diagram" style="position: absolute; left: 9.94%; top: 16.67%; width: 79.5%; height: 67.46%; object-fit: contain"></div><div class="ts-media" style="position: absolute; left: 23.293cqw; top: 0; width: 21.553cqw; height: 16.867cqw; background: #F8F8F8; border-radius: 12px"><img src="assets/beleaf/hero-2.png" alt="Arduino and wiring inside the wearable housing" style="position: absolute; left: 13.66%; top: 16.67%; width: 72.05%; height: 66.67%; border-radius: 4px; object-fit: contain"></div><div class="ts-media" style="position: absolute; left: 0; top: 18.608cqw; width: 44.712cqw; height: 44.311cqw; background: #F8F8F8; border-radius: 12px"><img src="assets/beleaf/hero-phone-1.png" alt="Companion app home screen, Figma design" style="position: absolute; left: 17.66%; top: 15.71%; width: 31.44%; height: 68.58%; border-radius: 13px; object-fit: contain"><img src="assets/beleaf/hero-phone-2.png" alt="Companion app calendar screen, Figma design" style="position: absolute; left: 51.5%; top: 16.31%; width: 30.84%; height: 67.37%; border-radius: 13px; object-fit: contain"></div><div class="ts-media" style="position: absolute; left: 46.319cqw; top: 0; width: 53.681cqw; height: 29.853cqw; border-radius: 12px; overflow: hidden; background: #111"><video src="assets/beleaf.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Detection code running during a sensor test" style="width: 100%; height: 100%; object-fit: cover"></video></div><div class="ts-media" style="position: absolute; left: 46.319cqw; top: 31.593cqw; width: 53.681cqw; height: 31.325cqw; border-radius: 12px; overflow: hidden; background: #111"><video src="assets/beleaf/app-demo.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Basic functional demo of the prototype" style="width: 100%; height: 100%; object-fit: cover"></video></div></div></div>
+    <div class="hero-meta">
+      <div class="wordmark"><img src="assets/beleaf/logo-icon.png" alt=""><span>BELEAF</span></div>
+      <dl class="facts">
+        <div><dt>Timeline</dt><dd>1 week</dd></div>
+        <div><dt>Team</dt><dd>Just the 2 of us</dd></div>
+        <div><dt>My focus</dt><dd>Companion app UI/UX</dd></div>
+        <div><dt>Tools</dt><dd>Python, Arduino (C++), MIT App Inventor, Figma</dd></div>
+        <div><dt>Hardware</dt><dd>MPU-6050, piezo buzzer, HC-06 Bluetooth</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <div class="title-row">
+    <h1>Exploring a wearable to help close the gap after a fall</h1>
+    <div class="title-meta"><button class="role-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="role-pop" aria-label="What I owned on this project"><span class="ic"><svg width="20" height="18" viewBox="0 0 14.2514 12.8232" fill="none" aria-hidden="true"><path d="M0.5 5.62379C0.975428 5.62332 1.89582 5.54895 2.63547 5.2649" pathLength="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.63547 5.2649C2.89551 5.16503 3.13321 5.03925 3.32138 4.88165C4.17686 4.16516 4.58113 2.96729 4.86437 2.12396C5.07364 1.50083 4.94675 0.998223 4.78062 0.696345C4.61966 0.403862 4.0791 0.496185 3.55765 0.603515C2.9262 0.733489 2.54609 1.5098 2.2794 2.09225C1.97174 2.76419 2.13541 3.69004 2.41175 4.70102C2.46791 4.90648 2.54412 5.09366 2.63547 5.2649Z" pathLength="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.63547 5.2649C3.01381 5.97412 3.6519 6.40992 4.20105 6.73848C4.85861 7.13189 5.75393 6.9488 6.71951 6.69175C7.2482 6.55101 7.69852 6.20827 8.09339 5.77468" pathLength="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.09339 5.77468C8.61849 5.19807 9.04556 4.46079 9.42852 3.82418C9.89596 3.04714 9.88336 2.12394 9.69144 1.5309C9.61136 1.28345 9.22378 1.41188 9.05243 1.4435C8.65357 1.51712 8.33606 2.00425 8.03216 2.51801C7.72323 3.04028 7.78025 4.40053 7.90012 5.34486C7.92092 5.50877 7.99076 5.64986 8.09339 5.77468Z" pathLength="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.09339 5.77468C8.33758 6.07169 8.76743 6.27653 9.16407 6.47716C9.80393 6.8008 10.9914 6.79564 11.8606 6.71479C12.4057 6.43626 12.8713 6.01315 13.514 5.17956C13.6432 4.99651 13.6964 4.90493 13.7513 4.81058" pathLength="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M0.996806 9.86932C1.0001 9.8726 1.00338 9.87589 1.03267 9.83753C1.06195 9.79917 1.11713 9.71905 1.11134 9.64584C1.10554 9.57263 1.0371 9.50875 0.882332 9.44293" pathLength="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M11.8393 9.3561C11.8364 9.3561 11.8505 9.34088 11.878 9.30942" pathLength="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M11.878 9.30942C11.9078 9.27528 11.9533 9.22199 12.0097 9.14828C12.0607 9.08162 12.0466 8.99033 12.0171 8.98282C11.9876 8.97531 11.9285 9.04535 11.8981 9.12302C11.8745 9.18315 11.8692 9.24658 11.878 9.30942Z" pathLength="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M11.878 9.30942C11.8806 9.32777 11.8844 9.34606 11.8892 9.3642C11.9108 9.44452 11.954 9.51944 12.031 9.6053" pathLength="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.16035 10.8647C6.72892 10.8647 5.79432 10.8906 5.71426 10.9872C5.37531 11.3962 5.67598 12.0053 5.768 12.0817C5.89532 12.1501 6.10395 12.2243 6.33709 12.2894C6.436 12.3131 6.49551 12.3181 6.55683 12.3232" pathLength="1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+  </div>
+  <p class="lead">A wearable fall-alert concept and companion-app experience exploring how motion sensing and emergency notifications could help caregivers know when an older family member may need assistance.</p>
+
+  <div class="role-pop" id="role-pop" hidden>
+  <div class="role" role="dialog" aria-modal="true" aria-labelledby="role-title" tabindex="-1">
+    <button class="role-x" type="button" aria-label="Close">×</button>
+    <h3 id="role-title">What I owned!
+      <svg class="squiggle" viewBox="0 0 160 10" fill="none" aria-hidden="true" preserveAspectRatio="none"><path d="M2 6.5c14-4 26 2.5 40-1s25-3 39 .5 26 3 40-.5 24-3 37 0" pathLength="1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </h3>
+    <ul>
+      <li style="--i:0"><svg class="chk" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.5 8.6c1.2 1 2.2 2.2 3.2 3.6 1.9-3.6 4.4-6.6 7.8-9.2" pathLength="1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Designed the companion app’s screens and flows in Figma</span></li>
+      <li style="--i:1"><svg class="chk" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.5 8.6c1.2 1 2.2 2.2 3.2 3.6 1.9-3.6 4.4-6.6 7.8-9.2" pathLength="1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Interviewed <b>6</b> caregivers and family members with my partner</span></li>
+      <li style="--i:2"><svg class="chk" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.5 8.6c1.2 1 2.2 2.2 3.2 3.6 1.9-3.6 4.4-6.6 7.8-9.2" pathLength="1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Built, wired, and debugged the wearable together</span></li>
+      <li style="--i:3"><svg class="chk" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.5 8.6c1.2 1 2.2 2.2 3.2 3.6 1.9-3.6 4.4-6.6 7.8-9.2" pathLength="1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Tested the alert flow end to end, from sensor to text</span></li>
+    </ul>
+    <p class="aside" style="--i:4"><span>team of two ~</span> We contributed equally across the whole project. My primary focus was the companion app’s UI/UX.</p>
+  </div>
+  </div>
+</header>
+
+<!-- 02 · Why -->
+<section id="why" class="cs-section">
+  <p class="eyebrow">Why I started this project</p>
+  <h2>It started with my grandmother.</h2>
+  <div class="why-row">
+    <div class="prose">
+      <p>My grandmother fell in her backyard. What stayed with me wasn’t the fall itself. It was the time between the fall and someone finding out, when she needed help but no one knew yet.</p>
+      <p>I wanted to explore whether a simple wearable could help close that gap <strong>without making older adults feel monitored or less independent.</strong></p>
+    </div>
+    <figure class="gap-card" style="margin:0" aria-label="Timeline: a fall happens, then a gap, then someone finds out">
+      <div class="gap-line">
+        <div class="gap-dot"><i></i>A fall happens</div>
+        <div class="gap-span"><span class="gap-label">the gap</span></div>
+        <div class="gap-dot fin"><i></i>Someone finds out</div>
+      </div>
+      <p class="gap-q">Could a wearable make that stretch of time shorter?</p>
+    </figure>
+  </div>
+</section>
+
+<!-- 03 · Problem -->
+<section id="problem" class="cs-section">
+  <p class="eyebrow">Understanding the problem</p>
+  <h2>Safety is not just about detecting a fall. It’s about what happens next.</h2>
+  <p class="lead">We interviewed caregivers and family members about how they look out for older relatives, and where that support breaks down.</p>
+
+  <div class="int-facts">
+    <div><b>6</b><span>interviews with caregivers and family members</span></div>
+    <div><b>4</b><span>themes that came up across conversations</span></div>
+  </div>
+
+  <div class="themes">
+    <div class="theme">
+      <div class="art"><img src="assets/beleaf/problem-1-clean.png" alt="" loading="lazy"></div>
+      <h3>Help can arrive too late</h3>
+      <p>The risk isn’t only the fall. It’s how long someone waits before anyone knows.</p>
+    </div>
+    <div class="theme">
+      <div class="art"><img src="assets/beleaf/problem-2-clean.png" alt="" loading="lazy"></div>
+      <h3>Safety tools can feel intrusive</h3>
+      <p>Devices that feel clinical or watchful risk being left in a drawer.</p>
+    </div>
+    <div class="theme">
+      <div class="art"><img src="assets/beleaf/problem-3-clean.png" alt="" loading="lazy"></div>
+      <h3>Caregivers are left uncertain</h3>
+      <p>Family members can’t always tell whether a relative is okay right now.</p>
+    </div>
+    <div class="theme">
+      <div class="art"><img src="assets/beleaf/problem-4-clean.png" alt="" loading="lazy"></div>
+      <h3>A phone may not be within reach</h3>
+      <p>After a fall, reaching a phone to call for help may not be possible.</p>
+    </div>
+  </div>
+
+  <div class="note" style="margin-top:24px">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="#6BADDB" stroke-width="1.3"/><path d="M8 7v4.2M8 4.6v.1" stroke="#6BADDB" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <p><b>Research limitation.</b> We spoke with caregivers and family members, not older adults themselves. These themes are synthesized from those conversations, and validating the experience directly with older adults is still a next step.</p>
+  </div>
+</section>
+
+<!-- 04 · Direction -->
+<section id="direction" class="cs-section">
+  <p class="eyebrow">From insights to product direction</p>
+  <h2>The experience needed to offer support without adding another step in an emergency.</h2>
+  <p class="lead">Each theme pointed to a product response. Together they shaped what the wearable should do on its own, and what the app should handle beforehand.</p>
+
+  <div class="map">
+    <div class="map-head"><span>What we heard</span><span></span><span>How we responded</span></div>
+    <div class="map-row" style="--i:0">
+      <div class="need"><span class="k">01</span>Concern about delayed help</div>
+      <div class="arr"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="resp"><div>Explore automatic motion sensing<small>So an alert doesn’t depend on the person asking for help.</small></div></div>
+    </div>
+    <div class="map-row" style="--i:1">
+      <div class="need"><span class="k">02</span>A phone may not be accessible</div>
+      <div class="arr"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="resp"><div>Put detection and a local alert in the wearable<small>A buzzer on the device itself, no phone in hand needed.</small></div></div>
+    </div>
+    <div class="map-row" style="--i:2">
+      <div class="need"><span class="k">03</span>Caregiver uncertainty</div>
+      <div class="arr"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="resp"><div>Explore a notification to a designated contact<small>Sent to a number chosen ahead of time.</small></div></div>
+    </div>
+    <div class="map-row" style="--i:3">
+      <div class="need"><span class="k">04</span>The need for independence</div>
+      <div class="arr"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="resp"><div>Keep the wearable experience simple<small>Setup lives in the app, so the device itself asks for nothing day to day.</small></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 · Wearable system -->
+<section id="system" class="cs-section">
+  <p class="eyebrow">Exploring the wearable system</p>
+  <h2>Turning motion data into an alert.</h2>
+  <p class="lead">Three small components do the work. Here’s the path from a movement to a text on a caregiver’s phone.</p>
+
+  <div class="flow">
+    <div class="node"><span class="k">01</span><h3>Motion sensor</h3><p>Continuously reads movement and orientation.</p><span class="part">MPU-6050</span></div>
+    <div class="node"><span class="k">02</span><h3>Detection in code</h3><p>Checks the readings against fall-like conditions.</p><span class="part">Arduino (C++)</span></div>
+    <div class="node"><span class="k">03</span><h3>Buzzer alert</h3><p>Sounds a local alarm on the device.</p><span class="part">Piezo buzzer</span></div>
+    <div class="node"><span class="k">04</span><h3>Bluetooth handoff</h3><p>Passes the event to a Python script.</p><span class="part">HC-06 + Python</span></div>
+    <div class="node"><span class="k">05</span><h3>Text sent</h3><p>A designated contact is notified.</p><span class="part">Text alert</span></div>
+  </div>
+
+  <div class="sys">
+    <div class="parts">
+      <div><span class="ico"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="3" y="3" width="10" height="10" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M6 1v2M10 1v2M6 13v2M10 13v2M1 6h2M1 10h2M13 6h2M13 10h2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span><h3>MPU-6050</h3><p>Accelerometer and gyroscope that read motion and orientation.</p></div>
+      <div><span class="ico"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6h2.5L9 3v10L5.5 10H3z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M11.5 5.5a3.5 3.5 0 0 1 0 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span><h3>Piezo buzzer</h3><p>A local, immediate alarm on the wearable.</p></div>
+      <div><span class="ico"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 5 11 11l-3 2.5v-11L11 5l-6.5 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h3>HC-06 Bluetooth</h3><p>The link that hands a detected event off to send the alert.</p></div>
+    </div>
+    <figure class="circuit"><img src="assets/beleaf/circuit.png" alt="Annotated circuit diagram: Arduino Uno, breadboard, MPU-6050, piezo buzzer, and HC-06 Bluetooth module" loading="lazy"><figcaption class="caption">Our annotated circuit diagram</figcaption></figure>
+  </div>
+
+  <div class="logic">
+    <div>
+      <h3>How the detection conditions worked</h3>
+      <div class="prose">
+        <p>A quick sit-down and a fall can look alike in raw motion data. So the code only registered a fall when three conditions happened in order. A false alarm would cost the device trust, the same concern caregivers raised.</p>
+      </div>
+    </div>
+    <div>
+      <div class="conds">
+        <div class="cond" id="c-impact"><b>Impact</b><span>A spike in movement</span></div>
+        <div class="cond" id="c-orient"><b>Orientation</b><span>A shift to lying down</span></div>
+        <div class="cond" id="c-hold"><b>Persistence</b><span>Holds for 10s or more</span></div>
+      </div>
+      <p class="result" id="sim-out" aria-live="polite">Pick a scenario to walk through the logic.</p>
+      <div class="sim-btns"><button type="button" data-sim="fall">Walk through a fall</button><button type="button" data-sim="sit">Walk through sitting down fast</button></div>
+      <p class="caption">An illustration of the logic we wrote, not a measured result.</p>
+    </div>
+  </div>
+
+  <div class="demo">
+    <video src="assets/beleaf.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Detection code and a simulated fall-like movement during testing"></video>
+    <div>
+      <span class="tag gray">Basic functional demo</span>
+      <h3 style="margin-top:12px">Testing with simulated movements</h3>
+      <p>We tested basic, simulated fall-like movements. We didn’t formally measure detection accuracy, so this shows the system working, not how reliably it detects real falls.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 06 · Companion app -->
+<section id="app" class="cs-section">
+  <p class="eyebrow">Designing the companion app</p>
+  <h2>A companion experience for setup and emergency contacts.</h2>
+  <p class="lead">This was my main focus. The wearable should ask for nothing in the moment, so the app handles everything beforehand: pairing, contacts, and a manual SOS. Every screen aims for clarity, speed, and calm in a stressful situation.</p>
+
+  <div class="app">
+    <div class="screens" role="group" aria-label="App screens">
+      <button type="button" class="scr" data-v="onboarding" aria-pressed="true"><span class="n">01</span><b>Onboarding</b><span class="d"><span><p>One task per screen instead of one long form, so less tech-confident users aren’t overwhelmed.</p><em>fewer choices at once</em></span></span></button>
+      <button type="button" class="scr" data-v="sos" aria-pressed="false"><span class="n">02</span><b>Emergency SOS</b><span class="d"><span><p>The SOS control is the largest, most central element, so it’s easy to hit in a hurry.</p><em>biggest target wins</em></span></span></button>
+      <button type="button" class="scr" data-v="profile" aria-pressed="false"><span class="n">03</span><b>Profile &amp; contacts</b><span class="d"><span><p>Patient details and the emergency contact can be edited anytime, so alerts reach the right person.</p><em>contacts change, so should the app</em></span></span></button>
+      <button type="button" class="scr" data-v="calendar" aria-pressed="false"><span class="n">04</span><b>Calendar</b><span class="d"><span><p>An idea we explored but didn’t take further: caregiver-managed reminders for medications and appointments.</p><em>a stretch idea</em></span></span></button>
+    </div>
+    <div class="stage">
+      <span class="tag gray">Figma prototype</span>
+      <div class="phone"><div class="scrn"><video id="ui-video" src="assets/beleaf/onboarding.mov" autoplay muted loop playsinline preload="metadata" aria-label="Onboarding screens, Figma prototype"></video></div><img src="assets/beleaf/ui-frame.png" alt=""></div>
+    </div>
+  </div>
+
+  <div class="stills">
+    <figure style="margin:0"><div class="still"><img src="assets/beleaf/hero-phone-1.png" alt="Home screen with a large power control and today’s date" loading="lazy"></div><figcaption class="still-cap">Home: device status at a glance</figcaption></figure>
+    <figure style="margin:0"><div class="still"><img src="assets/beleaf/hero-phone-2.png" alt="Calendar screen with upcoming appointments" loading="lazy"></div><figcaption class="still-cap">Calendar: an explored stretch idea</figcaption></figure>
+    <figure style="margin:0"><div class="still"><div class="phone mini"><div class="scrn"><video src="assets/beleaf/app-walkthrough.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Walkthrough of the Figma prototype: onboarding, SOS, profile, and calendar"></video></div><img src="assets/beleaf/ui-frame.png" alt=""></div></div><figcaption class="still-cap">Clickable Figma walkthrough</figcaption></figure>
+  </div>
+
+  <div class="note" style="margin-top:24px">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="#6BADDB" stroke-width="1.3"/><path d="M8 7v4.2M8 4.6v.1" stroke="#6BADDB" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <p><b>Not implemented.</b> With one week, we prioritized getting the hardware and alert flow working. These screens and flows exist in Figma only. We didn’t build them in MIT App Inventor.</p>
+  </div>
+</section>
+
+<!-- 07 · Debugging & testing -->
+<section id="testing" class="cs-section">
+  <p class="eyebrow">Debugging and testing</p>
+  <h2>Getting the prototype’s detection and alert flow to work.</h2>
+  <p class="lead">Most of the week went into making the pieces talk to each other reliably. Two problems shaped that work.</p>
+
+  <article class="story">
+    <div><span class="num">01</span><h3>Bluetooth instability</h3></div>
+    <div class="pr">
+      <div class="p"><b>Problem</b>The HC-06 kept dropping its connection, so alerts didn’t always get through.</div>
+      <div class="arr"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="r"><b>Response</b>We explored alternative Bluetooth solutions and worked around the connection issues to keep the alert path running.</div>
+    </div>
+  </article>
+  <article class="story">
+    <div><span class="num">02</span><h3>False sensor triggers</h3></div>
+    <div class="pr">
+      <div class="p"><b>Problem</b>The sensor sometimes registered ordinary movement as a fall.</div>
+      <div class="arr"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="r"><b>Response</b>We worked through the code to find the conditions that caused miscalculated falls.</div>
+    </div>
+  </article>
+
+  <div class="ledger">
+    <div class="tile">
+      <h3>What we verified</h3>
+      <ul>
+        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.5 8.6c1.2 1 2.2 2.2 3.2 3.6 1.9-3.6 4.4-6.6 7.8-9.2" stroke="#6BADDB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>The prototype responded to basic simulated fall-like movements.</li>
+        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.5 8.6c1.2 1 2.2 2.2 3.2 3.6 1.9-3.6 4.4-6.6 7.8-9.2" stroke="#6BADDB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>The text alert reached a designated test contact.</li>
+      </ul>
+    </div>
+    <div class="tile no">
+      <h3>What we didn’t measure</h3>
+      <ul>
+        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 8h8" stroke="#bdbdbd" stroke-width="1.6" stroke-linecap="round"/></svg>Detection accuracy or the number of trials</li>
+        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 8h8" stroke="#bdbdbd" stroke-width="1.6" stroke-linecap="round"/></svg>Real-world falls, or use by older adults</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 08 · Outcome -->
+<section id="outcome" class="cs-section">
+  <p class="eyebrow">Outcome and reflection</p>
+  <h2>An early prototype that helped us explore the full system.</h2>
+
+  <div class="deliv">
+    <div class="dv"><div class="m"><img src="assets/beleaf/tryon-device.png" alt="The taped wearable prototype next to a test phone" loading="lazy"></div><h3>Wearable prototype</h3><p>Motion sensing with a local buzzer.</p></div>
+    <div class="dv"><div class="m"><video src="assets/beleaf/app-demo.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Basic functional demo showing the alert arriving on a phone"></video></div><h3>Notification workflow</h3><p>Sent a text to a test contact.</p></div>
+    <div class="dv"><div class="m"><img src="assets/beleaf/hero-phone-1.png" alt="" loading="lazy" style="border-radius:10px"></div><h3>Companion app designs</h3><p>Figma screens and flows.</p></div>
+    <div class="dv"><div class="m"><video src="assets/beleaf.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Video demonstrating basic functionality"></video></div><h3>Demo video</h3><p>Shows the basic functionality.</p></div>
+  </div>
+
+  <div class="interest">
+    <div class="big">
+      <span class="tag green" style="align-self:flex-start">Initial cohort interest</span>
+      <div class="num">18<small>/20</small></div>
+      <div class="q"><b>We asked our cohort</b>Would you want to use this device and give it to an older family member?</div>
+      <p class="s">18 of 20 said yes. This is early concept feedback from classmates, not evidence of adoption, usability, or improved safety.</p>
+    </div>
+    <iframe src="assets/beleaf/imessage.html" title="Messages from our cohort" loading="lazy"></iframe>
+  </div>
+
+  <div class="tryon">
+    <div><h3>Try-on</h3><p>Classmates wore the prototype to see how it sat on the body.</p></div>
+    <div><img src="assets/beleaf/tryon-3.png" alt="A classmate wearing the prototype across the chest" loading="lazy"></div>
+    <div><img src="assets/beleaf/tryon-2.png" alt="A classmate wearing the prototype" loading="lazy"></div>
+    <div><img src="assets/beleaf/tryon-4.png" alt="A classmate wearing the prototype" loading="lazy"></div>
+    <div><img src="assets/beleaf/tryon-1.png" alt="A classmate wearing the prototype" loading="lazy"></div>
+    <div><img src="assets/beleaf/tryon-5.png" alt="A classmate wearing the prototype" loading="lazy"></div>
+  </div>
+
+  <div class="learned">
+    <div>
+      <h3>Reliability is the experience.</h3>
+      <p>A dropped connection or a false alarm breaks trust faster than any screen can rebuild it. For safety products, the invisible parts are the UX.</p>
+    </div>
+    <div>
+      <h3>Design across hardware and software.</h3>
+      <p>Deciding what lives on the wearable versus the app shaped both. Keeping the device simple is what gave the app its job: setup before anything happens.</p>
+    </div>
+    <div>
+      <h3>Research with the people who’d wear it.</h3>
+      <p>Caregivers gave us the problem. Older adults need to be in the room for the next round, since they’re the ones who decide whether it gets worn.</p>
+    </div>
+  </div>
+
+  <div class="next">
+    <p class="eyebrow">What’s next</p>
+    <ol>
+      <li>Test the wearable with older adults in supervised scenarios</li>
+      <li>Evaluate detection behavior across more kinds of movement</li>
+      <li>Implement the companion app and test it with users</li>
+    </ol>
+  </div>
+
+  <nav class="end" aria-label="More work">
+    <a href="./">← Back to work</a>
+    <a href="#overview">Back to top ↑</a>
+  </nav>
+</section>
+
 </main>
-</div>
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":6400}}'>
 
-class Component extends DCLogic {
-  constructor(props) {
-    super(props);
-    this.state = { active: 0, sim: null, step: 0, uiTab: 'onboarding' };
-    this.sections = ['ts-overview', 'ts-context', 'ts-why', 'ts-problem', 'ts-ideation', 'ts-solution', 'ts-impact'];
-    this.timers = [];
-  }
-  componentDidMount() {
-    this.ticking = false;
-    this.onScroll = () => {
-      if (this.ticking) return;
-      this.ticking = true;
-      requestAnimationFrame(() => {
-        this.ticking = false;
-        const line = window.innerHeight * 0.4;
-        let idx = 0;
-        this.sections.forEach((id, i) => {
-          const el = document.getElementById(id);
-          if (el && el.getBoundingClientRect().top <= line) idx = i;
-        });
-        if (idx !== this.state.active) this.setState({ active: idx });
-      });
-    };
-    window.addEventListener('scroll', this.onScroll, { passive: true });
-    window.addEventListener('resize', this.onScroll);
-    this.onScroll();
-    // The app prototype stacks on narrow screens; grow its frame to fit so nothing is cut off (442px is the desktop height).
-    const proto = document.getElementById('app-proto');
-    if (proto) {
-      // measure the app's own wrapper: its page is pinned to the frame height, so the page itself can't report overflow
-      const fitProto = () => {
-        const wrap = proto.contentDocument && proto.contentDocument.getElementById('app-wrap');
-        if (wrap) proto.style.height = `${Math.max(442, Math.ceil(wrap.getBoundingClientRect().height) + 8)}px`;
-      };
-      proto.addEventListener('load', () => {
-        fitProto();
-        const wrap = proto.contentDocument && proto.contentDocument.getElementById('app-wrap');
-        if ('ResizeObserver' in window && wrap) new ResizeObserver(fitProto).observe(wrap);
-      });
-      if (proto.contentDocument && proto.contentDocument.readyState === 'complete') fitProto();
-    }
-    // Reserve room for the longest tab description so the phone card under the tabs doesn't jump when they switch.
-    this.fitTabs = () => {
-      const list = document.querySelector('.ts-tabs');
-      if (!list) return;
-      list.style.minHeight = '';
-      const open = list.querySelector('.ui-tab[aria-pressed="true"] .ui-tab-desc');
-      const base = list.offsetHeight - (open ? open.offsetHeight : 0);
-      const tallest = Math.max(...[...list.querySelectorAll('.ui-tab-desc p')].map(p => p.offsetHeight));
-      list.style.minHeight = `${base + tallest}px`;
-    };
-    this.fitTabs();
-    window.addEventListener('resize', this.fitTabs);
-    if (document.fonts) document.fonts.ready.then(this.fitTabs);
-    // Only decode the videos that are on screen; eight playing at once made the page lag.
-    if ('IntersectionObserver' in window) {
-      this.videoWatch = new IntersectionObserver(entries => entries.forEach(({ target, isIntersecting }) => {
-        if (isIntersecting) target.play().catch(() => {}); else target.pause();
-      }), { rootMargin: '200px 0px' });
-      document.querySelectorAll('video').forEach(v => this.videoWatch.observe(v));
-    }
-  }
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.onScroll);
-    window.removeEventListener('resize', this.onScroll);
-    if (this.videoWatch) this.videoWatch.disconnect();
-    window.removeEventListener('resize', this.fitTabs);
-  }
-  goTo(i, e) {
-    if (e && e.preventDefault) e.preventDefault();
-    const el = document.getElementById(this.sections[i]);
-    if (el) {
-      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-    }
-  }
-  // App screens: each tab plays its own recording in the phone frame.
-  pickTab(key) {
-    if (key === this.state.uiTab) return;
-    this.setState({ uiTab: key });
-    const video = document.getElementById('ui-video');
-    if (!video) return;
-    // Fade the phone screen out, swap the recording once it's hidden, fade back in when the new one has a frame.
-    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    clearTimeout(this.tabFade);
+<script>
+// Highlight the section in view in the side nav
+(() => {
+  const links = [...document.querySelectorAll('.cs-nav a')];
+  const secs = links.map(a => document.querySelector(a.getAttribute('href')));
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const line = innerHeight * 0.4;
+    let idx = 0;
+    secs.forEach((s, i) => { if (s && s.getBoundingClientRect().top <= line) idx = i; });
+    links.forEach((a, i) => a.setAttribute('aria-current', i === idx ? 'true' : 'false'));
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  addEventListener('resize', update);
+  update();
+})();
+// Reveal-on-scroll for the gap timeline and the insight map
+(() => {
+  const els = document.querySelectorAll('.gap-card, .map');
+  if (!('IntersectionObserver' in window)) return els.forEach(e => e.classList.add('seen'));
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('seen'); io.unobserve(e.target); } }), { threshold: 0.4 });
+  els.forEach(e => io.observe(e));
+})();
+// Only decode the videos that are on screen, so the page stays smooth
+(() => {
+  if (!('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(es => es.forEach(({ target, isIntersecting }) => {
+    if (isIntersecting) target.play().catch(() => {}); else target.pause();
+  }), { rootMargin: '200px 0px' });
+  document.querySelectorAll('video').forEach(v => io.observe(v));
+})();
+// App screens: each one plays its own Figma recording in the phone frame
+(() => {
+  const btns = [...document.querySelectorAll('.scr')], video = document.getElementById('ui-video');
+  const names = { onboarding: 'Onboarding', sos: 'Emergency SOS', profile: 'Profile and contacts', calendar: 'Calendar' };
+  btns.forEach(b => b.addEventListener('click', () => {
+    if (b.getAttribute('aria-pressed') === 'true') return;
+    btns.forEach(x => x.setAttribute('aria-pressed', x === b));
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     video.style.opacity = '0';
-    this.tabFade = setTimeout(() => {
-      const show = () => { clearTimeout(this.tabShow); video.style.opacity = '1'; video.play().catch(() => {}); };
+    setTimeout(() => {
+      const show = () => { video.style.opacity = '1'; video.play().catch(() => {}); };
       video.addEventListener('loadeddata', show, { once: true });
-      this.tabShow = setTimeout(show, 800); // never leave the screen blank if loading is slow
-      video.src = `assets/beleaf/${key}.mov`;
-      video.setAttribute('aria-label', `beleaf ${key} screens`);
+      setTimeout(show, 800);
+      video.src = `assets/beleaf/${b.dataset.v}.mov`;
+      video.setAttribute('aria-label', `${names[b.dataset.v]} screens, Figma prototype`);
     }, reduce ? 0 : 200);
-  }
-  // Fall simulation: the three triggers light up in order, then the result box shows the outcome.
-  runSim(kind) {
-    this.timers.forEach(clearTimeout);
-    this.setState({ sim: kind, step: 1 });
-    this.timers = [setTimeout(() => this.setState({ step: 2 }), 600), setTimeout(() => this.setState({ step: 3 }), 1200)];
-  }
-  renderVals() {
-    const st = this.state;
-    const navItem = (i) => {
-      const d = Math.abs(i - st.active);
-      return {
-        w: d === 0 ? 24 : d === 1 ? 20 : d === 2 ? 18 : 16,
-        op: d === 0 ? 1 : 0,
-        cur: d === 0 ? 'true' : 'false',
-        go: (e) => this.goTo(i, e)
-      };
-    };
-    const idle = { fill: '#FFFFFF', stroke: '#E2E2E2', sw: 0.5 };
-    const pass = { fill: '#eaf3de', stroke: '#639922', sw: 1 };
-    const fail = { fill: '#fcebeb', stroke: '#e24b4a', sw: 1 };
-    const tab = (key) => {
-      const on = st.uiTab === key;
-      return { pick: () => this.pickTab(key), on, pressed: on ? 'true' : 'false', bg: on ? '#F3F3F1' : 'transparent' };
-    };
-    const fall = st.sim === 'fall', done = st.step >= 3;
-    const v = {
-      tabOnboarding: tab('onboarding'), tabSos: tab('sos'), tabCalendar: tab('calendar'), tabProfile: tab('profile'),
-      simFall: () => this.runSim('fall'),
-      simSit: () => this.runSim('sit'),
-      simImpact: st.step >= 1 ? pass : idle,
-      simOrient: st.step >= 2 ? pass : idle,
-      simPersist: done ? (fall ? pass : fail) : idle,
-      simResult: !done ? { ...idle, title: 'Awaiting input', sub: 'Run a scenario below' }
-        : fall ? { ...pass, title: 'Fall confirmed', sub: 'Buzzer + alert sent' }
-        : { ...idle, title: 'No alert', sub: 'Orientation reverted early' },
-      simStatus: !st.sim ? '' : !done ? (fall ? 'Simulating a real fall...' : 'Simulating a fast sit-down...')
-        : fall ? 'All three triggers agreed — buzzer sounds and the emergency contact is alerted.'
-        : 'Orientation change did not hold for 10s, so it is correctly ignored as a false alarm.'
-    };
-    ['navOverview', 'navContext', 'navWhy', 'navProblem', 'navIdeation', 'navSolution', 'navImpact'].forEach((k, i) => { v[k] = navItem(i); });
-    return v;
-  }
-}
-
+  }));
+})();
+// Detection logic walk-through: the three conditions light up in order
+(() => {
+  const c = ['c-impact', 'c-orient', 'c-hold'].map(id => document.getElementById(id));
+  const out = document.getElementById('sim-out');
+  let timers = [];
+  document.querySelectorAll('[data-sim]').forEach(b => b.addEventListener('click', () => {
+    timers.forEach(clearTimeout);
+    c.forEach(x => x.className = 'cond');
+    const fall = b.dataset.sim === 'fall';
+    out.textContent = fall ? 'Walking through a fall…' : 'Walking through a fast sit-down…';
+    timers = [
+      setTimeout(() => c[0].classList.add('on'), 200),
+      setTimeout(() => c[1].classList.add('on'), 800),
+      setTimeout(() => {
+        c[2].classList.add(fall ? 'on' : 'off');
+        out.textContent = fall
+          ? 'All three conditions are met, so the buzzer sounds and the text alert is sent.'
+          : 'The position doesn’t hold for 10 seconds, so the logic doesn’t register a fall.';
+      }, 1400)
+    ];
+  }));
+})();
+// "What I owned" note from the about icon next to the title
+(() => {
+  const btn = document.querySelector('.role-btn'), pop = document.getElementById('role-pop');
+  const box = pop.querySelector('.role'), x = pop.querySelector('.role-x');
+  const open = () => {
+    pop.hidden = false;
+    const b = btn.getBoundingClientRect();
+    box.style.setProperty('--ox', (b.left + b.width / 2 - box.offsetLeft) + 'px');
+    box.style.setProperty('--oy', (b.top + b.height / 2 - box.offsetTop) + 'px');
+    requestAnimationFrame(() => pop.classList.add('open'));
+    btn.setAttribute('aria-expanded', 'true');
+    box.focus();
+  };
+  const close = () => {
+    pop.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    setTimeout(() => { pop.hidden = true; }, 300);
+    btn.focus();
+  };
+  // draw the icon stroke by stroke, like the homepage nav icons
+  const ic = btn.querySelector('.ic'), paths = [...ic.querySelectorAll('path')];
+  const lens = paths.map(p => p.getTotalLength()), total = lens.reduce((a, b) => a + b, 0);
+  let t = 0;
+  paths.forEach((p, i) => {
+    p.style.animationDelay = (t / total) * 900 + 'ms';
+    p.style.animationDuration = (lens[i] / total) * 900 + 'ms';
+    t += lens[i];
+  });
+  const draw = () => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    ic.classList.remove('drawing'); void ic.offsetWidth; ic.classList.add('drawing');
+  };
+  setTimeout(draw, 400);
+  btn.addEventListener('mouseenter', draw);
+  btn.addEventListener('focus', draw);
+  btn.addEventListener('click', open);
+  x.addEventListener('click', close);
+  pop.addEventListener('click', e => { if (e.target === pop) close(); });
+  addEventListener('keydown', e => { if (e.key === 'Escape' && !pop.hidden) close(); });
+})();
 </script>
 </body>
 </html>
