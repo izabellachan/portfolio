@@ -174,6 +174,13 @@ h3{font-size:19px;line-height:1.3}
 .demo h3{font-size:18px}
 .demo p{margin-top:10px;font-size:14px;line-height:1.55}
 
+/* interactive recreation of the bare test screen used in the demo */
+.tryit{margin-top:64px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.9fr);gap:40px;align-items:center}
+.tryit h3{font-size:18px}
+.tryit p{margin-top:10px;font-size:14px;line-height:1.55}
+.tryit-box{margin:0;padding:24px 0 20px;background:#F8F8F8;border-radius:12px;outline:1px solid #ECECEC;outline-offset:-1px;text-align:center}
+.tryit-box iframe{display:block;width:100%;height:442px;border:0}
+
 /* 06 app */
 .figma-tag{display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:7px 12px;border-radius:4px;border:1px dashed #c9c9c9;font-size:12px;color:var(--text)}
 .figma-tag i{width:7px;height:7px;border-radius:50%;background:#c9c9c9}
@@ -282,7 +289,7 @@ h3{font-size:19px;line-height:1.3}
   .facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 24px}
   .title-row{gap:16px} .title-meta{flex:none;min-width:0}
   .role{padding:36px 24px 26px} .role h3{font-size:26px}
-  .why-row,.sys,.logic,.demo,.app,.story,.interest{grid-template-columns:minmax(0,1fr);gap:28px}
+  .why-row,.sys,.logic,.demo,.tryit,.app,.story,.interest{grid-template-columns:minmax(0,1fr);gap:28px}
   .story > div:first-child{position:static}
   .themes{grid-template-columns:repeat(2,minmax(0,1fr))}
   .flow{grid-template-columns:minmax(0,1fr);gap:22px}
@@ -516,6 +523,18 @@ h3{font-size:19px;line-height:1.3}
       <p>We tested basic, simulated fall-like movements. We didn’t formally measure detection accuracy, so this shows the system working, not how reliably it detects real falls.</p>
     </div>
   </div>
+
+  <div class="tryit">
+    <div>
+      <span class="tag gray">Test interface</span>
+      <h3 style="margin-top:12px">The screen we actually tested with</h3>
+      <p>To run the demo, we used a bare-bones phone screen to connect over Bluetooth, save a contact number, and turn the device on or off. Here’s an interactive recreation of it. It’s a testing tool, not the companion app designed below.</p>
+    </div>
+    <figure class="tryit-box">
+      <iframe id="app-proto" src="assets/beleaf/app.html" title="Interactive recreation of our basic test interface" loading="lazy"></iframe>
+      <figcaption class="caption">Try it out!</figcaption>
+    </figure>
+  </div>
 </section>
 
 <!-- 06 · Companion app -->
@@ -684,6 +703,20 @@ h3{font-size:19px;line-height:1.3}
     if (isIntersecting) target.play().catch(() => {}); else target.pause();
   }), { rootMargin: '200px 0px' });
   document.querySelectorAll('video').forEach(v => io.observe(v));
+})();
+// The test-interface recreation stacks on narrow screens; grow its frame to fit (442px is the desktop height)
+(() => {
+  const proto = document.getElementById('app-proto');
+  if (!proto) return;
+  const fit = () => {
+    const wrap = proto.contentDocument && proto.contentDocument.getElementById('app-wrap');
+    if (wrap) proto.style.height = `${Math.max(442, Math.ceil(wrap.getBoundingClientRect().height) + 8)}px`;
+  };
+  proto.addEventListener('load', () => {
+    fit();
+    const wrap = proto.contentDocument && proto.contentDocument.getElementById('app-wrap');
+    if ('ResizeObserver' in window && wrap) new ResizeObserver(fit).observe(wrap);
+  });
 })();
 // App screens: each one plays its own Figma recording in the phone frame
 (() => {
