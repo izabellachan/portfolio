@@ -116,10 +116,14 @@ html.opening body::before{content:"";position:fixed;inset:0;z-index:999;backgrou
 /* the card's frame carries the whole move (the new video may not have a frame yet), then the live tile fades in on top */
 ::view-transition-old(cs-townshare),::view-transition-old(cs-beleaf),::view-transition-old(cs-slowfactory){height:100%;object-fit:cover;mix-blend-mode:normal;animation:none;opacity:1}
 ::view-transition-new(cs-townshare),::view-transition-new(cs-beleaf),::view-transition-new(cs-slowfactory){height:100%;object-fit:cover;mix-blend-mode:normal;animation:vt-fade .25s .5s both}
+/* a card or tile with no partner on the other page (the other cards on Work) goes and comes with its page */
+::view-transition-old(cs-townshare):only-child,::view-transition-old(cs-beleaf):only-child,::view-transition-old(cs-slowfactory):only-child{animation:vt-out .12s both}
+::view-transition-new(cs-townshare):only-child,::view-transition-new(cs-beleaf):only-child,::view-transition-new(cs-slowfactory):only-child{animation:vt-rise .5s .75s cubic-bezier(.2,.8,.2,1) both}
 ::view-transition-new(cs-hero){animation:vt-open .55s .55s cubic-bezier(.2,.8,.2,1) both}
-::view-transition-old(cs-hero){animation:vt-out .2s both}
-:root:has(main.cs)::view-transition-old(root){animation:vt-out .25s both}
-:root:has(main.cs)::view-transition-new(root){animation:vt-rise .5s .8s cubic-bezier(.2,.8,.2,1) both}
+::view-transition-old(cs-hero){animation:vt-out .12s both}
+/* both ways: the page you leave clears out at once, so only the video moves; the page you land on appears once it arrives */
+::view-transition-old(root){animation:vt-out .12s both}
+::view-transition-new(root){animation:vt-rise .5s .75s cubic-bezier(.2,.8,.2,1) both}
 @keyframes vt-fade{from{opacity:0}}
 @keyframes vt-out{to{opacity:0}}
 @keyframes vt-open{from{opacity:0;transform:scale(.97)}}
