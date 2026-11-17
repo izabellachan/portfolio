@@ -109,3 +109,19 @@ html.opening body::before{content:"";position:fixed;inset:0;z-index:999;backgrou
 .intro-clover{position:fixed;z-index:1000;pointer-events:none;transform-origin:50% 50%}
 .intro-clover svg{position:absolute;inset:0;display:block;width:100%;height:100%}
 .intro-clover svg path{stroke-dasharray:1;stroke-dashoffset:1}
+
+/* Opening a case study (index.html ↔ case studies opt in with @view-transition): the card's video morphs into
+   its tile in the hero bento, then the rest of the bento opens around it and the page rises in. */
+::view-transition-group(cs-townshare),::view-transition-group(cs-beleaf),::view-transition-group(cs-slowfactory){animation-duration:.7s;animation-timing-function:cubic-bezier(.7,0,.2,1)}
+/* the card's frame carries the whole move (the new video may not have a frame yet), then the live tile fades in on top */
+::view-transition-old(cs-townshare),::view-transition-old(cs-beleaf),::view-transition-old(cs-slowfactory){height:100%;object-fit:cover;mix-blend-mode:normal;animation:none;opacity:1}
+::view-transition-new(cs-townshare),::view-transition-new(cs-beleaf),::view-transition-new(cs-slowfactory){height:100%;object-fit:cover;mix-blend-mode:normal;animation:vt-fade .25s .5s both}
+::view-transition-new(cs-hero){animation:vt-open .55s .55s cubic-bezier(.2,.8,.2,1) both}
+::view-transition-old(cs-hero){animation:vt-out .2s both}
+:root:has(main.cs)::view-transition-old(root){animation:vt-out .25s both}
+:root:has(main.cs)::view-transition-new(root){animation:vt-rise .5s .8s cubic-bezier(.2,.8,.2,1) both}
+@keyframes vt-fade{from{opacity:0}}
+@keyframes vt-out{to{opacity:0}}
+@keyframes vt-open{from{opacity:0;transform:scale(.97)}}
+@keyframes vt-rise{from{opacity:0;transform:translateY(14px)}}
+@media (prefers-reduced-motion: reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
