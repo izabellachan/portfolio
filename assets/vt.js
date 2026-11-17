@@ -114,11 +114,17 @@
         // each part of the page grows into place from the point the video is heading for
         const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
         [...document.body.children].forEach(el => {
-          const b = el.getBoundingClientRect();
+          const cs = getComputedStyle(el);
+          // fixed pieces (the section nav, the logo) stay exactly where they are and only fade in
+          if (cs.position === 'fixed') {
+            el.animate([{ opacity: 0 }, { opacity: 1, offset: .55 }, { opacity: 1 }], { duration: DUR + 150, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' });
+            return;
+          }
+          const b = el.getBoundingClientRect(), base = cs.transform === 'none' ? '' : cs.transform;
           el.animate([
-            { opacity: 0, transform: 'scale(.97)', transformOrigin: `${cx - b.left}px ${cy - b.top}px` },
+            { opacity: 0, transform: `${base} scale(.97)`, transformOrigin: `${cx - b.left}px ${cy - b.top}px` },
             { opacity: 1, offset: .55 },
-            { opacity: 1, transform: 'none', transformOrigin: `${cx - b.left}px ${cy - b.top}px` },
+            { opacity: 1, transform: base || 'none', transformOrigin: `${cx - b.left}px ${cy - b.top}px` },
           ], { duration: DUR + 150, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' });
         });
         root.classList.remove('vt-fade');
