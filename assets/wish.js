@@ -103,6 +103,7 @@
   const at = p => `clamp(${PAD}px, ${p}%, calc(100% - ${PAD}px))`;
   const PAD = 16 + 23;
   const all = [];
+  let picked = null;
   let pens = 0;
   const plant = (w, isMine, fresh) => {
     const size = w.size || (isMine ? 40 : 34);
@@ -122,11 +123,45 @@
       svg.querySelector('.pen').addEventListener('animationend', () => { fill.removeAttribute('mask'); b.classList.remove('drawing'); }, { once: true });
     }
     field.insertBefore(b, brackets);
-    const entry = { el: b, w, isMine };
+    const entry = { el: b, w, isMine, size };
     all.push(entry);
     b.addEventListener('click', e => { e.stopPropagation(); entry === picked ? unpick() : pick(entry); });
+    settle();
     return entry;
   };
+
+  // Keep clovers from piling up: each one sits at its saved spot unless that overlaps a clover placed
+  // before it, in which case it moves to the nearest clear spot (positions are % of the field, so
+  // clovers saved on other screen sizes, or by two visitors, can land on each other).
+  const GAP = 6;
+  const blocked = (x, y, W, H) => (x > W - 210 && y > H - 160) || (x < 180 && y > H - 100);
+  const settle = () => {
+    const W = field.clientWidth, H = field.clientHeight;
+    if (!W || !H) return;
+    const clampX = v => Math.min(Math.max(v, PAD), W - PAD), clampY = v => Math.min(Math.max(v, PAD), H - PAD);
+    const placed = [];
+    const clear = (x, y, size) => placed.every(o => Math.hypot(o.x - x, o.y - y) >= (o.size + size) / 2 + GAP);
+    all.forEach(entry => {
+      const want = { x: clampX(entry.w.x / 100 * W), y: clampY(entry.w.y / 100 * H) };
+      let at = want;
+      if (!clear(want.x, want.y, entry.size)) {
+        at = null;
+        for (let r = 6; r < Math.max(W, H) && !at; r += 6) {
+          for (let k = 0, n = Math.max(12, Math.round(r / 3)); k < n; k++) {
+            const a = (k / n) * Math.PI * 2, x = want.x + Math.cos(a) * r, y = want.y + Math.sin(a) * r;
+            if (x < PAD || x > W - PAD || y < PAD || y > H - PAD || blocked(x, y, W, H)) continue;
+            if (clear(x, y, entry.size)) { at = { x, y }; break; }
+          }
+        }
+        at = at || want;
+      }
+      placed.push({ ...at, size: entry.size });
+      entry.el.style.left = `${at.x}px`;
+      entry.el.style.top = `${at.y}px`;
+    });
+    if (picked) { brackets.style.left = picked.el.style.left; brackets.style.top = picked.el.style.top; }
+  };
+  if ('ResizeObserver' in window) new ResizeObserver(() => settle()).observe(field);
 
   const setCount = () => { const n = all.length; count.textContent = `${n} wish${n === 1 ? '' : 'es'} planted`; };
 
@@ -149,7 +184,6 @@
     .catch(() => {});
 
   /* ---------- read a wish ---------- */
-  let picked = null;
   const pick = entry => {
     if (picked) picked.el.classList.remove('on');
     const moving = brackets.classList.contains('on');
@@ -248,7 +282,7 @@
   // an open spot: the candidate farthest from every other clover, clear of the corner labels and the toast
   const spot = () => {
     const fr = field.getBoundingClientRect();
-    const taken = all.map(({ w }) => [w.x / 100 * fr.width, w.y / 100 * fr.height]);
+    const taken = all.map(({ el }) => [parseFloat(el.style.left), parseFloat(el.style.top)]);
     let best = null, bestD = -1;
     for (let k = 0; k < 300; k++) {
       const px = PAD + Math.random() * (fr.width - 2 * PAD), py = PAD + Math.random() * (fr.height - 2 * PAD);
