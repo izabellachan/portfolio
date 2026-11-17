@@ -110,10 +110,15 @@ html.opening body::before{content:"";position:fixed;inset:0;z-index:999;backgrou
 .intro-clover svg{position:absolute;inset:0;display:block;width:100%;height:100%}
 .intro-clover svg path{stroke-dasharray:1;stroke-dashoffset:1}
 
-/* Case study transition (assets/vt.js): the card's video flies to its tile in the case study (and back);
-   the page around it stays hidden until it lands, then fades in. */
-html.vt-arriving body > *{opacity:0}
-html.vt-open body > *{transition:opacity .45s ease}
+/* Case study transition (assets/vt.js): the card's video flies to its tile in the case study (and back).
+   While it flies, only the video it's replacing is hidden; the rest of the page, and the tile itself, stay. */
+html[data-vt-hide="townshare"] [data-vt="townshare"] video,
+html[data-vt-hide="beleaf"] [data-vt="beleaf"] video,
+html[data-vt-hide="slowfactory"] [data-vt="slowfactory"] video{visibility:hidden}
+html.vt-fade body > *{opacity:0}
+html.vt-fading body > *{transition:opacity .75s ease}
 .vt-fly{position:fixed;z-index:2147483647;margin:0;overflow:hidden;pointer-events:none;background:#F5F5F5 center/cover no-repeat}
 .vt-fly video{display:block;width:100%;height:100%;object-fit:cover;opacity:0}
+/* the same 1px stroke the cards and tiles have, drawn over the video the whole way */
+.vt-fly::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px #e4e4e4;pointer-events:none}
 .vt-fly video.on{opacity:1}
