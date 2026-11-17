@@ -179,15 +179,12 @@ h3{font-size:19px;line-height:1.3}
 .mx td{padding:12px;border-top:1px solid var(--line);vertical-align:middle;color:var(--text)}
 .mx td:first-child{width:28%;padding-left:0;font-family:var(--helvetica-neue);font-size:15px;color:var(--text-strong)}
 .mx th:first-child{padding-left:0}
-.mx td:last-child{background:var(--sf-wash)}
 .mx small{display:block;margin-top:4px;font-size:12px;line-height:1.35;color:var(--text-muted)}
-.st-c{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:999px;font-weight:500;font-size:11px;line-height:1.3;white-space:nowrap}
-.st-c.in{background:#ECECEA;color:#555}
-.st-c.add{background:#fff;color:var(--sf-ink);box-shadow:inset 0 0 0 1px var(--sf-line)}
-.st-c.ren{background:#fff;color:#555;box-shadow:inset 0 0 0 1px #d6d6d6}
-.st-c.rem{background:transparent;color:var(--text-label);text-decoration:line-through}
-.st-c.shp{background:var(--sf-ink);color:#fff}
-.st-c.def{background:transparent;color:var(--text-muted);outline:1px dashed #c9c9c9;outline-offset:-1px}
+/* status chips use the same tag as TownShare's Before / After: gray for what stayed or waits, blue for what's new or shipped */
+.st-c{display:inline-block;padding:3px 8px;border-radius:2px;font-weight:500;font-size:10px;line-height:1.2;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.st-c.in,.st-c.ren,.st-c.def{background:var(--surface-sunken);color:var(--text-muted)}
+.st-c.rem{background:var(--surface-sunken);color:var(--text-label);text-decoration:line-through}
+.st-c.add,.st-c.shp{background:var(--sf-wash);color:var(--sf-ink)}
 .st-c.none{color:#c4c4c4;font-weight:400}
 
 /* iteration chapters */
@@ -394,7 +391,6 @@ h3{font-size:19px;line-height:1.3}
   .mx th,.mx td{padding-left:6px;padding-right:6px}
   .mx td:first-child{font-size:13px;width:30%}
   .mx small{display:none}
-  .st-c{padding:2px 7px;font-size:10px}
   .dep-row{grid-template-columns:minmax(0,1fr) 84px;gap:4px 12px}
   .dep-row .need{grid-column:1;grid-row:2}
   .dep-row .st-c{grid-row:1 / span 2;grid-column:2}
@@ -672,9 +668,7 @@ h3{font-size:19px;line-height:1.3}
     <div class="ship">
       <div class="stg rv"><div class="dev"><video data-src="assets/slowfactory/v3-explore.mov" muted loop playsinline preload="none" aria-label="V3 Explore prototype: Recently Viewed, then rows for series and topics, a sort sheet, and a series page"></video></div></div>
       <div class="deps rv" style="--i:1">
-        <h3>What each feature needed</h3>
-        <p>Not “is it valuable?” but “can we support it today?”</p>
-        <div class="dep">
+        <div class="dep" style="margin-top:0">
           <div class="dep-group acc">Shipped</div>
           <div class="dep-row ok"><b>Taxonomy filtering</b><span class="need"><i></i>Existing content tags, no new backend</span><span class="st-c shp">Shipped</span></div>
           <div class="dep-row ok"><b>Recently viewed</b><span class="need"><i></i>Local storage only</span><span class="st-c shp">Shipped</span></div>
@@ -707,14 +701,13 @@ h3{font-size:19px;line-height:1.3}
     <div class="tax-row"><div class="n">8<small>Series</small></div><div class="dots" data-n="8" aria-hidden="true"></div><p class="ex"><b>Example</b><span>Music Is Political, A Woman Is a School, EIP TV</span></p></div>
     <div class="tax-row ff"><div class="n">6<small>Filed under</small></div><div class="dots" data-n="6" aria-hidden="true"></div><p class="ex"><b>Used as a filter</b><span>Essays, Events, Excerpts, Interviews, Music, Visual</span></p></div>
   </div>
-  <p class="tax-sum"><b>61 tags, five attributes.</b> 4 group stories, so they became places to browse. One describes format, so it became a filter.</p>
+  <p class="tax-sum"><b>61 tags, 5 attributes.</b> 4 group stories, so they became places to browse. One describes format, so it became a filter.</p>
 
   <div class="layers">
     <div class="layer rv" style="--i:0"><span class="k">01</span><h3>Explore</h3><p>One row per attribute. A sampler, not the archive.</p><span class="shows">Series · Topics · Locations · Issues</span></div>
     <div class="layer rv" style="--i:1"><span class="k">02</span><h3>Browse all</h3><p>Everything in one attribute, with breadcrumbs.</p><span class="shows">Full list per attribute</span></div>
     <div class="layer rv" style="--i:2"><span class="k">03</span><h3>Narrow</h3><p>Sort, or filter by format.</p><span class="shows">Sort · Filter by format</span></div>
   </div>
-  <p class="caption" style="margin-top:14px">Search uses the same 4 categories.</p>
 </section>
 
 <!-- 06 · Final solution -->
@@ -746,7 +739,7 @@ h3{font-size:19px;line-height:1.3}
       <div class="map-head"><span>Before</span><span></span><span>Now</span></div>
       <div class="map-row rv" style="--i:0"><div class="need"><b>Every article looks alike</b></div><div class="arr"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="resp"><b>A clear hierarchy</b>Explore, then an attribute, then a story.</div></div>
       <div class="map-row rv" style="--i:1"><div class="need"><b>Browsing means scrolling</b></div><div class="arr"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="resp"><b>Rows by interest</b>Start from a topic, series, location, or issue.</div></div>
-      <div class="map-row rv" style="--i:2"><div class="need"><b>One way to narrow</b></div><div class="arr"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="resp"><b>Taxonomy filtering</b>Five attributes, built on tags that already existed.</div></div>
+      <div class="map-row rv" style="--i:2"><div class="need"><b>One way to narrow</b></div><div class="arr"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="resp"><b>Taxonomy filtering</b>5 attributes, built on tags that already existed.</div></div>
       <div class="map-row rv" style="--i:3"><div class="need"><b>No way back</b></div><div class="arr"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="resp"><b>Recently Viewed</b>The first thing on Explore.</div></div>
     </div>
     <div class="note claim">
