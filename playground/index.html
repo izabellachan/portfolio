@@ -299,7 +299,6 @@ html,html *{cursor:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/200
   <div class="toast" id="toast"></div>
 </div>
 
-<script src="../updates/log.js"></script>
 <script>
 (() => {
 const $ = id => document.getElementById(id);
@@ -347,7 +346,8 @@ const DOCS = {
       {h:'Dining room', checks:['Dining table','Dining chairs','Sideboard','Pendant light','Table linen'], done:[3]},
       {h:'Kitchen', checks:['Bar stools','Cabinet hardware','Open shelving brackets','Runner rug','Fruit bowl','Pendant over island'], done:[]}
     ]},
-  brief: LOG,  /* shared with /updates, edit ../updates/log.js */
+  watch: {title:'Movies & shows to watch', kind:'Watchlist', intro:'',
+    sections:[{h:'', checks:['the bear','fleabag','hunger games: sunrise on the reaping','you can see everything','friends'], done:[]}]},
   paint: {title:'Paint & finishes', kind:'Spec', intro:'Shortlist for each room. Samples go on the north wall and get checked at 9 am and 5 pm.',
     sections:[
       {h:'Walls', checks:['Living room: warm limewash, three samples','Kitchen: off-white eggshell','Hallway: stone, one shade darker'], done:[0]},
@@ -404,7 +404,7 @@ const bgOf = img => img.src ? `url("${img.src}") center / cover no-repeat #F5F5F
 /* Canvas items (world coordinates) */
 const items = [
   {type:'sticky', color:'pink', x:413, y:439, w:62, h:58, r:3, text:'thanks for visiting 🍀'},
-  {type:'doc', x:100, y:0, w:86, h:112, doc:makeDoc('brief')},
+  {type:'doc', x:100, y:0, w:86, h:112, doc:makeDoc('watch')},
   {type:'doc', x:198, y:0, w:86, h:112, doc:makeDoc('light')},
   {type:'image', x:45, y:151, w:184, h:104, img:{id:'c-fh', w:1600, h:900, src:'feedbackhub/slide-01.jpg', slides:['feedbackhub/slide-01.jpg','feedbackhub/slide-02.jpg','feedbackhub/slide-03.jpg','feedbackhub/slide-04.jpg','feedbackhub/slide-05.jpg','feedbackhub/slide-06.jpg','feedbackhub/slide-07.jpg','feedbackhub/slide-08.jpg','feedbackhub/slide-09.jpg','feedbackhub/slide-10.jpg','feedbackhub/slide-11.jpg','feedbackhub/slide-12.jpg','feedbackhub/slide-13.jpg','feedbackhub/slide-14.jpg','feedbackhub/slide-15.jpg','feedbackhub/slide-16.jpg','feedbackhub/slide-17.jpg','feedbackhub/slide-18.jpg'], name:'BRIDGEGOOD Feedback Hub', res:'1440 × 810 · 18 slides', source:'Green Team · 5-day sprint', pal:['#18281B','#9F9E96','#E3E4E3','#FFFFFF'], caption:''}},
   {type:'image', x:165, y:275, w:132, h:235, img:{id:'c-i0', w:720, h:1280, src:'canvas/hero.jpg', video:'canvas/hero.mp4', name:'crochet piece', res:'1080 × 1920', source:'Video', pal:['#231A19','#765E53','#A78D7B','#ECDFD1'], caption:''}},
