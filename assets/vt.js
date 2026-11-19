@@ -41,11 +41,13 @@
   };
   const remember = (box, to) => {
     const v = box.querySelector('video'), r = box.getBoundingClientRect();
-    if (r.bottom < 0 || r.top > innerHeight) return false; // off screen: nothing to fly from
+    // scrolled out of view (say, leaving from the bottom of a case study): start just past the edge it went
+    // off, so it slides back into view on its way home instead of travelling the whole page
+    const top = r.bottom < 0 ? -r.height : r.top > innerHeight ? innerHeight : r.top;
     if (v) v.pause(); // the frame you see now is the frame the flight starts on
     store.set(KEY, JSON.stringify({
       to, from: isHome ? box.dataset.vt : page, at: Date.now(),
-      rect: [r.left, r.top, r.width, r.height], radius: getComputedStyle(box).borderTopLeftRadius,
+      rect: [r.left, top, r.width, r.height], radius: getComputedStyle(box).borderTopLeftRadius,
       t: v ? v.currentTime : 0, still: v && v.readyState >= 2 ? still(v, r.width) : '',
     }));
     return true;
