@@ -124,7 +124,6 @@
     placeOn(fromItem);
     void indicator.offsetWidth; // lock in the start position so the slide animates from there
     slideTo(current);
-    draw(current);
   } else {
     placeOn(current);
   }
@@ -133,17 +132,20 @@
     const link = e.target.closest('a.item');
     if (!link || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     if (link === current) {
-      // Already here: just replay the drawing.
+      // Already here: nothing to do (the icon only draws on hover, not after a click).
       e.preventDefault();
-      draw(current);
       return;
     }
     try { sessionStorage.setItem(KEY, current.dataset.nav); } catch (err) {}
   });
 
   // Hovering any nav item or connect link redraws its icon (mouse only, so a tap doesn't trigger it twice).
+  // After a click the new page loads with the cursor already on the item, and the browser fires a
+  // pointerenter on the first mouse move; skip that one so the icon doesn't draw again after the click.
+  let moved = false;
+  addEventListener('pointermove', () => { moved = true; }, {once: true});
   document.querySelectorAll('.nav .item, .connect-row').forEach(item => {
-    item.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') draw(item); });
+    item.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse' && moved) draw(item); });
   });
 
   // Keep the highlight lined up if the layout changes (resize, fonts loading).
